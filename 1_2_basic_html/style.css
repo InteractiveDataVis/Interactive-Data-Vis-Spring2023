@@ -6,14 +6,14 @@ body {
 
 h1 {
   font-size: 3em;
+  margin: 0.25em 0;
 }
 
 h3 {
   font-size: 2em;
-  color: cadetblue;
+  margin: 0.25em 0;
 }
 
 p {
-  font-family: serif;
   font-size: 1em;
 }
