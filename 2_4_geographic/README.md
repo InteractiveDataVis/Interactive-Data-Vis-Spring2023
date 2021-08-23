@@ -39,9 +39,3 @@ Once you've completed the assignment, use the Github workflow to deploy your wor
 2. a link to your deployed example (your link will look something like: `https://[YOUR_USERNAME].github.io/Interactive-Data-Vis-Sp2021/[TUTORIAL_PATH]/`)
 
 To receive full credit, you must post your stable path before the 12pm the day of the next class.
-
-## Other Resources:
-- [d3 geo](https://github.com/d3/d3-geo)
-- [d3 projections](https://github.com/d3/d3-geo#projections)
-- [d3 pre-built color scales](https://github.com/d3/d3-scale-chromatic)
-- [Observable maps inspiration](https://observablehq.com/collection/@observablehq/maps)

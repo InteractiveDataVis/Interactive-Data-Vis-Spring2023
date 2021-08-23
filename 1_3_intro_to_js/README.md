@@ -24,15 +24,3 @@ Once you've completed the assignment, use the Github workflow to deploy your wor
 2. a link to your deployed example (your link will look something like: `https://[YOUR_USERNAME].github.io/Interactive-Data-Vis-Sp2021/[TUTORIAL_PATH]/`)
 
 To receive full credit, you must post your stable path before the 12pm the day of the next class.
-
-## Helpful Reading:
-
-- [ ] [Interneting Is Hard: Introduction, Basic Web Pages, Links and Images](https://www.internetingishard.com/html-and-css/)
-- [ ] [Document Object Model](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction)
-- [ ] [Javascript.info: Getting Started](https://javascript.info/getting-started)
-- [ ] [Javascript.info: Debugging Chrome](https://javascript.info/debugging-chrome)
-
-## Other Resources:
-
-- [Javascript Fundamentals](https://javascript.info/first-steps)
-- [How to use github](https://git-scm.com/book/en/v2)

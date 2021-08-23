@@ -39,12 +39,3 @@ Once you've completed the assignment, use the Github workflow to deploy your wor
 2. a link to your deployed example (your link will look something like: `https://[YOUR_USERNAME].github.io/Interactive-Data-Vis-Sp2021/[TUTORIAL_PATH]/`)
 
 To receive full credit, you must post your stable path before the 12pm the day of the next class.
-
-## Other Resources:
-
-- [selection.join](https://observablehq.com/@d3/selection-join)
-- [Learn D3: Scales](https://observablehq.com/@d3/learn-d3-scales?collection=@d3/learn-d3)
-- [Learn D3: Shapes](https://observablehq.com/@d3/learn-d3-shapes?collection=@d3/learn-d3)
-- [HTML Select Elements]()
-- [Intro to Event Listeners](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events)
-- [Available Events you can listen to](https://developer.mozilla.org/en-US/docs/Web/Events)

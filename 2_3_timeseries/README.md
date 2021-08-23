@@ -37,16 +37,3 @@ Once you've completed the assignment, use the Github workflow to deploy your wor
 
 To receive full credit, you must post your stable path before the 12pm the day of the next class.
 
-## Other Resources:
-
-- [Interneting Is Hard: CSS Selectors](https://www.internetingishard.com/html-and-css/css-selectors/)
-- [Thinking With Joins](https://bost.ocks.org/mike/join/)
-- [Arrow Functions](https://www.javascripttutorial.net/es6/javascript-arrow-function/)
-- [Javascript.info: Data Types](https://javascript.info/types)
-- [MDN: Introduction to Asynchronous Code.](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Introducing)
-- [d3 geo](https://github.com/d3/d3-geo)
-- [selection.join](https://observablehq.com/@d3/selection-join)
-- [Learn D3: Scales](https://observablehq.com/@d3/learn-d3-scales?collection=@d3/learn-d3)
-- [Learn D3: Shapes](https://observablehq.com/@d3/learn-d3-shapes?collection=@d3/learn-d3)
-- [Data Structures D3 Accepts](https://www.dashingd3js.com/data-structures-d3js-accepts)
-- [Serial Mentor: Directory of Visualizations](https://serialmentor.com/dataviz/directory-of-visualizations.html)

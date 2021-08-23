@@ -31,30 +31,6 @@ As you're building, don't forget you can always reference the [class code branch
 
 ## Deploy + Submit
 
-Once you've completed the assignment, use the Github workflow to deploy your work to **your fork** of the course repository. Post the following as a comment to the appropriate post on the [commons site](https://interactivedatavis2021.commons.gc.cuny.edu/):
+Once you've completed the assignment, use the Github workflow to deploy your work to **your fork** of the course repository. **NOTE**: It can take up to 10 minutes for pushed up code to appear in a deployed site. Post the following as a comment to the appropriate post on the [commons site](https://interactivedatavis2021.commons.gc.cuny.edu/):
 1. a link to your commited code repository (your link will look something like: `https://github.com/[YOUR_USERNAME]/Interactive-Data-Vis-Sp2021/[TUTORIAL_PATH]/`)
 2. a link to your deployed example (your link will look something like: `https://[YOUR_USERNAME].github.io/Interactive-Data-Vis-Sp2021/[TUTORIAL_PATH]/`)
-
-To receive full credit, you must post your stable path before the 12pm the day of the next class.
-
-## Required Reading:
-
-- [ ] [selection.join](https://observablehq.com/@d3/selection-join)
-- [ ] [Learn D3: Scales](https://observablehq.com/@d3/learn-d3-scales?collection=@d3/learn-d3)
-- [ ] [Learn D3: Shapes](https://observablehq.com/@d3/learn-d3-shapes?collection=@d3/learn-d3)
-- [ ] [Data Structures D3 Accepts](https://www.dashingd3js.com/data-structures-d3js-accepts)
-
-## Other Resources:
-
-- [Serial Mentor: Directory of Visualizations](https://serialmentor.com/dataviz/directory-of-visualizations.html)
-- [O'Reilly: Binding Data](https://alignedleft.com/tutorials/d3/binding-data)
-- [O'Reilly: Chaining Methods](https://alignedleft.com/tutorials/d3/chaining-methods)
-- [JS Fundamentals: Variables](https://javascript.info/variables)
-- [Javascript Fundamentals](https://javascript.info/first-steps)
-- [Javascript Object Basics](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Basics)
-- [How to use github](https://git-scm.com/book/en/v2)
-- [Guide to CSS Selectors](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors)
-- [Interneting Is Hard](https://www.internetingishard.com/html-and-css/)
-- [Javascript.info: Getting Started](https://javascript.info/getting-started)
-- [Javascript.info: Debugging Chrome](https://javascript.info/debugging-chrome)
-- [D3: Data-Driven Documents](http://vis.stanford.edu/files/2011-D3-InfoVis.pdf)

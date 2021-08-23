@@ -31,13 +31,3 @@ Once you've completed the assignment, use the Github workflow to deploy your wor
 
 To receive full credit, you must post your stable path before the 12pm the day of the next class.
 
-## Reading:
-
-- [ ] [HTML Basics](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics)
-- [ ] [CSS Basics](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/CSS_basics)
-- [ ] [Document Object Model](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction)
-
-## Other Resources:
-
-- [How to use github](https://git-scm.com/book/en/v2)
-- [Interneting Is Hard: Introduction, Basic Web Pages, Links and Images](https://www.internetingishard.com/html-and-css/)

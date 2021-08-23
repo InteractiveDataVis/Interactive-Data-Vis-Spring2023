@@ -39,17 +39,3 @@ Once you've completed the assignment, use the Github workflow to deploy your wor
 
 To receive full credit, you must post your stable path before the 12pm the day of the next class.
 
-## Other Resources:
-- [d3 hierarchy](https://github.com/d3/d3-hierarchy)
-- [d3 array](https://github.com/d3/d3-array#rollup)
-- [Javascript.info: Objects](https://javascript.info/object)
-- [Javascript.info: Promises.](https://javascript.info/promise-basics)
-- [Grid Garden.](https://cssgridgarden.com/)
-- [How Selections Work](https://bost.ocks.org/mike/selection/).
-- [Interneting Is Hard: Flexbox](https://www.internetingishard.com/html-and-css/flexbox/)
-- [Closure](https://javascript.info/closure)
-- [Flexbox Froggy](https://flexboxfroggy.com/)
-- [Interneting Is Hard: CSS Selectors](https://www.internetingishard.com/html-and-css/css-selectors/)
-- [Thinking With Joins](https://bost.ocks.org/mike/join/)
-- [Arrow Functions](https://www.javascripttutorial.net/es6/javascript-arrow-function/)
-- [Javascript.info: Data Types](https://javascript.info/types)
