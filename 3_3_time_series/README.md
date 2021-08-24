@@ -1,4 +1,4 @@
-# Tutorial 4
+# Section 3 | Tutorial 3 | Time Series
 
 The goals for this tutorial are:
 
@@ -13,26 +13,22 @@ You should already have a local copy of your repository from the [tutorial 1](..
 Once your local serve is up and reacting to code changes, you're ready to begin working on your tutorial assignment.
 As you're building, don't forget you can always reference the [class code branch](https://github.com/InteractiveDataVis/Interactive-Data-Vis-Fall2021/tree/class/) or the [demo code branch](https://github.com/InteractiveDataVis/Interactive-Data-Vis-Fall2021/tree/demo/) for additional context.
 
-## Week 4 Assignment:
+##  Assignment:
 
-- [ ] Implement your own line chart _with a different dataset_ than the one used in our demo.
+- [ ] Implement your own line chart _with a different dataset_ than the one used in our demo. It can be the same dataset that you leveraged in section 2.
 
-- [ ] Turn this line chart into an [area chart](https://github.com/d3/d3-shape#areas). **Tip**: Think first about how that would be drawn on the screen. What are you creating on the svg? This requires referencing the d3 documention to understand the similarities and differences between the area function generator and the line function generator.
+- [ ] Add dots (`<circle>`) at each data point on your line. These dots should have an enter and update transition, similar to how we implemented transitions in the previous tutorial ([section 3 tutorial 2](../3_2_distributions/README.md)).
 
 - [ ] Make intentional design decisions -- colors, sizes, axes, transitions, etc. should illustrate something interesting about or relevant to your data.
 
-- [ ] Post your code and deployed links to the Tutorial 4 post on the Commons.
-
 **BONUS:**
-
-- [ ] Turn this single line chart into a multi-line chart, either with this data or with your own.
 
 - [ ] Add hover activity to your path line or circles. Try doing this only with javascript `.on("mouseover", ...)`, before resorting to the css method, `:hover`. Consider adding text annotations on hover, a moving tooltip/info box, or maybe to highlight key events.
 
 ## Deploy + Submit
 
 Once you've completed the assignment, use the Github workflow to deploy your work to **your fork** of the course repository. Post the following as a comment to the appropriate post on the [commons site](https://data73200fall2021.commons.gc.cuny.edu/):
-1. a link to your commited code repository (your link will look something like: `https://github.com/[YOUR_USERNAME]/Interactive-Data-Vis-Fall2021/[TUTORIAL_PATH]/`)
+1. a link to your committed code repository (your link will look something like: `https://github.com/[YOUR_USERNAME]/Interactive-Data-Vis-Fall2021/[TUTORIAL_PATH]/`)
 2. a link to your deployed example (your link will look something like: `https://[YOUR_USERNAME].github.io/Interactive-Data-Vis-Fall2021/[TUTORIAL_PATH]/`)
 
 
