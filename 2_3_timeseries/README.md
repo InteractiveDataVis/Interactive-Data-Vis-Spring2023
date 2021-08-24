@@ -1,10 +1,13 @@
-# Tutorial 4
+# Section 2 | Tutorial 3 | Timeseries
 
 The goals for this tutorial are:
 
-- Introduce [d3 line](https://github.com/d3/d3-shape#lines) generators, and solidify how a function generator works differently than the appending and manipulating elements we've done so far.
-- Reinforce the boilerplate logic, with some slight updates, to further understand the data lifecycle (both for javascript and d3.js enter, update, and exit).
-- Practice [transitions](https://github.com/d3/d3-transition) on elements we know already, but also introduce new types of transitions on scales.
+- to reinforce the basic mechanics of how d3 allows you to [select](https://github.com/d3/d3-selection) HTML/SVG elements and map them to data elements.
+- to reinforce [HTML svg](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/svg) coordinate system.
+- to reinforce how [d3-scales](https://github.com/d3/d3-scale) can map abstract data elements to visual variables.
+- to reinforce how to add axes to an svg using [d3-axis](https://github.com/d3/d3-axis).
+- introduce [d3 line](https://github.com/d3/d3-shape#lines) generators, and solidify how a function generator works differently than the appending and manipulating elements we've done so far.
+- to learn the tools to make your own line chart.
 
 ## Setup + Serve:
 
@@ -15,25 +18,19 @@ As you're building, don't forget you can always reference the [class code branch
 
 ## Week 4 Assignment:
 
-- [ ] Implement your own line chart _with a different dataset_ than the one used in our demo.
-
+- [ ] Implement your own line chart _with a different dataset_ than the one used in our demo. Your data should only create one line (given then next requirement). 
 - [ ] Turn this line chart into an [area chart](https://github.com/d3/d3-shape#areas). **Tip**: Think first about how that would be drawn on the screen. What are you creating on the svg? This requires referencing the d3 documention to understand the similarities and differences between the area function generator and the line function generator.
-
-- [ ] Make intentional design decisions -- colors, sizes, axes, transitions, etc. should illustrate something interesting about or relevant to your data.
-
-- [ ] Post your code and deployed links to the Tutorial 4 post on the Commons.
+- [ ] Make intentional design decisions -- colors, sizes, axes, etc. should illustrate something interesting about or relevant to your data.
 
 **BONUS:**
 
-- [ ] Turn this single line chart into a multi-line chart, either with this data or with your own.
-
-- [ ] Add hover activity to your path line or circles. Try doing this only with javascript `.on("mouseover", ...)`, before resorting to the css method, `:hover`. Consider adding text annotations on hover, a moving tooltip/info box, or maybe to highlight key events.
+- [ ] Turn this single area chart into a [stacked area chart](https://observablehq.com/@d3/stacked-area-chart). How does this change what actually needs to be drawn?
 
 ## Deploy + Submit
 
-Once you've completed the assignment, use the Github workflow to deploy your work to **your fork** of the course repository. Post the following as a comment to the appropriate post on the [commons site](https://interactivedatavis2021.commons.gc.cuny.edu/):
+Once you've completed the assignment, use the Github workflow to deploy your work to **your fork** of the course repository. Post the following as a comment to the appropriate post on the [commons site](https://data73200fall2021.commons.gc.cuny.edu/):
 1. a link to your commited code repository (your link will look something like: `https://github.com/[YOUR_USERNAME]/Interactive-Data-Vis-Fall2021/[TUTORIAL_PATH]/`)
 2. a link to your deployed example (your link will look something like: `https://[YOUR_USERNAME].github.io/Interactive-Data-Vis-Fall2021/[TUTORIAL_PATH]/`)
 
-To receive full credit, you must post your stable path before the 12pm the day of the next class.
+
 

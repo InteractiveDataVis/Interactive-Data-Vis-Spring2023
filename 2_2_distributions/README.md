@@ -1,11 +1,12 @@
-# Tutorial 3
+# Section 2 | Tutorial 2 | Distributions
 
 The goals for this tutorial are:
 
-- to introduce the data join lifecycle through [enter, update, and exit selections](https://github.com/d3/d3-selection/blob/v1.4.1/README.md#selection_join).
-- to introduce a new file structure ("boilerplate") that will allow us to incorporate application `state`.
-- to learn basic [d3-transitions](https://github.com/d3/d3-transition), and leverage them to enhance understanding of the data.
-- to learn to work with HTML UI elements, like [select](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select) or [input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input), and basic [event listeners](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events).
+- to reinforce the basic mechanics of how d3 allows you to [select](https://github.com/d3/d3-selection) HTML/SVG elements and map them to data elements.
+- to reinforce [HTML svg](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/svg) coordinate system.
+- to reinforce how [d3-scales](https://github.com/d3/d3-scale) can map abstract data elements to visual variables.
+- to learn the tools to make your own scatterplot.
+- to add axes to an svg using [d3-axis](https://github.com/d3/d3-axis).
 
 ## Setup + Serve:
 
@@ -17,25 +18,18 @@ As you're building, don't forget you can always reference the [class code branch
 ## Week 3 Assignment:
 
 - [ ] Implement your own scatterplot with a *different dataset* than the one used in our demo.
-
-- [ ] Implement a different transition than the one used in the demo (i.e., your dots should not move from left to center to right on transitions). Consider other visible properties that could change as an object is entering, exiting, etc. and what that change suggests about the state of that data point.
-
-- [ ] Make intentional design decisions -- colors, sizes, axes, transitions, etc. should illustrate something interesting about or relevant to your data.
-
-- [ ] Post your code and deployed links to the Tutorial 3 post on the Commons.
+- [ ] Size the dots by something data related. This requires creating a new scale. Carefully consider the domain and range of this new scale, and do your best to make the domain of the scale *dynamic* (i.e. would the scale still work if the data changed?). 
+- [ ] Make intentional design decisions -- colors, sizes, axes, etc. should illustrate something interesting about or relevant to your data.
 
 **BONUS:**
 
-- [ ] Add another UI element to your page. Some ideas include another dropdown for another value, radio buttons, checkbox, an input field with a threshold value, swapping out metrics, etc.
-This means would entail:
-   - (1) updating `state` just as the dropdown does, so that you can keep track of your new application state (though you will probably be updating a *new* state property).
-   - (2) calling `draw()` on `change` to update your visualization with the new application state, and
-   - (3) altering the data visualization appropriately.
+- [ ] Add a label to each dot using the same method in which we appended them. **HINT:** you can either append one group that is positioned that includes both the circle and the label, or you can append all circles, then all labels.
+- [ ] Play with your understanding of the SVG coordinate system by using `transform: translate(x, y)` to position your dots instead of `cx` and `cy`. Can you think of any benefits of this method?
 
 ## Deploy + Submit
 
-Once you've completed the assignment, use the Github workflow to deploy your work to **your fork** of the course repository. Post the following as a comment to the appropriate post on the [commons site](https://interactivedatavis2021.commons.gc.cuny.edu/):
+Once you've completed the assignment, use the Github workflow to deploy your work to **your fork** of the course repository. Post the following as a comment to the appropriate post on the [commons site](https://data73200fall2021.commons.gc.cuny.edu/):
 1. a link to your commited code repository (your link will look something like: `https://github.com/[YOUR_USERNAME]/Interactive-Data-Vis-Fall2021/[TUTORIAL_PATH]/`)
 2. a link to your deployed example (your link will look something like: `https://[YOUR_USERNAME].github.io/Interactive-Data-Vis-Fall2021/[TUTORIAL_PATH]/`)
 
-To receive full credit, you must post your stable path before the 12pm the day of the next class.
+

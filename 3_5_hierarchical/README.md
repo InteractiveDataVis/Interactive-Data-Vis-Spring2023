@@ -2,9 +2,9 @@
 
 The goals for this tutorial are:
 
-- To introduce [hierarchical](https://github.com/d3/d3-hierarchy) and nested data.
-- To start exploring how d3-layout algorithms can help create complex views.
-- To show how seemingly different views are in their nature structured very similarly (circle pack, icicle, treemap, dendrograms)
+- to introduce [hierarchical](https://github.com/d3/d3-hierarchy) and nested data.
+- to start exploring how d3-layout algorithms can help create complex views.
+- to show how seemingly different views are in their nature structured very similarly (circle pack, icicle, treemap, dendrograms)
 
 ## Setup + Serve:
 
@@ -33,9 +33,9 @@ As you're building, don't forget you can always reference the [class code branch
 
 ## Deploy + Submit
 
-Once you've completed the assignment, use the Github workflow to deploy your work to **your fork** of the course repository. Post the following as a comment to the appropriate post on the [commons site](https://interactivedatavis2021.commons.gc.cuny.edu/):
+Once you've completed the assignment, use the Github workflow to deploy your work to **your fork** of the course repository. Post the following as a comment to the appropriate post on the [commons site](https://data73200fall2021.commons.gc.cuny.edu/):
 1. a link to your commited code repository (your link will look something like: `https://github.com/[YOUR_USERNAME]/Interactive-Data-Vis-Fall2021/[TUTORIAL_PATH]/`)
 2. a link to your deployed example (your link will look something like: `https://[YOUR_USERNAME].github.io/Interactive-Data-Vis-Fall2021/[TUTORIAL_PATH]/`)
 
-To receive full credit, you must post your stable path before the 12pm the day of the next class.
+
 

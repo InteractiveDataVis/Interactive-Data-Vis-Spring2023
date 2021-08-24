@@ -33,8 +33,8 @@ d3.json("../data/environmentRatings.json", d3.autoType).then(data => {
   // axis scales
   const xAxis = d3.axisBottom(xScale)
   svg.append("g")
-  .attr("transform", `translate(0,${height - margin.bottom})`)
-  .call(xAxis);
+    .attr("transform", `translate(0,${height - margin.bottom})`)
+    .call(xAxis);
   
   const yAxis = d3.axisLeft(yScale)
   svg.append("g")
