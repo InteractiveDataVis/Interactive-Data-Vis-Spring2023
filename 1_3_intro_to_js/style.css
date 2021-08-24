@@ -17,3 +17,7 @@ p {
   font-family: serif;
   font-size: 1em;
 }
+
+section {
+  padding: 2em 0;
+}
