@@ -2,8 +2,8 @@
 
 The goals for this tutorial are:
 
-- introduce [d3 line](https://github.com/d3/d3-shape#lines) generators, and solidify how a function generator works differently than the appending and manipulating elements we've done so far.
 - reinforce the boilerplate logic, with some slight updates, to further understand the data lifecycle (both for javascript and d3.js enter, update, and exit).
+- reinforce [d3 line](https://github.com/d3/d3-shape#lines) generators, and solidify how a function generator works differently than the appending and manipulating elements we've done so far.
 - practice [transitions](https://github.com/d3/d3-transition) on elements we know already, but also introduce new types of transitions on scales.
 
 ## Setup + Serve:
@@ -15,7 +15,7 @@ As you're building, don't forget you can always reference the [class code branch
 
 ## Assignment:
 
-- [ ] Implement your own line chart _with a different dataset_ than the one used in our demo. It can be the same dataset that you leveraged in section 2.
+- [ ] Implement your own line chart _with a different dataset_ than the one used in our demo. It can be the same dataset that you leveraged in the time series tutorial of section 2.
 
 - [ ] Add dots (`<circle>`) at each data point on your line. These dots should have an enter and update transition, similar to how we implemented transitions in the previous tutorial ([section 3 tutorial 2](../3_2_distributions/README.md)).
 

@@ -16,7 +16,7 @@ As you're building, don't forget you can always reference the [class code branch
 
 ## Assignment:
 
-- [ ] Implement your own version of the vertical bar chart from the demo branch using the files present in the root of this directory (`2_2_quantities_and_amounts/` [index.html](index.html), [style.css](style.css), [main.js](main.js)), just like we did in the tutorials in section 1. You may use the existing dataset, or a new one.
+- [ ] Implement your own version of the bar chart from the demo branch using the files present in the root of this directory (`2_2_quantities_and_amounts/` [index.html](index.html), [style.css](style.css), [main.js](main.js)), just like we did in the tutorials in section 1. You may use the existing dataset, or a new one.
 - [ ] Turn this **vertical bar chart** into a **horizontal bar chart**. This will require adjusting both scales to consider how the data should map back to the svg coordinate plane. (_Tip_: start by getting your bars to show, even if they are not yet positioned/sized correctly -- sometimes it is easier to understand where something should go by seeing where it currently is).
 
 **BONUS:**

@@ -1,7 +1,5 @@
 # Section 1 | Tutorial 3 | Introduction to JS
 
-This introductory tutorial will focus primarily on helping you get your environment set up for future code development.
-
 The goals for this tutorial are:
 
 - to introduce interactivity into our websites.

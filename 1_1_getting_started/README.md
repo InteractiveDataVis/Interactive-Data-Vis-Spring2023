@@ -1,7 +1,5 @@
 # Section 1 | Tutorial 1 | Getting Started
 
-This introductory tutorial section will focus primarily on helping you get your environment set up for future code development.
-
 The goals for this tutorial are:
 
 - to set up installations for your [local development environment](./1_INSTALL.md)
