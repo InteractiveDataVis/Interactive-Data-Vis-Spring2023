@@ -47,7 +47,7 @@ function init() {
   const yAxis = d3.axisLeft(yScale)
 
   // + UI ELEMENT SETUP
-  const selectElement = d3.select("#dropdown") // select drowpdown element from HTML
+  const selectElement = d3.select("#dropdown") // select dropdown element from HTML
   // add in dropdown options
   selectElement
     .selectAll("option")
@@ -107,7 +107,7 @@ function init() {
 }
 
 /* DRAW FUNCTION */
-// we call this everytime there is an update to the data/state
+// we call this every time there is an update to the data/state
 function draw() {
 
   // + FILTER DATA BASED ON STATE

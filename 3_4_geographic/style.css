@@ -1,5 +1,5 @@
 body {
-  font-family: 'Source Sans Pro';
+  font-family: "Source Sans Pro", sans-serif;
   font-size: 16px;
   padding: 1em;
 }
@@ -16,4 +16,13 @@ h3 {
 
 p {
   font-size: 1em;
+}
+
+#tooltip {
+  display: block;
+  height: 50px;
+}
+
+path.state {
+  stroke: black;
 }

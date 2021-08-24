@@ -60,7 +60,7 @@ function init() {
     .round(true);
 
   // call our generator on our root hierarchy node
-  tree(root); // creates our coordinates and dimensions based on the heirarchy and tiling algorithm
+  tree(root); // creates our coordinates and dimensions based on the hierarchy and tiling algorithm
 
   // create g for each leaf
   const leaf = svg
@@ -100,7 +100,7 @@ function init() {
 
 /**
 * DRAW FUNCTION
-* we call this everytime there is an update to the data/state
+* we call this every time there is an update to the data/state
 * */
 function draw() {
   if (state.hover) {

@@ -3,7 +3,8 @@ const width = window.innerWidth * 0.7,
   height = window.innerHeight * 0.7,
   margin = { top: 20, bottom: 60, left: 60, right: 40 },
   radius = 5;
-let xScale, yScale
+// since we use our scales in multiple functions, they need global scope
+let xScale, yScale;
 
 /* APPLICATION STATE */
 let state = {
@@ -37,7 +38,7 @@ function init() {
 }
 
 /* DRAW FUNCTION */
-// we call this everytime there is an update to the data/state
+// we call this every time there is an update to the data/state
 function draw() {
   /* HTML ELEMENTS */
   // svg

@@ -13,7 +13,7 @@ You should already have a local copy of your repository from the [tutorial 1](..
 Once your local serve is up and reacting to code changes, you're ready to begin working on your tutorial assignment.
 As you're building, don't forget you can always reference the [class code branch](https://github.com/InteractiveDataVis/Interactive-Data-Vis-Fall2021/tree/class/) or the [demo code branch](https://github.com/InteractiveDataVis/Interactive-Data-Vis-Fall2021/tree/demo/) for additional context.
 
-## Week 6 Assignment:
+## Assignment:
 
 - [ ] Implement your own version of the treemap we made in class using the [`flare.json`](../data/flare.json) dataset provided (or if you are up for the challenge create your own dataset — see tip below if you are using your own dataset).
 
@@ -23,18 +23,14 @@ As you're building, don't forget you can always reference the [class code branch
 
 - [ ] Make intentional design decisions -- colors, sizes, axes, transitions, etc. should illustrate something interesting about or relevant to your data.
 
-- [ ] Post your code and deployed links to the Tutorial 5 post on the Commons.
-
 **BONUS:**
 
-- [ ] Do all of this for your own data. This may require data transformations. Take note of how the [`flare.json`](../data/flare.json) data is structured.
-
-- [ ] TIP: If you want to use your own dataset that isn't pre-formatted into a nested hierarchy, take a look at [this observable notebook](https://observablehq.com/@mbostock/2019-h-1b-employers) to see another way of reformatting your data into the proper format that D3 expects. Specifically, take a look at how the notebook defines the `root` node.
+- [ ] Do all of this for your own data. This may require data transformations. Take note of how the [`flare.json`](../data/flare.json) data is structured. [This observable notebook](https://observablehq.com/@mbostock/2019-h-1b-employers) includes another example of reformatting your data into the proper format that D3 expects. Specifically, take a look at how the notebook defines the `root` node.
 
 ## Deploy + Submit
 
 Once you've completed the assignment, use the Github workflow to deploy your work to **your fork** of the course repository. Post the following as a comment to the appropriate post on the [commons site](https://data73200fall2021.commons.gc.cuny.edu/):
-1. a link to your commited code repository (your link will look something like: `https://github.com/[YOUR_USERNAME]/Interactive-Data-Vis-Fall2021/[TUTORIAL_PATH]/`)
+1. a link to your committed code repository (your link will look something like: `https://github.com/[YOUR_USERNAME]/Interactive-Data-Vis-Fall2021/[TUTORIAL_PATH]/`)
 2. a link to your deployed example (your link will look something like: `https://[YOUR_USERNAME].github.io/Interactive-Data-Vis-Fall2021/[TUTORIAL_PATH]/`)
 
 

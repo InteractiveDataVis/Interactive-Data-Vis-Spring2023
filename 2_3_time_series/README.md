@@ -16,7 +16,7 @@ You should already have a local copy of your repository from the [tutorial 1](..
 Once your local serve is up and reacting to code changes, you're ready to begin working on your tutorial assignment.
 As you're building, don't forget you can always reference the [class code branch](https://github.com/InteractiveDataVis/Interactive-Data-Vis-Fall2021/tree/class/) or the [demo code branch](https://github.com/InteractiveDataVis/Interactive-Data-Vis-Fall2021/tree/demo/) for additional context.
 
-##  Assignment:
+## Assignment:
 
 - [ ] Implement your own line chart _with a different dataset_ than the one used in our demo. Your data should only create one line (given then next requirement). 
 - [ ] Turn this line chart into an [area chart](https://github.com/d3/d3-shape#areas). **Tip**: Think first about how that would be drawn on the screen. What are you creating on the svg? This requires referencing the d3 documention to understand the similarities and differences between the area function generator and the line function generator.

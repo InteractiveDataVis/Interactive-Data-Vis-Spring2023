@@ -13,7 +13,7 @@ You should already have a local copy of your repository from the [tutorial 1](..
 Once your local serve is up and reacting to code changes, you're ready to begin working on your tutorial assignment.
 As you're building, don't forget you can always reference the [class code branch](https://github.com/InteractiveDataVis/Interactive-Data-Vis-Fall2021/tree/class/) or the [demo code branch](https://github.com/InteractiveDataVis/Interactive-Data-Vis-Fall2021/tree/demo/) for additional context.
 
-##  Assignment:
+## Assignment:
 
 - [ ] Implement your own line chart _with a different dataset_ than the one used in our demo. It can be the same dataset that you leveraged in section 2.
 

@@ -1,10 +1,9 @@
-# Tutorial 5
+# Section 3 | Tutorial 4 | Geographic
 
 The goals for this tutorial are:
 
-- to explore GeoJSON data, and how geographical features on our earth translate to projected shapes on an svg.
-- to understand [projections](https://github.com/d3/d3-geo#projections), in conjunction with [d3.geo-path](https://github.com/d3/d3-geo#geoPath), transforms lattitude and longitude space into pixel space.
-- to grasp that d3.js svg maps are as simple as lines and circles, and can be manipulated as such, with stroke, fill, etc.
+- to revisit GeoJSON data, and how geographical features on our earth translate to projected shapes on an svg.
+- to reinforce [projections](https://github.com/d3/d3-geo#projections), in conjunction with [d3.geo-path](https://github.com/d3/d3-geo#geoPath), transforms latitude and longitude space into pixel space.
 - to be exposed to the concept of something updating with every mouse movement -- the early stages of what will later become a tooltip.
 
 ## Setup + Serve:
@@ -14,28 +13,24 @@ You should already have a local copy of your repository from the [tutorial 1](..
 Once your local serve is up and reacting to code changes, you're ready to begin working on your tutorial assignment.
 As you're building, don't forget you can always reference the [class code branch](https://github.com/InteractiveDataVis/Interactive-Data-Vis-Fall2021/tree/class/) or the [demo code branch](https://github.com/InteractiveDataVis/Interactive-Data-Vis-Fall2021/tree/demo/) for additional context.
 
-## Week 5 Assignment:
+## Assignment:
 
-- [ ] Implement your own version of the map, using the us state geojson data provided in the [data folder](../data/), or another geojson of your choice (feel free to pull in data of the world or of another country if you like!).
+- [ ] Implement your own version of the map, using the us state geojson data provided in the [data folder](../data/), or another geojson of your choice (feel free to pull in data of the world or of another country if you like).
 
-- [ ] Using your own lat/long dataset _OR_ the provided dataset for this exercise, [`usHeatExtremes.csv`](../data/usHeatExtremes.csv) (also in the [data folder](../data/)), add points to your map. **HINT:** since we're still in svg, we can just add circles to the map, like we've done before, but you'll need to use your `projection` to translate from (long,lat) values to (x,y) values.
+- [ ] Using your own lat/long dataset, add points to your map. This can be the same dataset you chose for the section 2 version of this tutorial, as long as its **not** the dataset leveraged in the section 2 **demo** ([`usHeatExtremes.csv`](../data/usHeatExtremes.csv))
 
-- [ ] Add mouseover behavior to each point, so its data updates state, and is displayed in our tooltip display.
+- [ ] Add mouseover behavior **to each point**, so its data updates state, and is displayed in our tooltip display.
 
 - [ ] Make intentional design decisions -- colors, sizes, axes, transitions, etc. should illustrate something interesting about or relevant to your data.
 
-- [ ] Post your code and deployed links to the Tutorial 5 post on the Commons.
-
 **BONUS:**
 
-- [ ] Add another data element to your map, such as using color or radius to represent a value, [like this](https://observablehq.com/@d3/bubble-map) or [this](https://observablehq.com/@d3/non-contiguous-cartogram?collection=@d3/d3-geo).
-
-- [ ] Implement transitions on your points, so the map begins blank, then they appear in a thoughtful way.
+- [ ] Use the dropdown to change the [type of projection](https://observablehq.com/@d3/projection-transitions), and update your points accordingly.
 
 ## Deploy + Submit
 
 Once you've completed the assignment, use the Github workflow to deploy your work to **your fork** of the course repository. Post the following as a comment to the appropriate post on the [commons site](https://data73200fall2021.commons.gc.cuny.edu/):
-1. a link to your commited code repository (your link will look something like: `https://github.com/[YOUR_USERNAME]/Interactive-Data-Vis-Fall2021/[TUTORIAL_PATH]/`)
+1. a link to your committed code repository (your link will look something like: `https://github.com/[YOUR_USERNAME]/Interactive-Data-Vis-Fall2021/[TUTORIAL_PATH]/`)
 2. a link to your deployed example (your link will look something like: `https://[YOUR_USERNAME].github.io/Interactive-Data-Vis-Fall2021/[TUTORIAL_PATH]/`)
 
 

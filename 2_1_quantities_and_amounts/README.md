@@ -14,7 +14,7 @@ You should already have a local copy of your repository from the [tutorial 1](..
 Once your local serve is up and reacting to code changes, you're ready to begin working on your tutorial assignment.
 As you're building, don't forget you can always reference the [class code branch](https://github.com/InteractiveDataVis/Interactive-Data-Vis-Fall2021/tree/class/) or the [demo code branch](https://github.com/InteractiveDataVis/Interactive-Data-Vis-Fall2021/tree/demo/) for additional context.
 
-## Week 2 Assignment:
+## Assignment:
 
 - [ ] Implement your own version of the vertical bar chart from the demo branch using the files present in the root of this directory (`2_2_quantities_and_amounts/` [index.html](index.html), [style.css](style.css), [main.js](main.js)), just like we did in the tutorials in section 1. You may use the existing dataset, or a new one.
 - [ ] Turn this **vertical bar chart** into a **horizontal bar chart**. This will require adjusting both scales to consider how the data should map back to the svg coordinate plane. (_Tip_: start by getting your bars to show, even if they are not yet positioned/sized correctly -- sometimes it is easier to understand where something should go by seeing where it currently is).
@@ -28,5 +28,5 @@ As you're building, don't forget you can always reference the [class code branch
 ## Deploy + Submit
 
 Once you've completed the assignment, use the Github workflow to deploy your work to **your fork** of the course repository. **NOTE**: It can take up to 10 minutes for pushed up code to appear in a deployed site. Post the following as a comment to the appropriate post on the [commons site](https://data73200fall2021.commons.gc.cuny.edu/):
-1. a link to your commited code repository (your link will look something like: `https://github.com/[YOUR_USERNAME]/Interactive-Data-Vis-Fall2021/[TUTORIAL_PATH]/`)
+1. a link to your committed code repository (your link will look something like: `https://github.com/[YOUR_USERNAME]/Interactive-Data-Vis-Fall2021/[TUTORIAL_PATH]/`)
 2. a link to your deployed example (your link will look something like: `https://[YOUR_USERNAME].github.io/Interactive-Data-Vis-Fall2021/[TUTORIAL_PATH]/`)
