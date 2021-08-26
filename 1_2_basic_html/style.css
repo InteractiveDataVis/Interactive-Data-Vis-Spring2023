@@ -22,10 +22,10 @@ table {
   padding: 2em;
 }
 
-thead {
+/* thead {
   background-color: slateblue;
   color: white;
-}
+} */
 
 td {
   border-bottom: 1px solid black;
@@ -34,4 +34,12 @@ td {
 
 .mult-word {
   color: salmon;
+}
+
+.red {
+  fill: red;
+}
+
+#just-this-one {
+  fill: steelblue;
 }

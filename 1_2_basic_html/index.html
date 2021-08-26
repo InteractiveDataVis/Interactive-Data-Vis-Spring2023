@@ -1,89 +1,55 @@
 <!DOCTYPE html>
   <head>
     <meta charset="utf-8">
-    <title>Interactive Data Visualization Tutorial</title>
+    <title>Interactive Data Visualization Tutorial HEY TITLE</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
     <link rel="stylesheet" href="./style.css">
   </head>
   <body>
     <h1>Hello World!</h1>
     <h3>Tutorial Assignment: 1_2_basic_html </h3>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/table">Table Reference Here</a>
+    <p>this is a paragraph</p>
     <table>
       <thead>
+        <th colspan="3">LARGE HEADER</th>
         <tr>
-          <th colspan="2">Fall 2021 Data 73200</th>
-        </tr>
-        <tr>
-          <th>Firstname</th>
-          <th>Lastname</th>
+          <th>header 1</th>
+          <th>header 2</th>
+          <th>now there is something in it</th>
         </tr>
       </thead>
-      <tr>
-        <td>Veronique</td>
-        <td>Brossier</td>
-      <tr>
-        <td>Christine</td>
-        <td>Chan</td>
-      </tr>
-      <tr>
-        <td class="mult-word">Kelly A</td>
-        <td>Cunningham</td>
-      </tr>
-      <tr>
-        <td class="mult-word">Jamie E</td>
-        <td>Gelberg</td>
-      </tr>
-      <tr>
-        <td class="mult-word">Hong Beom</td>
-        <td>Hur</td>
-      </tr>
-      <tr>
-        <td>Tomiko</td>
-        <td>Karino</td>
-      </tr>
-      <tr>
-        <td class="mult-word">Fhamida Ayub</td>
-        <td>Keya</td>
-      </tr>
-      <tr>
-        <td>Oscar</td>
-        <td>Ko</td>
-      </tr>
-      <tr>
-        <td>Lester</td>
-        <td>Lee</td>
-      </tr>
-      <tr>
-        <td class="mult-word">Kenji Leeguy Chedel</td>
-        <td>Logie</td>
-      </tr>
-      <tr>
-        <td>Gulya</td>
-        <td>Radjapova</td>
-      </tr>
-      <tr>
-        <td class="mult-word">Ashley M</td>
-        <td>Rojas</td>
-      </tr>
-      <tr>
-        <td>Priyanka S</td>
-        <td>Thomas</td>
-      </tr>
+      <tbody>
+        <tr>
+          <td>data 1</td>
+          <td>data 2</td>
+        </tr>
+        <tr>
+          <td>data 1</td>
+          <td>data 2</td>
+        </tr>
+        <tr>
+          <td>data 1</td>
+          <td>data 2</td>
+        </tr>
+        <tr>
+          <td>data 1</td>
+          <td>data 2</td>
+        </tr>
+        <tr>
+          <td>data 1</td>
+          <td>data 2</td>
+        </tr>
+        <tr>
+          <td>data 1</td>
+          <td>data 2</td>
+        </tr>
+      </tbody>
     </table>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/SVG">SVG Reference Here</a>
-    <svg style="width:600px; height:300px">
-      <defs>
-        <linearGradient id="gradient" gradientTransform="rotate(90)">
-          <stop offset="5%"  stop-color="LightSteelBlue" />
-          <stop offset="30%"  stop-color="salmon" />
-          <stop offset="95%" stop-color="gold" />
-        </linearGradient>
-      </defs>
-      <circle fill="LightCoral" r="50" />
-      <circle fill="Thistle" cx="150" r="50" />
-      <circle fill="PaleGreen" cx="150" cy="150" r="50" />
-      <circle fill="url('#gradient')" cx="300" cy="150" r="50" />
+    <svg>
+      <circle class="red" cx="50" cy="50" r="50"/>
+      <circle class="red" cx="75" cy="75" r="50"/>
+      <circle id="just-this-one" cx="100" cy="100" r="50"/>
+      <circle id="just-this-one" cx="130" cy="130" r="50"/>
     </svg>
   </body>
 </html>
