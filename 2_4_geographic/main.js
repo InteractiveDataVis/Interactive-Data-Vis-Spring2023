@@ -13,7 +13,7 @@ Promise.all([
 ]).then(([geojson, capitals]) => {
   
   // create an svg element in our main `d3-container` element
-  svg = d3
+  const svg = d3
     .select("#container")
     .append("svg")
     .attr("width", width)
