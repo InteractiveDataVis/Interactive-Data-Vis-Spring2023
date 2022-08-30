@@ -1,3 +1,4 @@
+
 body {
   font-family: "Source Sans Pro", sans-serif;
   font-size: 16px;
@@ -16,30 +17,4 @@ h3 {
 
 p {
   font-size: 1em;
-}
-
-table {
-  padding: 2em;
-}
-
-/* thead {
-  background-color: slateblue;
-  color: white;
-} */
-
-td {
-  border-bottom: 1px solid black;
-  padding: 0 0.5em;
-}
-
-.mult-word {
-  color: salmon;
-}
-
-.red {
-  fill: red;
-}
-
-#just-this-one {
-  fill: steelblue;
 }

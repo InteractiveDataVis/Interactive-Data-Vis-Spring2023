@@ -22,6 +22,6 @@ The goals for this tutorial are:
 
 ## Deploy + Submit
 
-Once you've completed the assignment, use the Github workflow to deploy your work to **your fork** of the course repository. **NOTE**: It can take up to 10 minutes for pushed up code to appear in a deployed site. Post the following as a comment to the appropriate post on the [commons site](https://data73200fall2021.commons.gc.cuny.edu/):
-1. a link to your committed code repository (your link will look something like: `https://github.com/[YOUR_USERNAME]/Interactive-Data-Vis-Fall2021/[TUTORIAL_PATH]/`)
-2. a link to your deployed example (your link will look something like: `https://[YOUR_USERNAME].github.io/Interactive-Data-Vis-Fall2021/[TUTORIAL_PATH]/`)
+Once you've completed the assignment, use the Github workflow to deploy your work to **your fork** of the course repository. **NOTE**: It can take up to 10 minutes for pushed up code to appear in a deployed site. Post the following as a comment to the appropriate post on the [commons site](https://data73200fall2022.commons.gc.cuny.edu/):
+1. a link to your committed code repository (your link will look something like: `https://github.com/[YOUR_USERNAME]/Interactive-Data-Vis-Fall2022/[TUTORIAL_PATH]/`)
+2. a link to your deployed example (your link will look something like: `https://[YOUR_USERNAME].github.io/Interactive-Data-Vis-Fall2022/[TUTORIAL_PATH]/`)
