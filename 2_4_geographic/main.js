@@ -12,6 +12,13 @@
   d3.csv("../data/stateCapitals.csv", d3.autoType),
 ]).then(([geojson, capitals]) => {
   
+  // create an svg element in our main `d3-container` element
+  const svg = d3
+    .select("#container")
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
   // SPECIFY PROJECTION
  
 
