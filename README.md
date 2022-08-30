@@ -2,7 +2,7 @@
 
 Course material for Interactive Data Visualization (DATA 73200) taught at CUNY Fall Semester, 2022. This repository contains the starter code for each of the tutorials on the `/main` branch, the code built in live coding sessions from class will be released each week on the `/class` branch, and demo code (which includes additional helpful code for the tutorial) will be released after the class on the `/demo` branch.
 
-After all [installations](./1_1_getting_started/1_INSTALL.md), [git setup](./1_1_getting_started/GIT_SETUP.md), and the [local serve](./1_1_getting_started/BASIC_SERVER.md) instructions in the first tutorial folder (`./1_1_getting_started/`), you're ready to start creating awesome visualizations 🎉!
+After all [installations](./1_1_getting_started/1_INSTALL.md), [git setup](./1_1_getting_started/2_GIT_SETUP.md), and the [local serve](./1_1_getting_started/3_BASIC_SERVER.md) instructions in the first tutorial folder (`./1_1_getting_started/`), you're ready to start creating awesome visualizations 🎉!
 
 ## List of Tutorials
 
