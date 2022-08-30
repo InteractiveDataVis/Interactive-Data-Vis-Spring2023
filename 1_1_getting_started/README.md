@@ -1,5 +1,7 @@
 # Section 1 | Tutorial 1 | Getting Started
 
+This introductory tutorial section will focus primarily on helping you get your environment set up for future code development.
+
 The goals for this tutorial are:
 
 - to set up installations for your [local development environment](./1_INSTALL.md)
@@ -22,8 +24,16 @@ The goals for this tutorial are:
 
 ## Deploy + Submit
 
-Once you've completed the assignment, use the Github workflow to deploy your work to **your fork** of the course repository. **NOTE**: It can take up to 10 minutes for pushed up code to appear in a deployed site. Post the following as a comment to the appropriate post on the [commons site](https://data73200fall2022.commons.gc.cuny.edu/):
-1. a link to your committed code repository (your link will look something like: `https://github.com/[YOUR_USERNAME]/Interactive-Data-Vis-Fall2022/[TUTORIAL_PATH]/`)
-2. a link to your deployed example (your link will look something like: `https://[YOUR_USERNAME].github.io/Interactive-Data-Vis-Fall2022/[TUTORIAL_PATH]/`)
+Once you've completed the assignment, use the Github workflow to deploy your work to **your fork** of the course repository. **NOTE**: It can take up to 10 minutes for pushed up code to appear in a deployed site. Post the following as a comment to the appropriate post on the [commons site](https://interactivedatavis2021.commons.gc.cuny.edu/):
+1. a link to your commited code repository (your link will look something like: `https://github.com/[YOUR_USERNAME]/Interactive-Data-Vis-Sp2021/[TUTORIAL_PATH]/`)
+2. a link to your deployed example (your link will look something like: `https://[YOUR_USERNAME].github.io/Interactive-Data-Vis-Sp2021/[TUTORIAL_PATH]/`)
 
+To receive full credit, you must post your stable path before the 12pm the day of the next class.
 
+## Reading:
+
+- [ ] [Interneting Is Hard: Introduction, Basic Web Pages, Links and Images](https://www.internetingishard.com/html-and-css/)
+
+## Other Resources:
+
+- [How to use github](https://git-scm.com/book/en/v2)
