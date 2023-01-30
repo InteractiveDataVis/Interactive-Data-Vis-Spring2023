@@ -2,7 +2,7 @@
 
 You can read more about `forking`, `syncing`, and our overall github flow [here](https://help.github.com/en/github/getting-started-with-github/fork-a-repo).
 
-### 1. On Gitub, go to our [Class Repository](https://github.com/InteractiveDataVis/Interactive-Data-Vis-Fall2022.git) and [`fork`](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo) this repository into your own account.
+### 1. On Gitub, go to our [Class Repository](https://github.com/InteractiveDataVis/Interactive-Data-Vis-Spring2023.git) and [`fork`](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo) this repository into your own account.
 
 To do this, click on the "fork" button on the top right of this github account.
 
@@ -29,10 +29,10 @@ To do this, navigate to the folder where you want to save your files (I like to 
 $ cd PATH_TO_YOUR/FOLDER
 
 # clone your fork to your local computer
-$ git clone https://github.com/[YOUR_USERNAME]/Interactive-Data-Vis-Fall2022
+$ git clone https://github.com/[YOUR_USERNAME]/Interactive-Data-Vis-Spring2023
 
 # `cd` (change directory) into this repository
-$ cd Interactive-Data-Vis-Fall2022
+$ cd Interactive-Data-Vis-Spring2023
 ```
 
 ### 4. Set up your local repository so that it links back to the course repository.
@@ -43,8 +43,8 @@ We do this so that you can keep your local branch synced up with the main course
 #See current remote branches:
 
 $ git remote -v
-> origin	https://github.com/[YOUR_USERNAME]/Interactive-Data-Vis-Fall2022 (fetch)
-> origin	https://github.com/[YOUR_USERNAME]/Interactive-Data-Vis-Fall2022 (push)
+> origin	https://github.com/[YOUR_USERNAME]/Interactive-Data-Vis-Spring2023 (fetch)
+> origin	https://github.com/[YOUR_USERNAME]/Interactive-Data-Vis-Spring2023 (push)
 
 # notice currently this is only tracking your version of the repository.
 ```
@@ -52,17 +52,17 @@ $ git remote -v
 Add an `upstream` remote branch so you can keep yours synced with the main class repository:
 
 ```sh
-$ git remote add upstream https://github.com/InteractiveDataVis/Interactive-Data-Vis-Fall2022.git
+$ git remote add upstream https://github.com/InteractiveDataVis/Interactive-Data-Vis-Spring2023.git
 ```
 
 Check remote branches again to ensure that the update worked. You should see 2 sets of branches, `origin` which links back to your fork, and `upstream` which references back to the course repository:
 
 ```sh
 $ git remote -v
-> origin	https://github.com/[YOUR_USERNAME]/Interactive-Data-Vis-Fall2022 (fetch)
-> origin	https://github.com/[YOUR_USERNAME]/Interactive-Data-Vis-Fall2022 (push)
-> upstream	https://github.com/InteractiveDataVis/Interactive-Data-Vis-Fall2022.git (fetch)
-> upstream	https://github.com/InteractiveDataVis/Interactive-Data-Vis-Fall2022.git (push)
+> origin	https://github.com/[YOUR_USERNAME]/Interactive-Data-Vis-Spring2023 (fetch)
+> origin	https://github.com/[YOUR_USERNAME]/Interactive-Data-Vis-Spring2023 (push)
+> upstream	https://github.com/InteractiveDataVis/Interactive-Data-Vis-Spring2023.git (fetch)
+> upstream	https://github.com/InteractiveDataVis/Interactive-Data-Vis-Spring2023.git (push)
 
 # now notice see that we are tracking both the original and your version of the repository
 ```
