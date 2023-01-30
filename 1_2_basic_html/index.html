@@ -1,19 +1,91 @@
-
 <!DOCTYPE html>
-<head>
-  <meta charset="utf-8">
-  <title>Interactive Data Visualization Tutorial</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
-  <link rel="stylesheet" href="./style.css">
-</head>
-<body>
-  <h1>Hello World!</h1>
-  <h3>Tutorial Assignment: 1_2_basic_html </h3>
-  <table>
-    <!-- Add your table data here -->
-  </table>
-  <svg>
-    <!-- Add your rectangles in here -->
-  </svg>
-</body>
+  <head>
+    <meta charset="utf-8">
+    <title>Interactive Data Visualization Tutorial</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <h1>Hello World!</h1>
+    <h3>Tutorial Assignment: 1_2_basic_html </h3>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/table">Table Reference Here</a>
+    <table>
+      <thead>
+        <tr>
+          <th colspan="2">Spring 2023 Data 73200</th>
+        </tr>
+        <tr>
+          <th>Firstname</th>
+          <th>Lastname</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Amanda J</td>
+          <td>Woolsey</td>
+        <tr>
+          <td>Christopher Salvatore</td>
+          <td>Cali</td>
+        </tr>
+        <tr>
+          <td>Connie</td>
+          <td>Cordon</td>
+        </tr>
+        <tr>
+          <td>Disha</td>
+          <td>Kanada</td>
+        </tr>
+        <tr>
+          <td>Elizabeth</td>
+          <td>Garrison</td>
+        </tr>
+        <tr>
+          <td>Hoi Wah</td>
+          <td>Tang</td>
+        </tr>
+        <tr>
+          <td>Ian G</td>
+          <td>Williams</td>
+        </tr>
+        <tr>
+          <td>Kai L</td>
+          <td>Prenger</td>
+        </tr>
+        <tr>
+          <td>Kathryn</td>
+          <td>Donia</td>
+        </tr>
+        <tr>
+          <td>Muhammad Rakibul</td>
+          <td>Islam</td>
+        </tr>
+        <tr>
+          <td>Nastasia</td>
+          <td>Pollas</td>
+        </tr>
+        <tr>
+          <td>Ruiming</td>
+          <td>Xu</td>
+        </tr>
+        <tr>
+          <td>Sangeeeth</td>
+          <td>Baby</td>
+        </tr>
+      </tbody>
+    </table>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/SVG">SVG Reference Here</a>
+    <svg style="width:600px; height:300px">
+      <defs>
+        <linearGradient id="gradient" gradientTransform="rotate(90)">
+          <stop offset="5%"  stop-color="LightSteelBlue" />
+          <stop offset="30%"  stop-color="salmon" />
+          <stop offset="95%" stop-color="gold" />
+        </linearGradient>
+      </defs>
+      <circle fill="LightCoral" r="50" />
+      <circle fill="Thistle" cx="150" r="50" />
+      <circle fill="PaleGreen" cx="150" cy="150" r="50" />
+      <circle fill="url('#gradient')" cx="300" cy="150" r="50" />
+    </svg>
+  </body>
 </html>
