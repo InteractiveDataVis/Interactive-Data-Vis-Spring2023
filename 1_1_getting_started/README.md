@@ -1,5 +1,7 @@
 # Section 1 | Tutorial 1 | Getting Started
 
+This introductory tutorial section will focus primarily on helping you get your environment set up for future code development.
+
 The goals for this tutorial are:
 
 - to set up installations for your [local development environment](./1_INSTALL.md)
@@ -26,4 +28,6 @@ Once you've completed the assignment, use the Github workflow to deploy your wor
 1. a link to your committed code repository (your link will look something like: `https://github.com/[YOUR_USERNAME]/Interactive-Data-Vis-Spring2023/[TUTORIAL_PATH]/`)
 2. a link to your deployed example (your link will look something like: `https://[YOUR_USERNAME].github.io/Interactive-Data-Vis-Spring2023/[TUTORIAL_PATH]/`)
 
+## Other Resources:
 
+- [How to use github](https://git-scm.com/book/en/v2)
