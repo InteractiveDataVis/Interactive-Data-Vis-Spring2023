@@ -17,8 +17,8 @@ The goals for this tutorial are:
 
 **BONUS:**
 
-- [ ] Play with the page styles using CSS
-- [ ] Add additional HTML elements to the main page
+- [x] Play with the page styles using CSS
+- [x] Add additional HTML elements to the main page
 
 ## Deploy + Submit
 
