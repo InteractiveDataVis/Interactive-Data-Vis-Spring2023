@@ -3,6 +3,7 @@ body {
   font-family: "Source Sans Pro", sans-serif;
   font-size: 16px;
   padding: 1em;
+  background-color: #d8bfd8;
 }
 
 h1 {
@@ -17,4 +18,40 @@ h3 {
 
 p {
   font-size: 1em;
+}
+
+table {
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  border: 2px solid cornflowerblue;
+}
+
+th, td {
+  padding: 1em;
+}
+
+th {
+  letter-spacing: 2px;
+}
+
+td {
+  letter-spacing: 1px;
+  border: 1px solid;
+}
+
+.content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2em;
+    background-color: white;
+}
+
+.deal {
+  font-weight: 600;
+}
+
+#super-deal {
+  font-weight:900;
+  color: forestgreen;
 }
