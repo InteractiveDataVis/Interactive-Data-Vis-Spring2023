@@ -20,6 +20,10 @@ p {
   font-size: 1em;
 }
 
+rect {
+  fill: hotpink;
+}
+
 table {
   table-layout: fixed;
   width: 100%;
