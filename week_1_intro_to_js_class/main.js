@@ -52,4 +52,8 @@ const filteredArray = array.filter((d, i) => {
 console.log(filteredArray)
 console.log(filteredArray.length)
 
+array.forEach(d => console.log('d', d))
+
+
+
 // const implicitReturnArray = array.map(d => console.log((`my favorite food is ${d}.`)))
