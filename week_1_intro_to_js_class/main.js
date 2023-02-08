@@ -35,25 +35,55 @@ const newArray = array.map((d) => {
     return `my favorite food is ${d}.`
 })
 
-console.log(newArray);
+// console.log(newArray);
 
 
-const filteredArray = array.filter((d, i) => {
-    const onlyToast = d === 'toast'
-    const onlyFruit = d !== 'toast'
+// const filteredArray = array.filter((d, i) => {
+//     const onlyToast = d === 'toast'
+    // const onlyFruit = d !== 'toast'
     // return onlyToast;
      // return onlyFruit;
 //     const applesOrOranges = d === 'apple' || d === 'orange' 
-//    return applesOrOranges;
-    const laterFoods = i > 0;
-    return laterFoods;
-})
+//     return applesOrOranges;
+    // const laterFoods = i > 0;
+    // return laterFoods;
+// })
 
-console.log(filteredArray)
-console.log(filteredArray.length)
+// console.log(filteredArray)
+// console.log(filteredArray.length)
 
-array.forEach(d => console.log('d', d))
+// array.forEach(d => console.log('d', d))
 
 
 
 // const implicitReturnArray = array.map(d => console.log((`my favorite food is ${d}.`)))
+
+const dataVisClass = {
+    day: 'Tuesday',
+    time: 'late',
+    students: 15
+}
+
+const dayAccessor = 'day'
+const day = dataVisClass[dayAccessor]
+console.log('day', day)
+
+const keys = Object.keys(dataVisClass)
+console.log(keys)
+
+const values = Object.values(dataVisClass)
+console.log(values)
+
+const entries = Object.entries(dataVisClass)
+console.log(entries)
+
+const apple = 'mango'
+if(apple === 'apple') {
+    console.log("I'm an apple.")
+} else {
+    console.log("I'm not an apple.")
+}
+
+const yesApple = apple === "apple" ? "I'm an apple!" : "I'm not an apple"
+
+console.log(yesApple)
