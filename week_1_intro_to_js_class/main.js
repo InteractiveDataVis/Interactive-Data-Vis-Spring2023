@@ -8,10 +8,22 @@ const input = document.getElementById("name-input");
 
 console.log(input);
 
-const updateName = () => {
-    console.log('in update function')
-    const userName = input.value;
-    window.alert(`Hello, welcome to class ${userName}`);
+// const updateName = () => {
+//     console.log('in update function')
+//     const userName = input.value;
+//     window.alert(`Hello, welcome to class ${userName}`);
+// }
+
+// updateName();
+
+let changeable = true;
+const constant = true;
+
+function change() {
+    let changeable = false;
+    const constant = false;
+    console.log(changeable, constant);
 }
 
-updateName();
+console.log(changeable, constant);
+change();
