@@ -27,3 +27,16 @@ function change() {
 
 console.log(changeable, constant);
 change();
+
+const array =['apple', 'orange', 'banana', 'mango', 'toast'];
+
+const newArray = array.map((d) => {
+    console.log('d', d)
+    return `my favorite food is ${d}.`
+})
+
+const filteredArray = 
+
+console.log(newArray);
+
+// const implicitReturnArray = array.map(d => console.log((`my favorite food is ${d}.`)))
