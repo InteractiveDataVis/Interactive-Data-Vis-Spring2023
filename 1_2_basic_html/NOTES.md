@@ -13,5 +13,12 @@ If you find you're not able complete this week's assignment, reflecting on where
 
 ------------
 
-I need to review how setting coordinates happens. At one point, I inverted the dimensions of my rect,
-and about a third of the rectangle was obscured. Maybe setting a viewbox would help?
+I need to review how setting coordinates happens. 
+At one point, I inverted the dimensions of my rect, and about a third of the 
+rectangle was obscured. 
+
+Maybe setting a `viewBox` would help? I struggled a bit with trial and error 
+getting the `viewBox` to display the path svg work I did for the bonus 
+assigments. In general, I've struggled a bit with CSS and page layout in general,
+and I'm hoping I will be able to get more practice with that along with D3 as 
+things progress in this course
