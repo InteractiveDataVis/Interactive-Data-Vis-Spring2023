@@ -11,6 +11,7 @@ button {
   color: #ff9999;
   font-size: 2em;
   border: solid #ff9999 0.15em;
+  border-radius: 0.5em;
   padding: 0.5em;
   transition-duration: 0.2s;
 }
