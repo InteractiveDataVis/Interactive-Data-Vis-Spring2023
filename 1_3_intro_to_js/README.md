@@ -17,7 +17,7 @@ The goals for this tutorial are:
 **BONUS:**
 
 - [ ] Use multiple inputs to get more than one piece of information, and save it in an [object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object). 
-- [ ] Add a javascript library to your page, like d3.js, and play with the functions. 
+- [x] Add a javascript library to your page, like d3.js, and play with the functions. 
 
 ## Deploy + Submit
 

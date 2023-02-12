@@ -40,7 +40,7 @@ d3.csv("us-presidential-popular-vote-1904.csv").then( function(data) {
             .data(data)
             .join("rect")
                 .attr("x", d => x(d.Party))
-            .attr("y", d => y(d.Value))
+            .attr("y", d => y(d.Votes))
             .attr("width", x.bandwidth())
             .attr("height", d => height - y(d.Votes))
             .attr("fill", "#ff9999")
