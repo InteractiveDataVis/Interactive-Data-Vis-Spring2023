@@ -13,20 +13,15 @@ If you find you're not able complete this week's assignment, reflecting on where
 
 ------------
 
-This bonus exercise from 1_2 and 1_3 made me realize that I struggle with two
-concepts:
+I think the top to right positioning got me confused for a bit. 
 
-- viewBox
-- positioning in general (see upside down barchart)
-
-I think the top to right positioning is getting me confused. 
-
-But I actually did  this pretty well on line 45 of `main.js`. 
+But I actually handled this pretty well on line 45 of `main.js`. 
 
 Turns out I had a typo in my field names, which made the bars confused about 
 my y data while I was drawing them. 
 
-As for viewBox, I'll likely need to experiment and read more. 
+If I were to continue on work this chart, I would want to improve legibility,
+especially for the party labels.
 
 I also didn't get to creating an object from user input, and may not have time
-to do it for this assignment.
+to do it before this assignment is due.
