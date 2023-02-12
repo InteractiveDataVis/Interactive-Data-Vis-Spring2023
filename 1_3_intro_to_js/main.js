@@ -28,6 +28,7 @@ d3.csv("us-presidential-popular-vote-1904.csv").then( function(data) {
             .call(d3.axisBottom(x))
             .selectAll("text")
             .attr("transform", "translate(-10,0)rotate(-45)")
+            .attr("letter-spacing", (d,i) => i*.04-.1 + "em") //experiment
             .style("text-anchor", "end");
         // set y-axis
         const y = d3.scaleLinear()
