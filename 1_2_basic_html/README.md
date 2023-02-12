@@ -12,12 +12,12 @@ The goals for this tutorial are:
   - [x] have at least one more column than the sample code.
   - [x] include a class name that is relevant to the table AND changes something about the style of a cell, cells, row, or rows.
 - [x] Add rectangles to your svg. For reference you should use the [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/rect) for svg rectangles.  
-- [ ] Push these changes up to your forked repository. You should see your commit and any code changes in the github repo. Confirm that you see your changes in the deployed site. Follow the details outlined in the [deploy and submit below](#deploy--submit) to recieve credit.
+- [x] Push these changes up to your forked repository. You should see your commit and any code changes in the github repo. Confirm that you see your changes in the deployed site. Follow the details outlined in the [deploy and submit below](#deploy--submit) to recieve credit.
 
 **BONUS:**
 
-- [ ] Add a path to your SVG. Use the [MDN documentation on paths](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/path) to help you build a function to illustrate those paths. 
-- [ ] Add an image to your page using [image tags](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img) (`<img />`). 
+- [x] Add a path to your SVG. Use the [MDN documentation on paths](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/path) to help you build a function to illustrate those paths. 
+- [x] Add an image to your page using [image tags](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img) (`<img />`). 
 - [ ] Add a [button](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button) or [input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input) to your page. 
 
 ## Deploy + Submit

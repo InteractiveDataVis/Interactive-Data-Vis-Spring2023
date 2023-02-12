@@ -16,8 +16,16 @@ h3 {
   margin: 0.25em 0;
 }
 
+img {
+  width: 32em;
+}
+
 p {
   font-size: 1em;
+}
+
+path {
+  fill: salmon;
 }
 
 rect {
