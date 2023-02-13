@@ -9,11 +9,109 @@
 <body>
   <h1>Hello World!</h1>
   <h3>Tutorial Assignment: 1_2_basic_html </h3>
-  <table>
+  <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/table">Table Reference here</a>
+  <style>
+    .image {border:4px solid #1b6b6f; padding:15px;}
+
+    .tbl { border-collapse: collapse; width:300px; }
+    .tbl th, .tbl td { padding: 5px; border: solid 1px #777; }
+    .tbl th { background-color: lightblue; }
+    .tbl-separate { border-collapse: separate; border-spacing: 5px;}
+  </style>
+
+  <table id="mytable" class="tbl">
+ 
+  <!-- <table> -->
     <!-- Add your table data here -->
+    <thead>
+      <tr>
+        <th colspan="3",Spring 2023 Data 73200</th>
+      </tr>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Age</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>John</td>
+        <td>Smith</td>
+        <td>27</td>
+      </tr>
+
+    <tr>
+      <td>Immanuel</td>
+      <td>Kant</td>
+      <td>83</td>
+    </tr>
+
+  <tr>
+    <td>Charles K</td>
+    <td>Windsor</td>
+    <td>44</td>
+  </tr>
+
+  <tr>
+    <td>John F</td>
+    <td>Kennedy</td>
+    <td>36</td>
+  </tr>
+
+  <tr>
+    <td>Joe</td>
+    <td>Biden</td>
+    <td>80</td>
+  </tr>
+
   </table>
-  <svg>
-    <!-- Add your rectangles in here -->
-  </svg>
+</tbody>
+
+
+<p> </p>
+<button onclick="toggle();">toggle class</button>
+<p> </p>
+
+
+<a href="https://developer.mozilla.org/en-US/docs/Web/SVG">SVG Reference here</a>
+<p></p>
+<p></p>
+
+
+<svg viewBox="0 0 220 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Simple rectangle -->
+  <rect width="100" height="100" />
+
+  <!-- Rounded corner rectangle -->
+  <rect x="120" width="100" height="100" rx="15" />
+</svg>
+
+
+<!--      <defs>
+      <linearGradient id="gradient" gradientTransform="rotate(90)">
+        <stop offset="5%" stop-color="LightSteelBlue" />
+        <stop offset="30%" stop-color="salmon" />
+        <stop offset="95%" stop-color="gold" />
+      </linearGradient>
+    </defs>
+    <circle fill="LightCoral" r="50" />
+    <circle fill="Thistle" cx="150" r="50" />
+    <circle fill="PaleGreen" cx="150" cy="150" r="50" />
+    <circle fill="url('#gradient')" cx="300" cy="150" r="50" />
+ -->
+ 
+<!--</svg>-->  
+
+  <img class="image"
+src="pngimg.com - goofy_PNG29.png" >
+
+<script>
+  let toggle=() => {
+    let element = document.getElementById("mytable");
+    element.classList.toggle("tbl-separate");
+  }
+
+
+</script>
 </body>
 </html>
