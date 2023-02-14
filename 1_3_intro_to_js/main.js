@@ -7,6 +7,7 @@ const incrementClicks = () => {
     document.getElementById('click-count').innerHTML = numClicks;
 }
 
+// d3 demo
 const margin = {top: 30, right: 30, bottom: 70, left: 60},
 width = 460 - margin.left - margin.right,
 height = 400 - margin.top - margin.bottom;
