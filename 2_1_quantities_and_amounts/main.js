@@ -34,8 +34,6 @@ d3.csv('../data/squirrelActivities.csv', d3.autoType)
         .append("td")
         .text(data => data.count)
 
-
-
     /* SCALES */
     /** This is where you should define your scales from data to pixel space */
     
