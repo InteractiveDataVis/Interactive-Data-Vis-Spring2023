@@ -1,20 +1,33 @@
 body {
   font-family: "Source Sans Pro", sans-serif;
   font-size: 16px;
-  padding: 1em;
+  padding: 2em;
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #fff5cd;
 }
 
 h1 {
   font-size: 3em;
   margin: 0.25em 0;
+  color: #fb6f92;
 }
 
 h3 {
   font-size: 2em;
   margin: 0.25em 0;
+  color: #ff8fab;
 }
 
 p {
   font-size: 1em;
   color: pink;
+}
+
+#hidden-text {
+  color: #fff5cd;
+}
+
+::selection {
+  background: #c20030;
 }
