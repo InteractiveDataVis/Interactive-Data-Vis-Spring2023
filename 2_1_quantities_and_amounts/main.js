@@ -1,4 +1,3 @@
-
 /* CONSTANTS AND GLOBALS */
 // const width = ;
 // const height = ;
