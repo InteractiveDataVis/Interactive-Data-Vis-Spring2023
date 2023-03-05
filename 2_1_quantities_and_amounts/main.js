@@ -8,6 +8,11 @@ d3.csv('../data/squirrelActivities.csv', d3.autoType)
   .then(data => {
     console.log("data", data)
 
+    const svg = d3.select('#container')
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height)
+
     // test out how to access domain from array of objects
     activity = [...data.map((d => d.activity))]
     console.log('activity', activity)
@@ -26,5 +31,14 @@ d3.csv('../data/squirrelActivities.csv', d3.autoType)
     
     /* HTML ELEMENTS */
     /** Select your container and append the visual elements to it */
+    svg.selectAll('rect.bar')
+      .data(data)
+      .join('rect')
+      .attr('class', 'bar')
+      // rect of class bar are available in the DOM; make them visible
+      .attr('x', d => xScale(d.activity))
+      .attr('y', d => yScale(d.count))
+      .attr('width', xScale.bandwidth())
+      .attr('height', d => (height - margin) - yScale(d.count)) 
 
   })
