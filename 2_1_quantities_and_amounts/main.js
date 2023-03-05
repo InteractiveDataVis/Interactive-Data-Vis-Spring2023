@@ -23,6 +23,7 @@ d3.csv('../data/squirrelActivities.csv', d3.autoType)
     const xScale = d3.scaleBand()
       .domain([...data.map((d => d.activity))])
       .range([margin, width - margin])
+      .padding(0.15) // as a bit of spaces between the rect bars
     
     // y scale
     const yScale = d3.scaleLinear()
