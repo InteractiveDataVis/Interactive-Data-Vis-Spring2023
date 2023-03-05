@@ -17,12 +17,12 @@ d3.csv('../data/squirrelActivities.csv', d3.autoType)
     // test out how to access domain from array of objects
     activity = [...data.map((d => d.activity))]
     console.log('activity', activity)
-    // nice and easy
+    // sweet! nice and easy
 
     /* SCALES */
     // x scale
     const xScale = d3.scaleBand()
-      .domain([...data.map((d => d.activity))])
+      .domain([...data.map(d => d.activity)])
       .range([margin, width - margin])
       .padding(0.15) // as a bit of spaces between the rect bars
     
@@ -54,9 +54,31 @@ d3.csv('../data/squirrelActivities.csv', d3.autoType)
       .style('transform', `translate(${margin}px, 0px)`)
     
     /* HORIZONTAL BARCHART */
-    svgH = d3.select('#hchart-container')
+    const svgH = d3.select('#hchart-container')
       .append('svg')
-      .attr('width', width)
-      .attr('height', height)
+      .attr('width', height)  // IS THIS RIGHT?
+      .attr('height', width)  // OR THIS?
+
+    const xScaleH = d3.scaleLinear()
+      .domain([0, Math.max(...data.map(d => d.count))])
+      .range([height - margin, margin])
+    
+    const yScaleH = d3.scaleBand()
+      .domain([...data.map((d => d.activity))])
+      .range([margin, width - margin])
+      .padding(0.15)
+    
+    svgH.selectAll('rect.bar')
+      .data(data)
+      .join('rect')
+      .attr('class', 'bar')
+      // we've appended to the DOM, let's draw!
+      .attr('x', 0)
+      .attr('y', d => yScaleH(d.activity))
+      .attr('width', d => (width - margin) - xScaleH(d.count))  // aligned R to L, need to transform
+      .attr('height', yScaleH.bandwidth())
+
+    svgH.append('g')
+      .attr()
 
   })
