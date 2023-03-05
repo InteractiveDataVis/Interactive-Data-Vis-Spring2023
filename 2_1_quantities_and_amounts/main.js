@@ -56,16 +56,16 @@ d3.csv('../data/squirrelActivities.csv', d3.autoType)
     /* HORIZONTAL BARCHART */
     const svgH = d3.select('#hchart-container')
       .append('svg')
-      .attr('width', height)  // IS THIS RIGHT?
-      .attr('height', width)  // OR THIS?
+      .attr('width', width)  // IS THIS RIGHT?
+      .attr('height', height)  // OR THIS?
 
     const xScaleH = d3.scaleLinear()
       .domain([0, Math.max(...data.map(d => d.count))])
-      .range([height - margin, margin])
+      .range([width - margin, margin])
     
     const yScaleH = d3.scaleBand()
       .domain([...data.map((d => d.activity))])
-      .range([margin, width - margin])
+      .range([margin, height - margin])
       .padding(0.15)
     
     svgH.selectAll('rect.bar')
@@ -73,12 +73,21 @@ d3.csv('../data/squirrelActivities.csv', d3.autoType)
       .join('rect')
       .attr('class', 'bar')
       // we've appended to the DOM, let's draw!
-      .attr('x', 0)
+      .attr('x', d => xScaleH(d.count))
       .attr('y', d => yScaleH(d.activity))
-      .attr('width', d => (width - margin) - xScaleH(d.count))  // aligned R to L, need to transform
+      .attr('width', d => (height - margin)- xScaleH(d.count))
       .attr('height', yScaleH.bandwidth())
+      .attr('fill', '#9400D3')
+
+    const xAxisH = d3.axisBottom(xScaleH)
+    const yAxisH = d3.axisLeft(yScaleH)
 
     svgH.append('g')
-      .attr()
+      .call(xAxisH)
+      .style('transform', `translate(0px, ${width - margin}px)`)
+
+    svgH.append('g')
+      .call(yAxisH)
+      .style('transform', `translate(${margin}px, 0px)`)
 
   })

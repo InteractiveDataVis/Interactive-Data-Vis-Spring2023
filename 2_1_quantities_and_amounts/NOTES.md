@@ -14,3 +14,5 @@ If you find you're not able complete this week's assignment, reflecting on where
 ------------
 
 Setting the horizontal barcharts width to `height`, and height to `width` felt odd. What's a better way to do it?
+
+Had a lot of right to left problems when creating the horizontal bar chart. I think
