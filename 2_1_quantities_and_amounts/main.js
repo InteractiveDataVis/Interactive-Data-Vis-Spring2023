@@ -8,7 +8,8 @@ d3.csv('../data/squirrelActivities.csv', d3.autoType)
   .then(data => {
     console.log("data", data)
 
-    const svg = d3.select('#container')
+    /* VERTICAL BAR CHART */
+    const svg = d3.select('#vchart-container')
       .append('svg')
       .attr('width', width)
       .attr('height', height)
@@ -36,10 +37,26 @@ d3.csv('../data/squirrelActivities.csv', d3.autoType)
       .data(data)
       .join('rect')
       .attr('class', 'bar')
-      // rect of class bar are available in the DOM; make them visible
+      // rect of class bar are available in the DOM; now draw them with data
       .attr('x', d => xScale(d.activity))
       .attr('y', d => yScale(d.count))
       .attr('width', xScale.bandwidth())
       .attr('height', d => (height - margin) - yScale(d.count)) 
+
+    // Draw the axes 
+    const xAxis = d3.axisBottom(xScale)
+    const yAxis = d3.axisLeft(yScale)
+    svg.append('g')
+      .call(xAxis)
+      .style('transform', `translate(0px, ${height - margin}px)`)
+    svg.append('g')
+      .call(yAxis)
+      .style('transform', `translate(${margin}px, 0px)`)
+    
+    /* HORIZONTAL BARCHART */
+    svgH = d3.select('#hchart-container')
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height)
 
   })
