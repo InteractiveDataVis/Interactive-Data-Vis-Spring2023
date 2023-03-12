@@ -2,6 +2,23 @@ body {
   font-family: "Source Sans Pro", sans-serif;
   font-size: 16px;
   padding: 1em;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+button {
+  background-color: white;
+  color: #ff9999;
+  font-size: 2em;
+  border: solid #ff9999 0.15em;
+  border-radius: 0.5em;
+  padding: 0.5em;
+  transition-duration: 0.2s;
+}
+
+button:hover {
+  background-color: #ff9999;
+  color: white;
 }
 
 h1 {
@@ -20,4 +37,14 @@ p {
 
 section {
   padding: 2em 0;
+}
+
+.container {
+  text-align: center;
+}
+
+#click-count {
+  color: #ff9999;
+  font-size: 8em;
+  font-style: bold;
 }
