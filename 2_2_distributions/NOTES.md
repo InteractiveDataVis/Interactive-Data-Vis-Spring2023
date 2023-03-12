@@ -46,7 +46,7 @@ Given that the dots are tightly cluster in this graph, in future, I'd add
 tooltip with additional metadata to help give better context, and potentially
 inform other scatterplots that might reveal something about this dataset.
 
-Blarg! I'm notices some dots are mapped way off on the left of the y-axis, but
+Blarg! I'm noticing some dots are mapped way off on the left of the y-axis, but
 I'm a little at a loss as to why. Doing this type of spacial reasoning and 
 debug remains a challenge for me.
 
