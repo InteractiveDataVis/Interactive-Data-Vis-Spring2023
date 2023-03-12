@@ -22,7 +22,8 @@ At this point, is occuring to me that having the minimum domain of the x-axis
 be zero is kind not helping. Also, I wanted to extend the y-axis a bit to
 reference the max weight
 
-``` const xScale = d3.scaleLinear()
+``` 
+    const xScale = d3.scaleLinear()
       .domain([10, d3.max(data, d => d.age)])
       .range([margin, width - margin])
 
