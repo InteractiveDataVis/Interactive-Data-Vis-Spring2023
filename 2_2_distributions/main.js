@@ -68,9 +68,10 @@ d3.csv('../data/babies.csv', d3.autoType)
 
     // let's draw circles
     const dot = svg
-      .selectAll('.circle')
+      .selectAll('.dot')
       .data(data, d => d.case)    // case is the unique id
       .join('circle')
+      .attr('class', 'dot')
       .attr('cx', d => xScale(d.age))
       .attr('cy', d => yScale(d.bwt))
       .attr('r', d => (d.smoke === 1) ? 3 : radius)
