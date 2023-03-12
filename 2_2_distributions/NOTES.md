@@ -18,6 +18,19 @@ correlated with the age of the mother:
 
 ![Age of the Mother vs. bwt](../screen_shots/age_of_mother_v_birth_weight.png)
 
+At this point, is occuring to me that having the minimum domain of the x-axis
+be zero is kind not helping. Also, I wanted to extend the y-axis a bit to
+reference the max weight
+
+``` const xScale = d3.scaleLinear()
+      .domain([10, d3.max(data, d => d.age)])
+      .range([margin, width - margin])
+
+    const yScale = d3.scaleLinear()
+      .domain([0, (d3.max(data, d => d.bwt) + 10)])
+      .range([height - margin, margin])
+```
+
 If you find you're not able complete this week's assignment, reflecting on where you are getting stuck here will help you get full credit for this week's tutorial
 
 ------------

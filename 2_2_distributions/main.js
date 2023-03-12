@@ -11,12 +11,12 @@ d3.csv('../data/babies.csv', d3.autoType)
     /* SCALES */
     // x-scale will be linear, age of mother
     const xScale = d3.scaleLinear()
-      .domain([0, d3.max(data, d => d.age)])
+      .domain([10, d3.max(data, d => d.age)])
       .range([margin, width - margin])
 
     // y-scale will be linear, weight of baby in oz
     const yScale = d3.scaleLinear()
-      .domain([0, d3.max(data, d => d.bwt)])
+      .domain([0, (d3.max(data, d => d.bwt) + 10)])
       .range([height - margin, margin])
     
       /* HTML ELEMENTS */
@@ -36,6 +36,20 @@ d3.csv('../data/babies.csv', d3.autoType)
       .append('g')
       .style('transform', `translate(0px, ${height - margin}px)`)
       .call(xAxis)
+    
+    svg
+      .append('text')
+      .attr('transform', 'translate(' + (width/2) + ' ,' + (height-10) + ')')
+      .style('text-anchor', 'middle')
+      .text('Mother Age');
+
+      svg
+      .append('text')
+      .attr('transform', 'rotate(-90)')
+      .attr('x', - (height/2))
+      .attr('y', 15)
+      .style('text-anchor', 'middle')
+      .text('Birth Weight of Baby (oz)');
     
     // append yAxis
     svg.append('g')
