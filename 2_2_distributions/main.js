@@ -2,7 +2,7 @@
 const width = window.innerWidth * 0.7,
   height = window.innerHeight * 0.7,
   margin = 50,
-  radius = 4;
+  radius = 5;
 
 /* LOAD DATA */
 d3.csv('../data/babies.csv', d3.autoType)
@@ -26,6 +26,16 @@ d3.csv('../data/babies.csv', d3.autoType)
       .append('svg')
       .attr('width', width)
       .attr('height', height)
+
+    // I'd like to title the chart
+    svg
+      .append('text')
+      .attr('x', width/2)   // get it in the center
+      .attr('y', margin)
+      .attr('text-anchor', 'middle')
+      .style('font-size', '16px')
+      .text('Age of Mother vs. Birth Weight')
+
     
     // define axes by our scales
     const xAxis = d3.axisBottom(xScale)
@@ -63,7 +73,8 @@ d3.csv('../data/babies.csv', d3.autoType)
       .join('circle')
       .attr('cx', d => xScale(d.age))
       .attr('cy', d => yScale(d.bwt))
-      .attr('r', radius)
-      .attr('fill', 'maroon')
+      .attr('r', d => (d.smoke === 1) ? 3 : radius)
+      .style('fill', d => (d.smoke === 1) ? 'light-grey' : 'maroon')
+      // .attr('fill', 'maroon')
       .attr('opacity', 0.6)
   });

@@ -31,7 +31,15 @@ reference the max weight.
       .domain([0, (d3.max(data, d => d.bwt) + 10)])
       .range([height - margin, margin])
 ```
-It occurs to be that this _might_ be interesting if it was color coded by 
-whether or not the mother was a smoker.
+It occurs to me at this point that this _might_ be more interesting if it was 
+color coded by whether or not the mother was a smoker.
+
+![Coding mother smoking with colors](../screen_shots/with_smothing_color_coding.png)
+
+I also thought it might be nice to conditionally change the radius based on
+the smoking variable.
+
+One question that comes up is what the difference is between adding style with
+the style method vs. attr.
 
 ------------
