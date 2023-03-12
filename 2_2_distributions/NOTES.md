@@ -42,4 +42,8 @@ the smoking variable.
 One question that comes up is what the difference is between adding style with
 the style method vs. attr.
 
+Given that the dots are tightly cluster in this graph, in future, I'd add 
+tooltip with additional metadata to help give better context, and potentially
+inform other scatterplots that might reveal something about this dataset.
+
 ------------
