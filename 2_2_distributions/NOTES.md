@@ -16,7 +16,7 @@ it to.
 So, after a bit of tweaks, I ended up with a graph looking if birth weight
 correlated with the age of the mother:
 
-![../screen_shots/age_of_mother_v_birth_weight.png]
+![Age of the Mother vs. bwt](../screen_shots/age_of_mother_v_birth_weight.png)
 
 If you find you're not able complete this week's assignment, reflecting on where you are getting stuck here will help you get full credit for this week's tutorial
 
