@@ -13,7 +13,10 @@ compare commit `50b47c31b896864f897716a6a73365b86f12d323` to
 `429173933b75babb90efb12ddc01da5ab6e8c880`. Not coming as naturally as I wanted
 it to.
 
+So, after a bit of tweaks, I ended up with a graph looking if birth weight
+correlated with the age of the mother:
 
+![../screen_shots/age_of_mother_v_birth_weight.png]
 
 If you find you're not able complete this week's assignment, reflecting on where you are getting stuck here will help you get full credit for this week's tutorial
 
