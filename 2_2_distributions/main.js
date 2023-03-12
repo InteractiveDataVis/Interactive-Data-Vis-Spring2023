@@ -5,7 +5,7 @@ const width = window.innerWidth * 0.7,
   radius = 4;
 
 /* LOAD DATA */
-d3.csv("../data/babies.csv", d3.autoType)
+d3.csv('../data/babies.csv', d3.autoType)
   .then(data => {
     console.log(data)
     /* SCALES */
@@ -22,20 +22,34 @@ d3.csv("../data/babies.csv", d3.autoType)
       /* HTML ELEMENTS */
 
     // append svg so I have something to reference in the container
-    const svg = d3.select("#container")
-      .append("svg")
-      .attr("width", width)
-      .attr("height", height)
+    const svg = d3.select('#container')
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height)
     
+    // define axes by our scales
     const xAxis = d3.axisBottom(xScale)
     const yAxis = d3.axisLeft(yScale)
 
+    // append xAxis
     svg
-      .append("g")
-      .style("transform", `translate(0px, ${height - margin}px)`)
+      .append('g')
+      .style('transform', `translate(0px, ${height - margin}px)`)
       .call(xAxis)
     
-    svg.append("g")
-      .style("transform", `translate(${margin}px,0px)`)
+    // append yAxis
+    svg.append('g')
+      .style('transform', `translate(${margin}px,0px)`)
       .call(yAxis)
+
+    // let's draw circles
+    const dot = svg
+      .selectAll('circle')
+      .data(data, d => d.case)    // case is the unique id
+      .join('circle')
+      .attr('cx', d => xScale(d.age))
+      .attr('cy', d => yScale(d.bwt))
+      .attr('r', radius)
+      .attr('fill', 'maroon')
+      .attr('opacity', 0.6)
   });
