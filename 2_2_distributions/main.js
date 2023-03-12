@@ -68,7 +68,7 @@ d3.csv('../data/babies.csv', d3.autoType)
 
     // let's draw circles
     const dot = svg
-      .selectAll('circle')
+      .selectAll('.circle')
       .data(data, d => d.case)    // case is the unique id
       .join('circle')
       .attr('cx', d => xScale(d.age))
