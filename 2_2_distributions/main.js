@@ -65,7 +65,7 @@ d3.csv('../data/babies.csv', d3.autoType)
     svg.append('g')
       .style('transform', `translate(${margin}px,0px)`)
       .call(yAxis)
-
+      
     // let's draw circles
     const dot = svg
       .selectAll('.dot')
