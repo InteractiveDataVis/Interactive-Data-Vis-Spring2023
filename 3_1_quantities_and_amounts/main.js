@@ -25,8 +25,14 @@ d3.csv('../data/1824_us_pres_pop_vote.csv', d3.autoType).then(raw_data => {
 // this will be run *one time* when the data finishes loading in
 function init() {
   /* SCALES */
+  xScale = d3.scaleBand()
+    .domain(state.data.map(d => d.candidate))
+    .range([margin.left, width - margin.right])
+    .paddingInner(0.3)
 
-
+  yScale = d3.scaleLinear()
+    .domain([0, d3.max(state.data, d => d.vote_count)])
+    .range([height - margin.bottom, margin.top])
 
   draw(); // calls the draw function
 }
@@ -35,7 +41,21 @@ function init() {
 // we call this every time there is an update to the data/state
 function draw() {
   /* HTML ELEMENTS */
- 
+    // define svg
+    const svg = d3.select('#container')
+    .append('svg')
+    .attr('width', width)
+    .attr('height', height)
+
+    const rect = svg
+      .selectAll('rect.bar')
+      .data(state.data)
+      .join('rect')
+      .attr('class', 'bar')   // good review, I typically forget this one
+      .attr('width', xScale.bandwidth())
+      .attr('height', d => height - yScale(d.vote_count))
+      .attr('x', d => xScale(d.candidate))
+      .attr('y', d => yScale(d.vote_count))
 
 
 }
