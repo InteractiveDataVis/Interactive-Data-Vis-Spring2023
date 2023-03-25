@@ -30,4 +30,4 @@ to the left. Let's address that next.
 - Elements are displaying enough to be legible. I'm struggling with reasoning
 about why the xAxis and yAxis don't meet. I'm going to leave that for a review,
 because most of the ideas I have for changing this seem to make the code more 
-convoluted.
+convoluted. I want to focus on the rest of the assignment at this point.
