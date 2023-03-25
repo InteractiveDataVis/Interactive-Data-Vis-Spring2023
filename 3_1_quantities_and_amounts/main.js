@@ -49,8 +49,18 @@ function draw() {
     .attr('width', width)
     .attr('height', height)
 
-    const xAxis = d3.axisBottm(xScale)    // not sure about adding these
+    const xAxis = d3.axisBottom(xScale)    // not sure about adding these
     const yAxis = d3.axisLeft(yScale)     // to the draw function
+
+    svg
+      .append('g')
+      .attr('transform', `translate(0px, ${height - margin.bottom}px)`)
+      .call(xAxis)
+    
+    svg
+      .append('g')
+      .attr('transform', `translate(${margin.left}px, 0px)`)
+      .call(yAxis)
 
     const rect = svg
       .selectAll('rect.bar')
@@ -58,9 +68,8 @@ function draw() {
       .join('rect')
       .attr('class', 'bar')   // good review, I typically forget this one
       .attr('width', xScale.bandwidth())
-      .attr('height', d => height - yScale(d.vote_count))
+      .attr('height', d => yScale(d.vote_count))
       .attr('x', d => xScale(d.candidate))
-      .attr('y', d => yScale(d.vote_count))
-
-
+      // .attr('y', d => height - margin.bottom - yScale(d.vote_count))
+      .attr('y', d => height - yScale(d.vote_count))
 }
