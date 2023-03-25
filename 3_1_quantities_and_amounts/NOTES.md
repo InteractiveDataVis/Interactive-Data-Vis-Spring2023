@@ -18,3 +18,7 @@ I started off declaring them and drawing in the `draw()`, but that would mean
 that they would be re-drawn everytime the function is called. That could be
 helpful if interactivity changed the domains of the x or y scale, but maybe
 not in this case? Is there a best practice?
+
+- Again, drawing the axes has placed me in a state of confusion. I've tried
+labeling the axis to reason about why they're goofy. In trying to fix the
+spacing, I've confused the positioning of the rects again.
