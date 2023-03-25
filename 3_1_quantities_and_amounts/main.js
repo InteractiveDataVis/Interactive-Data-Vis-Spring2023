@@ -85,6 +85,7 @@ function draw() {
       const rect = svg
       .selectAll('rect.bar')
       .data(state.data)
+      // .join('rect')
       .join(
         enter => enter
           .append('rect')
@@ -105,10 +106,19 @@ function draw() {
     const dataLabels = svg
       .selectAll('text.data-label')
       .data(state.data)
-      .join('text')
-      .attr('class', 'data-label')
-      .attr('x', d => xScale(d.candidate) + xScale.bandwidth() / 2 + margin.left)
-      .attr('y', d => yScale(d.vote_count) - 10)
-      .attr('text-anchor', 'middle')
-      .text(d => d.vote_count)
+      // .join('text')
+      .join(
+        enter => enter
+          .append('text')
+          .attr('class', 'data-label')
+          .attr('x', d => xScale(d.candidate) + xScale.bandwidth() / 2 + margin.left)
+          .attr('y', height - margin.bottom)  // Again, start at the bottom
+          .attr('text-anchor', 'middle')
+          .text(d => d.vote_count)
+          .call(sel => sel
+            .transition()
+            .duration(3000)
+            .attr('y', d => yScale(d.vote_count) - 10)
+            )
+      )
 }
