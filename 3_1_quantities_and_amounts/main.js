@@ -28,13 +28,11 @@ function init() {
   xScale = d3.scaleBand()
     .domain(state.data.map(d => d.candidate))
     .range([margin.left, width - margin.right])
-    .paddingInner(0.3)
+    .paddingInner(0.1)
 
   yScale = d3.scaleLinear()
     .domain([0, d3.max(state.data, d => d.vote_count)])
     .range([height - margin.bottom, margin.top])
-
-  
 
   draw(); // calls the draw function
 }
@@ -61,7 +59,7 @@ function draw() {
     // draw yAxis
     svg
       .append('g')
-      .attr('transform', `translate(${margin.left}px, 0px)`)
+      .attr('transform', `translate(${margin.left}, 0)`)
       .call(yAxis)
     
     // xAxis label
