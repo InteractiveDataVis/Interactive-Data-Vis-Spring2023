@@ -5,7 +5,7 @@ const width = window.innerWidth * 0.7,
 //   radius = ; we don't need a radius with a barchart
 
 // // since we use our scales in multiple functions, they need global scope
-let xScale, yScale;
+let xScale, yScale, colorScale;
 
 /* APPLICATION STATE */
 let state = {
@@ -31,9 +31,13 @@ function init() {
     .paddingInner(0.1)
 
   yScale = d3.scaleLinear()
-    .domain([0, d3.max(state.data, d => d.vote_count)])
+    .domain([0, d3.max(state.data, d => d.vote_count) + 8750]) // is there a better way to do this?
     .range([height - margin.bottom, margin.top])
 
+  // Set the color scale
+  colorScale = d3.scaleOrdinal()
+    // .domain('maroon_1', 'maroon_2', 'maroon_3', 'maroon_4')
+    .range(['#562424', '#6d3636', '#a94c4c','#924444', ])
   draw(); // calls the draw function
 }
 
@@ -82,6 +86,7 @@ function draw() {
       .selectAll('rect.bar')
       .data(state.data)
       .join('rect')
+      .attr('fill', (d, i) =>  colorScale(i))
       .attr('class', 'bar')   // good review, I typically forget this one
       .attr('width', xScale.bandwidth())
       .attr('height', d => height - margin.bottom - yScale(d.vote_count))

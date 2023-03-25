@@ -12,6 +12,7 @@ Sometimes it helps to formulate what you understood and where you got stuck in o
 If you find you're not able complete this week's assignment, reflecting on where you are getting stuck here will help you get full credit for this week's tutorial
 
 ------------
+### Notes while working
 
 - One question I have is where we should declare and draw the axes. 
 I started off declaring them and drawing in the `draw()`, but that would mean
@@ -31,3 +32,21 @@ to the left. Let's address that next.
 about why the xAxis and yAxis don't meet. I'm going to leave that for a review,
 because most of the ideas I have for changing this seem to make the code more 
 convoluted. I want to focus on the rest of the assignment at this point.
+
+- I continue to struggle with when to use `.attr` and `.style` when working with
+elements.
+
+### Questions for appointment on Monday (3/27)
+
+- Where should we declare and draw the axes? I declared and drew them in the
+`draw()` function, but that would be re-drawing them everytime there's an update
+. That could be helpful 
+
+- I wanted to extend the yAxis beyond the maximum such that the next tick shows
+up, to give a sense of the maximum value of votes counted for Andrew Jackson.
+See how I hacked together the domain for the xScale. Is there a programmatic/
+better way to handle this?
+
+- Why do the xAxis and yAxis not meet? Most of the ideas I have for changing 
+this seem to make the code more convoluted. I wanted to focus on the rest of the
+ assignment, because I feel like I have a hand on that.
