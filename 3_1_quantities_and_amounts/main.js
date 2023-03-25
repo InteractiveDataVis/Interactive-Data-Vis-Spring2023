@@ -89,7 +89,8 @@ function draw() {
       .attr('width', xScale.bandwidth())
       .attr('height', d => height - margin.bottom - yScale(d.vote_count))
       .attr('x', d => xScale(d.candidate))
-      .attr('y', d => height - margin.bottom - yScale(d.vote_count))
+      .attr('y', d => yScale(d.vote_count))
+      // .attr('y', d => height - margin.bottom - yScale(d.vote_count))
       // .attr('y', d => height - yScale(d.vote_count))
     
 

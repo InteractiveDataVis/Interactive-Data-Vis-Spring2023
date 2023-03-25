@@ -22,3 +22,7 @@ not in this case? Is there a best practice?
 - Again, drawing the axes has placed me in a state of confusion. I've tried
 labeling the axis to reason about why they're goofy. In trying to fix the
 spacing, I've confused the positioning of the rects again.
+
+- OK, I tried to get too fancy when assiging the `y` attribute. I can't tell you
+why, but I got that settled. Next, the rects and yAxis are positioned too far
+to the left. Let's address that next
