@@ -45,7 +45,8 @@ elements.
 - I wanted to extend the yAxis beyond the maximum such that the next tick shows
 up, to give a sense of the maximum value of votes counted for Andrew Jackson.
 See how I hacked together the domain for the xScale. Is there a programmatic/
-better way to handle this?
+better way to handle this? Same question for dataLabels around `line 121`? Is 
+this a case to use the box model and adjust padding for these classes? 
 
 - Why do the xAxis and yAxis not meet? Most of the ideas I have for changing 
 this seem to make the code more convoluted. I wanted to focus on the rest of the

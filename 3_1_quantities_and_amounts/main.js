@@ -97,7 +97,7 @@ function draw() {
           .attr('fill', (d, i) =>  colorScale(i))
           .call(sel => sel
             .transition()
-            .duration(3000)
+            .duration(2500)
             .attr('height', d => height - margin.bottom - yScale(d.vote_count))
             .attr('y', d => yScale(d.vote_count))
           )
@@ -117,8 +117,17 @@ function draw() {
           .text(d => d.vote_count)
           .call(sel => sel
             .transition()
-            .duration(3000)
+            .duration(2500)
             .attr('y', d => yScale(d.vote_count) - 10)
+            // this was a serious pain in the butt with lots of trial and error
+            // however, glad I knew a little javascript before this class
+            .tween('text', function (d) {
+              const selfSelector = d3.select(this)
+              const interpolator = d3.interpolateNumber(0, d.vote_count)
+              return (t) => {
+                selfSelector.text(Math.round(interpolator(t)))
+              }
+            })
             )
       )
 }
