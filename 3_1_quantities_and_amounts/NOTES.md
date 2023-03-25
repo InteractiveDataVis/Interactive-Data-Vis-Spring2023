@@ -52,5 +52,11 @@ this a case to use the box model and adjust padding for these classes?
 this seem to make the code more convoluted. I wanted to focus on the rest of the
  assignment, because I feel like I have a hand on that.
 
+- Is the use of the `.tween` method idiomatic for D3? This is the result of a 
+fair amount of trial and error.
+
 - General improvement: assign colorScale based on highest to lowest votes. What'
 s a good way to do that?
+
+- I would love to see how we'd have this be a dual axis graph, with a separate
+series for the electoral votes. Any hints on how to structure that?

@@ -13,14 +13,14 @@ As you're building, don't forget you can always reference the [class code branch
 
 ## Assignment:
 
-- [ ] Implement your own bar chart with a *different dataset* than the one used in our demo. It can be the same dataset you used in the section 2 version of this same tutorial. 
-- [ ] Add axes or labels to this chart, as we learned in other tutorials of the previous section.
-- [ ] Add a color scale to this chart, as we learned in other tutorials of the previous section.
-- [ ] Make intentional design decisions -- colors, sizes, axes, transitions, etc. should illustrate something interesting about or relevant to your data.
+- [x] Implement your own bar chart with a *different dataset* than the one used in our demo. It can be the same dataset you used in the section 2 version of this same tutorial. 
+- [x] Add axes or labels to this chart, as we learned in other tutorials of the previous section.
+- [x] Add a color scale to this chart, as we learned in other tutorials of the previous section.
+- [x] Make intentional design decisions -- colors, sizes, axes, transitions, etc. should illustrate something interesting about or relevant to your data.
 
 **BONUS:**
 
-- [ ] Add an (entering) [transition](https://github.com/d3/d3-transition) to the bar chart. What is the most intuitive way for these bar charts to "appear" on the screen?
+- [x] Add an (entering) [transition](https://github.com/d3/d3-transition) to the bar chart. What is the most intuitive way for these bar charts to "appear" on the screen?
 
 ## Deploy + Submit
 
