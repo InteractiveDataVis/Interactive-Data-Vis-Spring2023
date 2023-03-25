@@ -55,7 +55,7 @@ function draw() {
     // draw xAxis
     svg
       .append('g')
-      .attr('transform', `translate(0px, ${height - margin.bottom}px)`)
+      .attr('transform', `translate(${margin.left}, ${height - margin.bottom})`)
       .call(xAxis)
     
     // draw yAxis
@@ -63,6 +63,23 @@ function draw() {
       .append('g')
       .attr('transform', `translate(${margin.left}px, 0px)`)
       .call(yAxis)
+    
+    // xAxis label
+    svg
+        .append('text')
+        .attr('x', width / 2)
+        .attr('y', height - margin.bottom / 2)
+        .attr('text-anchro', 'middle')
+        .attr('Candidate')
+  
+    // yAxis label
+    svg
+        .append('text')
+        .attr('x', -height / 2)
+        .attr('y', margin.left / 2)
+        .attr('text-anchor', 'middle')
+        .attr('transform', 'rotate(-90)')
+        .text('Vote Count')
 
     const rect = svg
       .selectAll('rect.bar')
@@ -75,20 +92,5 @@ function draw() {
       .attr('y', d => height - margin.bottom - yScale(d.vote_count))
       // .attr('y', d => height - yScale(d.vote_count))
     
-    // xAxis label
-    svg
-      .append('text')
-      .attr('x', width / 2)
-      .attr('y', height - margin.bottom / 2)
-      .attr('text-anchro', 'middle')
-      .attr('Candidate')
 
-    // yAxis label
-    svg
-      .append('text')
-      .attr('x', -height / 2)
-      .attr('y', margin.left / 2)
-      .attr('text-anchor', 'middle')
-      .attr('transform', 'rotate(-90)')
-      .text('Vote Count')
 }
