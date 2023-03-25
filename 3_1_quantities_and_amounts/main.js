@@ -66,20 +66,19 @@ function draw() {
     
     // xAxis label
     svg
-        .append('text')
-        .attr('x', width / 2)
-        .attr('y', height - margin.bottom / 2)
-        .attr('text-anchor', 'middle')
-        .attr('Candidate')
+      .append('text')
+      .attr('transform', 'translate(' + (width/2) + ' ,' + (height) + ')')
+      .style('text-anchor', 'middle')
+      .text('Candidate');
   
     // yAxis label
     svg
-        .append('text')
-        .attr('x', -height / 2)
-        .attr('y', margin.left / 2)
-        .attr('text-anchor', 'middle')
-        .attr('transform', 'rotate(-90)')
-        .text('Vote Count')
+      .append('text')
+      .attr('transform', 'rotate(-90)')
+      .attr('x', - (height/2))
+      .attr('y', 15)
+      .style('text-anchor', 'middle')
+      .text('Popular Vote');
 
     const rect = svg
       .selectAll('rect.bar')
