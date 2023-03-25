@@ -69,7 +69,7 @@ function draw() {
         .append('text')
         .attr('x', width / 2)
         .attr('y', height - margin.bottom / 2)
-        .attr('text-anchro', 'middle')
+        .attr('text-anchor', 'middle')
         .attr('Candidate')
   
     // yAxis label
@@ -92,6 +92,4 @@ function draw() {
       .attr('y', d => yScale(d.vote_count))
       // .attr('y', d => height - margin.bottom - yScale(d.vote_count))
       // .attr('y', d => height - yScale(d.vote_count))
-    
-
 }
