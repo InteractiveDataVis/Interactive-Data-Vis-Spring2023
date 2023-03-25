@@ -25,4 +25,9 @@ spacing, I've confused the positioning of the rects again.
 
 - OK, I tried to get too fancy when assiging the `y` attribute. I can't tell you
 why, but I got that settled. Next, the rects and yAxis are positioned too far
-to the left. Let's address that next
+to the left. Let's address that next.
+
+- Elements are displaying enough to be legible. I'm struggling with reasoning
+about why the xAxis and yAxis don't meet. I'm going to leave that for a review,
+because most of the ideas I have for changing this seem to make the code more 
+convoluted.
