@@ -51,3 +51,6 @@ this a case to use the box model and adjust padding for these classes?
 - Why do the xAxis and yAxis not meet? Most of the ideas I have for changing 
 this seem to make the code more convoluted. I wanted to focus on the rest of the
  assignment, because I feel like I have a hand on that.
+
+- General improvement: assign colorScale based on highest to lowest votes. What'
+s a good way to do that?
