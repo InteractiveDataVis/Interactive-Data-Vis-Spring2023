@@ -34,6 +34,8 @@ function init() {
     .domain([0, d3.max(state.data, d => d.vote_count)])
     .range([height - margin.bottom, margin.top])
 
+  
+
   draw(); // calls the draw function
 }
 
@@ -46,6 +48,9 @@ function draw() {
     .append('svg')
     .attr('width', width)
     .attr('height', height)
+
+    const xAxis = d3.axisBottm(xScale)    // not sure about adding these
+    const yAxis = d3.axisLeft(yScale)     // to the draw function
 
     const rect = svg
       .selectAll('rect.bar')
