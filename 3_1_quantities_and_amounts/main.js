@@ -82,14 +82,33 @@ function draw() {
       .style('text-anchor', 'middle')
       .text('Popular Vote');
 
-    const rect = svg
+      const rect = svg
       .selectAll('rect.bar')
       .data(state.data)
-      .join('rect')
-      .attr('fill', (d, i) =>  colorScale(i))
-      .attr('class', 'bar')   // good review, I typically forget this one
-      .attr('width', xScale.bandwidth())
-      .attr('height', d => height - margin.bottom - yScale(d.vote_count))
-      .attr('x', d => xScale(d.candidate) + margin.left)
-      .attr('y', d => yScale(d.vote_count))
+      .join(
+        enter => enter
+          .append('rect')
+          .attr('class', 'bar')
+          .attr('width', xScale.bandwidth())
+          .attr('height', 0)
+          .attr('x', d => xScale(d.candidate) + margin.left)
+          .attr('y', height - margin.bottom)
+          .attr('fill', (d, i) =>  colorScale(i))
+          .call(sel => sel
+            .transition()
+            .duration(3000)
+            .attr('height', d => height - margin.bottom - yScale(d.vote_count))
+            .attr('y', d => yScale(d.vote_count))
+          )
+      )
+      
+    const dataLabels = svg
+      .selectAll('text.data-label')
+      .data(state.data)
+      .join('text')
+      .attr('class', 'data-label')
+      .attr('x', d => xScale(d.candidate) + xScale.bandwidth() / 2 + margin.left)
+      .attr('y', d => yScale(d.vote_count) - 10)
+      .attr('text-anchor', 'middle')
+      .text(d => d.vote_count)
 }
