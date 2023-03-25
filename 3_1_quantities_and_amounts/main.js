@@ -52,11 +52,13 @@ function draw() {
     const xAxis = d3.axisBottom(xScale)    // not sure about adding these
     const yAxis = d3.axisLeft(yScale)     // to the draw function
 
+    // draw xAxis
     svg
       .append('g')
       .attr('transform', `translate(0px, ${height - margin.bottom}px)`)
       .call(xAxis)
     
+    // draw yAxis
     svg
       .append('g')
       .attr('transform', `translate(${margin.left}px, 0px)`)
@@ -68,8 +70,25 @@ function draw() {
       .join('rect')
       .attr('class', 'bar')   // good review, I typically forget this one
       .attr('width', xScale.bandwidth())
-      .attr('height', d => yScale(d.vote_count))
+      .attr('height', d => height - margin.bottom - yScale(d.vote_count))
       .attr('x', d => xScale(d.candidate))
-      // .attr('y', d => height - margin.bottom - yScale(d.vote_count))
-      .attr('y', d => height - yScale(d.vote_count))
+      .attr('y', d => height - margin.bottom - yScale(d.vote_count))
+      // .attr('y', d => height - yScale(d.vote_count))
+    
+    // xAxis label
+    svg
+      .append('text')
+      .attr('x', width / 2)
+      .attr('y', height - margin.bottom / 2)
+      .attr('text-anchro', 'middle')
+      .attr('Candidate')
+
+    // yAxis label
+    svg
+      .append('text')
+      .attr('x', -height / 2)
+      .attr('y', margin.left / 2)
+      .attr('text-anchor', 'middle')
+      .attr('transform', 'rotate(-90)')
+      .text('Vote Count')
 }
