@@ -78,20 +78,11 @@ function draw() {
 
   // + FILTER DATA BASED ON STATE
   const filteredData = state.data
-    .filter(d => state.selectedParty === "All" || state.selectedParty === d.Party)
+    .filter(d => state.selectedSmoking === "All" || state.selectedSmoking == d.smoke)
 
   const dot = svg
     .selectAll('circle.dot')
-    .data(state.data, d => d.case)
-    // .data(filteredData, d => d.BioID)
-    // .join('circle')
-    // .attr('class', 'dot')
-    // .attr('cx', d => xScale(d.age))
-    // .attr('cy', d => yScale(d.bwt))
-    // .attr('r', radius)
-    // .style('fill', d => (d.smoke === 1) ? 'lightgrey' : 'maroon')
-    // .style('stroke', d => (d.smoke === 1) ? 'darkgrey' : 'darkred')
-    // .attr('opacity', 0.6)
+    .data(filteredData, d => d.case)
     .join(
       // + HANDLE ENTER SELECTION
       enter => enter
@@ -118,5 +109,15 @@ function draw() {
 
       // + HANDLE EXIT SELECTION
       exit => exit
+      .call(sel => sel
+        .transition()
+        .duration(500)
+        .attr('r', bigger_radius)
+        .transition()
+        .duration(200)
+        .attr('r', 0)
+        .remove()
+      )
+      
     );
 }
