@@ -1,7 +1,13 @@
+a {
+  color: maroon
+}
+
 body {
   font-family: "Source Sans Pro", sans-serif;
   font-size: 16px;
   padding: 1em;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 h1 {

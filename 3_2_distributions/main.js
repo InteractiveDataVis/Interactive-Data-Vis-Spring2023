@@ -1,24 +1,25 @@
 /* CONSTANTS AND GLOBALS */
-// const width = ,
-//   height = ,
-//   margin = ,
-//   radius = ;
+const width = window.innerWidth * 0.7,
+  height = window.innerWidth * 0.7,
+  margin = { top: 20, bottom: 50, left: 60, right: 40},
+  radius = 5;
+  bigger_radius = 6.5;
 
 // these variables allow us to access anything we manipulate in init() but need access to in draw().
 // All these variables are empty before we assign something to them.
-// let svg;
-// let xScale;
-// let yScale;
-// let colorScale;
+let svg;
+let xScale;
+let yScale;
+let colorScale;
 
 /* APPLICATION STATE */
 let state = {
   data: [],
-  selectedParty: "All" // + YOUR INITIAL FILTER SELECTION
+  selectedSmoking: 'All' // + YOUR INITIAL FILTER SELECTION
 };
 
 /* LOAD DATA */
-d3.json("../data/environmentRatings.json", d3.autoType).then(raw_data => {
+d3.csv("../data/babies.csv", d3.autoType).then(raw_data => {
   // + SET YOUR DATA PATH
   console.log("data", raw_data);
   // save our data to application state
@@ -30,20 +31,43 @@ d3.json("../data/environmentRatings.json", d3.autoType).then(raw_data => {
 // this will be run *one time* when the data finishes loading in
 function init() {
   // + SCALES
+  xScale = d3.scaleLinear()
+    .domain([d3.min(state.data, d => d.age), d3.max(state.data, d => d.age)])
+    .range([margin.left - 60, width - margin.right]) // check out this hack
 
-
+  yScale = d3.scaleLinear()
+    .domain([0, (d3.max(state.data, d => d.bwt) + 10)])
+    .range([height - margin.bottom, margin.top])
+  
   // + AXES
-
+  const xAxis = d3.axisBottom(xScale)
+  const yAxis = d3.axisLeft(yScale)
 
   // + UI ELEMENT SETUP
-
+  const dropDownElement = d3.select('#dropdown')
+  .on('change', (event) => {
+    state.selectedSmoking = event.target.value
+    draw();
+  })
 
   // + CREATE SVG ELEMENT
+  svg = d3.select('#container')
+    .append('svg')
+    .attr('width', width)
+    .attr('height', height)
 
 
   // + CALL AXES
 
+  svg
+    .append('g')
+    .attr('transform', `translate(${margin.left}, ${height - margin.bottom})`)
+    .call(xAxis)
 
+  svg
+    .append('g')
+    .attr('transform', `translate(${margin.left}, 0)`)
+    .call(yAxis)
 
   draw(); // calls the draw function
 }
@@ -54,19 +78,46 @@ function draw() {
 
   // + FILTER DATA BASED ON STATE
   const filteredData = state.data
-    // .filter(d => state.selectedParty === "All" || state.selectedParty === d.Party)
+    .filter(d => state.selectedSmoking === "All" || state.selectedSmoking == d.smoke)
 
   const dot = svg
-    .selectAll("circle")
-    .data(filteredData, d => d.BioID)
+    .selectAll('circle.dot')
+    .data(filteredData, d => d.case)
     .join(
       // + HANDLE ENTER SELECTION
-      enter => enter,
+      enter => enter
+        .append('circle')
+        .attr('class', 'dot')
+        .attr('cx', d => xScale(d.age))
+        .attr('cy', d => yScale(d.bwt))
+        .style('fill', d => (d.smoke === 1) ? 'grey' : 'maroon')
+        .style('stroke', d => (d.smoke === 1) ? 'darkgrey' : 'darkred')
+        .attr('opacity', 0.6)
+        .attr('r', 0)
+        .call(sel => sel
+          .transition()
+          .duration(750)
+          .attr('r', bigger_radius)
+          .transition()
+          .duration(800)
+          .attr('r', radius)
+          )
+        ,
 
       // + HANDLE UPDATE SELECTION
       update => update,
 
       // + HANDLE EXIT SELECTION
       exit => exit
+      .call(sel => sel
+        .transition()
+        .duration(500)
+        .attr('r', bigger_radius)
+        .transition()
+        .duration(200)
+        .attr('r', 0)
+        .remove()
+      )
+      
     );
 }
