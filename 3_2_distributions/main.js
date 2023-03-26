@@ -3,7 +3,7 @@ const width = window.innerWidth * 0.7,
   height = window.innerWidth * 0.7,
   margin = { top: 20, bottom: 50, left: 60, right: 40},
   radius = 5;
-  bigger_radius = 7;
+  bigger_radius = 6.5;
 
 // these variables allow us to access anything we manipulate in init() but need access to in draw().
 // All these variables are empty before we assign something to them.
@@ -15,7 +15,7 @@ let colorScale;
 /* APPLICATION STATE */
 let state = {
   data: [],
-  selectedParty: "All" // + YOUR INITIAL FILTER SELECTION
+  selectedSmoking: 'All' // + YOUR INITIAL FILTER SELECTION
 };
 
 /* LOAD DATA */
@@ -33,18 +33,22 @@ function init() {
   // + SCALES
   xScale = d3.scaleLinear()
     .domain([d3.min(state.data, d => d.age), d3.max(state.data, d => d.age)])
-    .range([margin.left, width - margin.right])
+    .range([margin.left - 60, width - margin.right]) // check out this hack
 
   yScale = d3.scaleLinear()
     .domain([0, (d3.max(state.data, d => d.bwt) + 10)])
     .range([height - margin.bottom, margin.top])
   
-    // + AXES
+  // + AXES
   const xAxis = d3.axisBottom(xScale)
   const yAxis = d3.axisLeft(yScale)
 
   // + UI ELEMENT SETUP
-
+  const dropDownElement = d3.select('#dropdown')
+  .on('change', (event) => {
+    state.selectedSmoking = event.target.value
+    draw();
+  })
 
   // + CREATE SVG ELEMENT
   svg = d3.select('#container')
@@ -74,7 +78,7 @@ function draw() {
 
   // + FILTER DATA BASED ON STATE
   const filteredData = state.data
-    // .filter(d => state.selectedParty === "All" || state.selectedParty === d.Party)
+    .filter(d => state.selectedParty === "All" || state.selectedParty === d.Party)
 
   const dot = svg
     .selectAll('circle.dot')

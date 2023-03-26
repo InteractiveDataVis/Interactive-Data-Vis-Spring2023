@@ -15,5 +15,8 @@ If you find you're not able complete this week's assignment, reflecting on where
 
 ### Questions
 
+- Gaps in Axes! Check out the hack around line 36 when I'm setting the range of
+the xScale: `.range([margin.left - 60, width - margin.right])`
+
 - Ugh, struggling to understand how those three `circle.dots` are to the 
-*left* of the yAxis. 
+*left* of the yAxis.  
