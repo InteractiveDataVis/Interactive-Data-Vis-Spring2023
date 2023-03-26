@@ -94,7 +94,7 @@ function draw() {
     //     .attr('class', 'dot')
     //     .attr('cx', d => xScale(d.age))
     //     .attr('cy', d => yScale(d.bwt))
-    //     .style('fill', d => (d.smoke === 1) ? 'light-grey' : 'maroon')
+    //     .style('fill', d => (d.smoke === 1) ? 'lightgrey' : 'maroon')
     //     .attr('opacity', 0.6)
     //     .call(sel => sel
     //       .attr('r', radius)
