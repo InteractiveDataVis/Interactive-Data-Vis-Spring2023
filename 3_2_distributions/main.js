@@ -3,6 +3,7 @@ const width = window.innerWidth * 0.7,
   height = window.innerWidth * 0.7,
   margin = { top: 20, bottom: 50, left: 60, right: 40},
   radius = 5;
+  bigger_radius = 7;
 
 // these variables allow us to access anything we manipulate in init() but need access to in draw().
 // All these variables are empty before we assign something to them.
@@ -79,32 +80,39 @@ function draw() {
     .selectAll('circle.dot')
     .data(state.data, d => d.case)
     // .data(filteredData, d => d.BioID)
-    .join('circle')
-    .attr('class', 'dot')
-    .attr('cx', d => xScale(d.age))
-    .attr('cy', d => yScale(d.bwt))
-    .attr('r', radius)
-    .style('fill', d => (d.smoke === 1) ? 'lightgrey' : 'maroon')
-    .style('stroke', d => (d.smoke === 1) ? 'darkgrey' : 'darkred')
-    .attr('opacity', 0.6)
-    // .join(
-    //   // + HANDLE ENTER SELECTION
-    //   enter => enter
-    //     .append('circle')
-    //     .attr('class', 'dot')
-    //     .attr('cx', d => xScale(d.age))
-    //     .attr('cy', d => yScale(d.bwt))
-    //     .style('fill', d => (d.smoke === 1) ? 'lightgrey' : 'maroon')
-    //     .attr('opacity', 0.6)
-    //     .call(sel => sel
-    //       .attr('r', radius)
-    //       )
-    //     ,
+    // .join('circle')
+    // .attr('class', 'dot')
+    // .attr('cx', d => xScale(d.age))
+    // .attr('cy', d => yScale(d.bwt))
+    // .attr('r', radius)
+    // .style('fill', d => (d.smoke === 1) ? 'lightgrey' : 'maroon')
+    // .style('stroke', d => (d.smoke === 1) ? 'darkgrey' : 'darkred')
+    // .attr('opacity', 0.6)
+    .join(
+      // + HANDLE ENTER SELECTION
+      enter => enter
+        .append('circle')
+        .attr('class', 'dot')
+        .attr('cx', d => xScale(d.age))
+        .attr('cy', d => yScale(d.bwt))
+        .style('fill', d => (d.smoke === 1) ? 'grey' : 'maroon')
+        .style('stroke', d => (d.smoke === 1) ? 'darkgrey' : 'darkred')
+        .attr('opacity', 0.6)
+        .attr('r', 0)
+        .call(sel => sel
+          .transition()
+          .duration(750)
+          .attr('r', bigger_radius)
+          .transition()
+          .duration(800)
+          .attr('r', radius)
+          )
+        ,
 
-    //   // + HANDLE UPDATE SELECTION
-    //   update => update,
+      // + HANDLE UPDATE SELECTION
+      update => update,
 
-    //   // + HANDLE EXIT SELECTION
-    //   exit => exit
-    // );
+      // + HANDLE EXIT SELECTION
+      exit => exit
+    );
 }
