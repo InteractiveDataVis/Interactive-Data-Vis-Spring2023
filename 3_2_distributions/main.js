@@ -31,7 +31,7 @@ d3.csv("../data/babies.csv", d3.autoType).then(raw_data => {
 function init() {
   // + SCALES
   xScale = d3.scaleLinear()
-    .domain([13, d3.max(state.data, d => d.age)])
+    .domain([d3.min(state.data, d => d.age), d3.max(state.data, d => d.age)])
     .range([margin.left, width - margin.right])
 
   yScale = d3.scaleLinear()
