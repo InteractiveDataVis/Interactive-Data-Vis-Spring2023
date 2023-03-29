@@ -27,7 +27,7 @@ function init() {
   /* SCALES */
   xScale = d3.scaleBand()
     .domain(state.data.map(d => d.candidate))
-    .range([margin.left, width - margin.right])
+    .range([0, width - margin.right])
     .paddingInner(0.1)
 
   yScale = d3.scaleLinear()
@@ -124,8 +124,8 @@ function draw() {
             .tween('text', function (d) {
               const selfSelector = d3.select(this)
               const interpolator = d3.interpolateNumber(0, d.vote_count)
-              return (t) => {
-                selfSelector.text(Math.round(interpolator(t)))
+              return (num) => {
+                selfSelector.text(Math.round(interpolator(num)))
               }
             })
             )

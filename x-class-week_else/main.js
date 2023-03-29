@@ -72,8 +72,8 @@ Promise.all([
             const [mx, my] = d3.pointer(event)  // decomposition
             // use projection invert method to get latitude and longitude
             const [projX, projY] = projection.invert([mx, my])
-            state.hover.latitude = projX
-            state.hover.longitude = projY
+            state.hover.latitude = projY
+            state.hover.longitude = projX
             draw()
         })
     
