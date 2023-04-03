@@ -1,0 +1,38 @@
+body {
+    color: maroon;
+}
+.content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2em;
+}
+
+.content h1,
+.content h2,
+.content h3,
+.content h4,
+.content h5,
+.content h6,
+.content p,
+.content li,
+.content a {
+    color: inherit;
+}
+
+.content a:hover {
+    color: #66CCCC; /* Choose a complementary color for the hover state */
+}
+
+::selection {
+    background-color: maroon;
+    color: white;
+}
+
+.list-columns ul {
+    columns: 4;
+}
+
+.columns {
+    padding-top: 1rem;
+}
+
