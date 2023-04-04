@@ -20,7 +20,8 @@ body {
 }
 
 .content a:hover {
-    color: #66CCCC; /* Choose a complementary color for the hover state */
+    color: white; 
+    background-color: maroon;
 }
 
 ::selection {
