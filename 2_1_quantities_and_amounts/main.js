@@ -61,11 +61,11 @@ d3.csv('../data/squirrelActivities.csv', d3.autoType)
 
     const xScaleH = d3.scaleLinear()
       .domain([0, Math.max(...data.map(d => d.count))])
-      .range([width - margin, margin])
+      .range([margin, width - margin])
     
     const yScaleH = d3.scaleBand()
       .domain([...data.map((d => d.activity))])
-      .range([margin, height - margin])
+      .range([height - margin, margin])
       .padding(0.15)
     
     svgH.selectAll('rect.bar')
@@ -75,7 +75,7 @@ d3.csv('../data/squirrelActivities.csv', d3.autoType)
       // we've appended to the DOM, let's draw!
       .attr('x', d => xScaleH(d.count))
       .attr('y', d => yScaleH(d.activity))
-      .attr('width', d => (height - margin)- xScaleH(d.count))
+      .attr('width', d => xScaleH(d.count))
       .attr('height', yScaleH.bandwidth())
       .attr('fill', '#9400D3')
 
