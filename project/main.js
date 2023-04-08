@@ -1,7 +1,7 @@
 /* CONSTANTS AND GLOBALS */
 const width = window.innerWidth * 0.7,
   height = window.innerHeight * 0.7,
-  margin = { top: 20, bottom: 50, left: 60, right: 40}
+  margin = { top: 20, bottom: 50, left: 60, right: 60}
 
 // these variables allow us to access anything we manipulate in init() but need access to in draw().
 // All these variables are empty before we assign something to them.
@@ -40,10 +40,10 @@ let state = {
     // + SCALES
     xScale = d3.scaleTime()
         .domain(d3.extent(state.data, d => d.year))
-        .range([margin.right, width - margin.left])
+        .range([margin.right, width - margin.left])    // TODO
     
     yScale = d3.scaleLinear()
-        .domain(d3.extent(state.data, d => d.number_of_people))
+        .domain([0, d3.max(state.data, d => d.number_of_people)])
         .range([height - margin.bottom, margin.top])
   
     // + AXES
