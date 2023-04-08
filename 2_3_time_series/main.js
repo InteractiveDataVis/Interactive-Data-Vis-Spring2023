@@ -57,9 +57,14 @@ d3.csv('../data/unemployment_results_1990-2016.csv', d => {
 
   // LINE GENERATOR FUNCTION
 
-  const lineGenerated = d3.line()
+  // const lineGenerated = d3.line()
+  //   .x(d => xScale(d.year))
+  //   .y(d => yScale(d.rate))
+
+  const areaGenerated = d3.area()
     .x(d => xScale(d.year))
-    .y(d => yScale(d.rate))
+    .y0(yScale(0))
+    .y1(d => yScale(d.rate))
 
   groupedData.forEach(([county, countyData]) => {
     // I need to sort the data by year, otherwise, I get loopy lines?
@@ -69,8 +74,9 @@ d3.csv('../data/unemployment_results_1990-2016.csv', d => {
       .datum(countyData)
       .join('path')
       .attr('class', 'line')
-      .attr('stroke', () => colorScale(county))
-      .attr('fill', 'none')
-      .attr('d', lineGenerated)
+      // .attr('stroke', () => colorScale(county))
+      // .attr('fill', 'none')
+      .attr('fill', () => colorScale(county))
+      .attr('d', areaGenerated)
   })
 });
