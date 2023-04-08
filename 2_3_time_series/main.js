@@ -43,19 +43,29 @@ d3.csv('../data/unemployment_results_1990-2016.csv', d => {
     .style('transform', `translate(${margin.right}px,0px)`)
     .call(yAxis)
 
+  // Filter data so it's not a mess
+  const filteredData = data.filter(d => d.state === 'Delaware' && d.month === 'January')
+  console.log('filtered', filteredData)
+
+  const groupedData = d3.groups(filteredData, d => d.county)
+
+  // Color scheme
+  const colorScale = d3.scaleOrdinal(d3.schemeCategory10)
+
   // LINE GENERATOR FUNCTION
 
   const lineGenerated = d3.line()
     .x(d => xScale(d.year))
     .y(d => yScale(d.rate))
 
+  groupedData.forEach(([county, countyData]) => {
   // DRAW LINE
-  svg.append('.line')
-    .data([data])    // reminder that we're passing in an array
-    .join("path")
+  svg.append('path')
+    .datum(countyData)
+    .join('path')
     .attr('class', 'line')
-    .attr('stroke', 'maroon')
+    .attr('stroke', () => colorScale(county))
     .attr('fill', 'none')
-  console.log(d => d)
-
+    .attr('d', lineGenerated)
+  })
 });
