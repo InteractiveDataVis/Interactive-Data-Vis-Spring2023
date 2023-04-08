@@ -16,13 +16,22 @@ d3.csv('../data/unemployment_results_1990-2016.csv', d => {
 }).then(data => {
   console.log('data :>> ', data);
 
+   // Filter data so it's not a mess
+   const filteredData = data.filter(d => d.state === 'Delaware' && d.month === 'January')
+   console.log('filtered', filteredData)
+   filteredData.forEach(d => {console.log('rate', d.county + d.year + d.rate)})
+
+   // Grouping data
+   const groupedData = d3.groups(filteredData, d => d.county)
+   console.log('grouped', groupedData)
+
   // SCALES
   const xScale = d3.scaleTime()
     .domain(d3.extent(data, d => d.year))
     .range([margin.right, width - margin.left])
 
   const yScale = d3.scaleLinear()
-    .domain(d3.extent(data, d => d.rate))
+    .domain([0, d3.max(filteredData, d => d.rate) * 1.1])
     .range([height - margin.bottom, margin.top])
 
   // CREATE SVG ELEMENT
@@ -40,14 +49,8 @@ d3.csv('../data/unemployment_results_1990-2016.csv', d => {
       .call(xAxis)
   
   svg.append('g')
-    .style('transform', `translate(${margin.right}px,0px)`)
+    .style('transform', `translate(${margin.left}px,0px)`)
     .call(yAxis)
-
-  // Filter data so it's not a mess
-  const filteredData = data.filter(d => d.state === 'Delaware' && d.month === 'January')
-  console.log('filtered', filteredData)
-
-  const groupedData = d3.groups(filteredData, d => d.county)
 
   // Color scheme
   const colorScale = d3.scaleOrdinal(d3.schemeCategory10)
@@ -59,13 +62,15 @@ d3.csv('../data/unemployment_results_1990-2016.csv', d => {
     .y(d => yScale(d.rate))
 
   groupedData.forEach(([county, countyData]) => {
-  // DRAW LINE
-  svg.append('path')
-    .datum(countyData)
-    .join('path')
-    .attr('class', 'line')
-    .attr('stroke', () => colorScale(county))
-    .attr('fill', 'none')
-    .attr('d', lineGenerated)
+    // I need to sort the data by year, otherwise, I get loopy lines?
+    countyData.sort((w, z) => w.year - z.year )
+    // DRAW LINE
+    svg.append('path')
+      .datum(countyData)
+      .join('path')
+      .attr('class', 'line')
+      .attr('stroke', () => colorScale(county))
+      .attr('fill', 'none')
+      .attr('d', lineGenerated)
   })
 });
