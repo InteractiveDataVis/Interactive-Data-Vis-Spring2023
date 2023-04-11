@@ -3,6 +3,16 @@ const width = window.innerWidth * 0.7,
   height = window.innerHeight * 0.7,
   margin = { top: 20, bottom: 50, left: 60, right: 60}
 
+const internalColor = '#008000'
+const abroadColor = '#FFC0CB'
+
+const legend = {
+  width: 180,
+  height: 60,
+  x: width - 210,
+  y: 30,
+}
+
 // these variables allow us to access anything we manipulate in init() but need access to in draw().
 // All these variables are empty before we assign something to them.
 let svg
@@ -12,6 +22,35 @@ let xAxis
 let yAxis
 let xAxisGroup
 let yAxisGroup
+
+
+// + CREATE LEGEND
+function createLegend() {
+  const legendGroup = svg.append('g')
+    .attr('transform', `translate(${legend.x}, ${legend.y})`)
+
+  const legendColors = [
+    { text: 'Internal migration', color: internalColor },
+    { text: 'Abroad migration', color: abroadColor },
+  ]
+
+legendColors.forEach((color, item) => {
+  const legendItem = legendGroup.append('g')
+    .attr('transform', `translate(0, ${item * 20})`)
+
+  legendItem.append('rect')
+    .attr('width', 10)
+    .attr('height', 10)
+    .attr('fill', color.color)
+
+  legendItem.append('text')
+    .attr('x', 15)
+    .attr('y', 10)
+    .text(color.text)
+    .style('font-size', '14px')
+
+  })
+}
 
 /* APPLICATION STATE */
 let state = {
@@ -35,9 +74,9 @@ let state = {
     }
   })
     .then(raw_data => {
-      console.log('loaded data:', raw_data)
+      console.log('loaded data:', raw_data)   // DIAG
       state.data = raw_data
-      console.log('state_data', state.data)
+      console.log('state_data', state.data)   // DIAG
       init()
     })
   
@@ -50,13 +89,12 @@ let state = {
         .range([margin.right, width - margin.left])
     
     yScale = d3.scaleLinear()
-        .domain([0, d3.max(state.data, d => d.number_of_people)])
+        .domain([0, d3.max(state.data, d => d.from_different_state_total - 450000)])
         .range([height - margin.bottom, margin.top])
   
     // + AXES
     const xAxis = d3.axisBottom(xScale)
     const yAxis = d3.axisLeft(yScale)
-  
   
     // + UI ELEMENT SETUP
   
@@ -75,8 +113,8 @@ let state = {
     yAxisGroup = svg.append('g')
         .attr('transform', `translate(${margin.left}, 0)`)
         .call(yAxis)
-  
-  
+    
+    createLegend()
     draw() // calls the draw function
   }
   
@@ -99,7 +137,8 @@ let state = {
     }, d => d.year)
   
     // THIS LOOKS GOOFY
-    const aggData = Array.from(groupedByYear, ([year, values]) => ({ year: new Date(year), ...values }))
+    const aggData = Array.from(groupedByYear, ([year, values]) => 
+      ({ year: new Date(year), ...values }))
 
 
     // + UPDATE SCALE(S), if needed
@@ -124,18 +163,19 @@ let state = {
 
     const lineLocal = d3.line()
   
-  
     // + DRAW LINE AND/OR AREA
     
     svg.append('path')
       .datum(aggData)
-      .attr('stroke', '#008000')
+      .attr('stroke', internalColor)
       .attr('fill', 'none')
+      .attr('stroke-width', 2)
       .attr('d', lineInternal)
     
     svg.append('path')
       .datum(aggData)
-      .attr('stroke', '#FFC0CB')
+      .attr('stroke', abroadColor)
+      .attr('stroke-width', 2)
       .attr('fill', 'none')
       .attr('d', lineAbroad)
   }
