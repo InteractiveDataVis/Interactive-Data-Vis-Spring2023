@@ -23,8 +23,15 @@ let state = {
   // + SET YOUR DATA PATH
   d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
     return {
+        current_state: d.current_state,
         year: new Date(+d.year, 0, 1),
-        number_of_people: d.number_of_people
+        population: +d.population,
+        same_house: +d.same_house,
+        same_state: +d.same_state,
+        from_different_state_Total: +d.from_different_state_total,
+        abroad_Total: +d.abroad_total,
+        from: d.from,
+        number_of_people: d.number_of_people,
     }
   })
     .then(raw_data => {
@@ -77,8 +84,12 @@ let state = {
   // we call this every time there is an update to the data/state
   function draw() {
     // + FILTER DATA BASED ON STATE
-    const filteredData = state.data
+    const filteredUtah = state.data
       .filter(d => d.current_state === 'Utah')
+    console.log('filteredData', filteredUtah)
+
+    // const filteredUS = filteredUtah
+    //   .filter(d => d.)
   
     // + UPDATE SCALE(S), if needed
     
