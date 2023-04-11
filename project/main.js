@@ -28,10 +28,10 @@ let state = {
         population: +d.population,
         same_house: +d.same_house,
         same_state: +d.same_state,
-        from_different_state_Total: +d.from_different_state_total,
-        abroad_Total: +d.abroad_total,
+        from_different_state_total: +d.from_different_state_Total,
+        abroad_total: +d.abroad_Total,
         from: d.from,
-        number_of_people: d.number_of_people,
+        number_of_people: +d.number_of_people,
     }
   })
     .then(raw_data => {
@@ -47,7 +47,7 @@ let state = {
     // + SCALES
     xScale = d3.scaleTime()
         .domain(d3.extent(state.data, d => d.year))
-        .range([margin.right, width - margin.left])    // TODO
+        .range([margin.right, width - margin.left])
     
     yScale = d3.scaleLinear()
         .domain([0, d3.max(state.data, d => d.number_of_people)])
@@ -88,9 +88,20 @@ let state = {
       .filter(d => d.current_state === 'Utah')
     console.log('filteredData', filteredUtah)
 
-    // const filteredUS = filteredUtah
-    //   .filter(d => d.)
+    const groupedByYear = d3.rollup(filteredUtah, i => {
+      const firstInstance = i[0]
+      return {
+        from_different_state_total: firstInstance.from_different_state_total,
+        abroad_total: firstInstance.abroad_total,
+        utah_total: firstInstance.population
+
+      }
+    }, d => d.year)
   
+    // THIS LOOKS GOOFY
+    const aggData = Array.from(groupedByYear, ([year, values]) => ({ year: new Date(year), ...values }))
+
+
     // + UPDATE SCALE(S), if needed
     
   
@@ -98,9 +109,33 @@ let state = {
   
   
     // UPDATE LINE GENERATOR FUNCTION
+   
+    const lineInternal = d3.line()
+      .x(d => xScale(d.year))
+      .y(d => yScale(d.from_different_state_total))
+    
+    const lineAbroad = d3.line()
+      .x(d => xScale(d.year))
+      .y(d => yScale(d.abroad_total))
+
+    const lineUtah = d3.line()
+      .x(d => xScale(d.year))
+      .y(d => yScale(d.population))
+
+    const lineLocal = d3.line()
   
   
     // + DRAW LINE AND/OR AREA
     
-  
+    svg.append('path')
+      .datum(aggData)
+      .attr('stroke', '#008000')
+      .attr('fill', 'none')
+      .attr('d', lineInternal)
+    
+    svg.append('path')
+      .datum(aggData)
+      .attr('stroke', '#FFC0CB')
+      .attr('fill', 'none')
+      .attr('d', lineAbroad)
   }
