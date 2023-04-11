@@ -124,7 +124,7 @@ let state = {
     // + FILTER DATA BASED ON STATE
     const filteredUtah = state.data
       .filter(d => d.current_state === 'Utah')
-    console.log('filteredData', filteredUtah)
+    console.log('filteredData', filteredUtah)   // DIAG
 
     const groupedByYear = d3.rollup(filteredUtah, i => {
       const firstInstance = i[0]
@@ -132,13 +132,13 @@ let state = {
         from_different_state_total: firstInstance.from_different_state_total,
         abroad_total: firstInstance.abroad_total,
         utah_total: firstInstance.population
-
       }
     }, d => d.year)
   
     // THIS LOOKS GOOFY
     const aggData = Array.from(groupedByYear, ([year, values]) => 
       ({ year: new Date(year), ...values }))
+    console.log('aggData => ', aggData)   // DIAG
 
 
     // + UPDATE SCALE(S), if needed
@@ -157,25 +157,55 @@ let state = {
       .x(d => xScale(d.year))
       .y(d => yScale(d.abroad_total))
 
-    const lineUtah = d3.line()
-      .x(d => xScale(d.year))
-      .y(d => yScale(d.population))
+    // const lineUtah = d3.line()
+    //   .x(d => xScale(d.year))
+    //   .y(d => yScale(d.population))
 
-    const lineLocal = d3.line()
+    // const lineLocal = d3.line()
   
     // + DRAW LINE AND/OR AREA
     
-    svg.append('path')
+    const internalPath = svg.append('path')
       .datum(aggData)
       .attr('stroke', internalColor)
       .attr('fill', 'none')
       .attr('stroke-width', 2)
       .attr('d', lineInternal)
     
-    svg.append('path')
+    const abroadPath = svg.append('path')
       .datum(aggData)
       .attr('stroke', abroadColor)
       .attr('stroke-width', 2)
       .attr('fill', 'none')
       .attr('d', lineAbroad)
+
+    // + This part is experimental animation fun
+
+    /* + Get the length of the paths above
+    https://developer.mozilla.org/en-US/docs/Web/API/SVGGeometryElement/getTotalLength
+    */
+    const totalLengthInternalPath = internalPath.node().getTotalLength()
+    const totalLengthAbroadPath = abroadPath.node().getTotalLength()
+
+    /* + Set the start of each path at the beginning
+     https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray
+     https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dashoffset
+    */
+    internalPath
+      .attr('stroke-dasharray', `${totalLengthInternalPath} ${totalLengthAbroadPath}`)
+      .attr('stroke-dashoffset', totalLengthInternalPath)
+    
+    abroadPath
+      .attr('stroke-dasharray', `${totalLengthAbroadPath} ${totalLengthInternalPath}`)
+      .attr('stroke-dashoffset', totalLengthAbroadPath)
+        
+    internalPath.transition()
+      .duration(4000)
+      .ease(d3.easeLinear)
+      .attr('stroke-dashoffset', 0)
+
+    abroadPath.transition()
+      .duration(7000)
+      .ease(d3.easeLinear)
+      .attr('stroke-dashoffset', 0)
   }
