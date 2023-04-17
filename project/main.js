@@ -63,6 +63,8 @@ let state = {
   d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
     return {
         current_state: d.current_state,
+        region: d.region,
+        division: d.division,
         year: new Date(+d.year, 0, 1),
         population: +d.population,
         same_house: +d.same_house,
@@ -135,7 +137,7 @@ let state = {
       }
     }, d => d.year)
   
-    // THIS LOOKS GOOFY
+    // THIS LOOKS GOOFY, and took a little time
     const aggData = Array.from(groupedByYear, ([year, values]) => 
       ({ year: new Date(year), ...values }))
     console.log('aggData => ', aggData)   // DIAG
@@ -205,7 +207,7 @@ let state = {
       .attr('stroke-dashoffset', 0)
 
     abroadPath.transition()
-      .duration(7000)
+      .duration(6000)
       .ease(d3.easeLinear)
       .attr('stroke-dashoffset', 0)
   }

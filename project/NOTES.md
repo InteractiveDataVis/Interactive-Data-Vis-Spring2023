@@ -11,4 +11,6 @@ Sometimes it helps to formulate what you understood and where you got stuck in o
 
 ### Notes while working
 
-- 
+- I coded region/division into the dataset `migration_flows_from_2010_to_2019.csv`.
+    - I decided to use the census definitions: 
+    [https://www2.census.gov/geo/pdfs/maps-data/maps/reference/us_regdiv.pdf](https://www2.census.gov/geo/pdfs/maps-data/maps/reference/us_regdiv.pdf)
