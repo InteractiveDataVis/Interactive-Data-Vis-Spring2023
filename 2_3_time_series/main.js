@@ -40,6 +40,34 @@ d3.csv('../data/unemployment_results_1990-2016.csv', d => {
     .attr('width', width)
     .attr('height', height)
 
+  // CHART TITLE
+  
+  svg
+    .append('text')
+    .attr('x', width / 2)
+    .attr('y', margin.top)
+    .attr('text-anchor', 'middle')
+    .attr('font-size', '1.4em')
+    .text('Unemployment Rate in Delaware')
+
+  // AXIS LABELS
+
+  svg
+    .append('text')
+    .attr('x', width / 2)
+    .attr('y', height - margin.bottom / 4)
+    .attr('text-anchor', 'middle')
+    .text('Year')
+
+  svg 
+    .append('text')
+    .attr('transform', 'rotate(-90)')
+    .attr('x', - height / 2)
+    .attr('y', margin.left / 2)
+    .attr('text-anchor', 'middle')
+    .attr('font-size', '1em')
+    .text('Unemployment Rate')
+
   // BUILD AND CALL AXES
   const xAxis = d3.axisBottom(xScale)
   const yAxis = d3.axisLeft(yScale)
