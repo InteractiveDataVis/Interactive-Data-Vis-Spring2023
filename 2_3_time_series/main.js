@@ -25,6 +25,13 @@ d3.csv('../data/unemployment_results_1990-2016.csv', d => {
    const groupedData = d3.groups(filteredData, d => d.county)
    console.log('grouped', groupedData)
 
+  // Get counties
+  const countiesInDelawareArray = [...new Set(filteredData.map(d => d.county))]
+  console.log('Counties in DE : ', countiesInDelawareArray)
+
+  // sort the counties for the legend
+  countiesInDelawareArray.sort((a, b) => a.localeCompare(b))
+
   // SCALES
   const xScale = d3.scaleTime()
     .domain(d3.extent(data, d => d.year))
@@ -82,6 +89,27 @@ d3.csv('../data/unemployment_results_1990-2016.csv', d => {
 
   // Color scheme
   const colorScale = d3.scaleOrdinal(d3.schemeCategory10)
+
+  // create a group for the legend
+  const legend = svg
+    .append('g')
+    .attr('transform', `translate(${width - margin.right * 2}, ${margin.top})`)
+
+  countiesInDelawareArray.forEach((county, i) => {
+    const legendCounty = legend.append('g')
+      .attr('transform', `translate(0, ${i * 20})`)
+
+    legendCounty.append('rect')
+      .attr('width', 10)
+      .attr('height', 10)
+      .attr('fill', colorScale(county))
+
+    legendCounty.append('text')
+      .attr('x', 15)
+      .attr('y', 10)
+      .text(county)
+      .attr('font-size', '0.8em')
+  })
 
   // LINE GENERATOR FUNCTION
 
