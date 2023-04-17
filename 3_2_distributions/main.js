@@ -33,7 +33,7 @@ function init() {
   // + SCALES
   xScale = d3.scaleLinear()
     .domain([d3.min(state.data, d => d.age), d3.max(state.data, d => d.age)])
-    .range([margin.left - 60, width - margin.right]) // check out this hack
+    .range([margin.left, width - margin.right]) 
 
   yScale = d3.scaleLinear()
     .domain([0, (d3.max(state.data, d => d.bwt) + 10)])
@@ -68,6 +68,21 @@ function init() {
     .append('g')
     .attr('transform', `translate(${margin.left}, 0)`)
     .call(yAxis)
+
+  // + AXIS LABELS
+  svg.append('text')
+    .attr('transform', `translate(${width / 2}, ${height - margin.bottom + 40})`)
+    .style('text-anchor', 'middle')
+    .text('Age')
+
+  svg.append('text')
+    .attr('transform', 'rotate(-90)')
+    .attr('y', margin.left - 50)
+    .attr('x', 0 - (height / 2))
+    .attr('dy', '1em')
+    .style('text-anchor', 'middle')
+    .text('Birth Weight')
+
 
   draw(); // calls the draw function
 }
