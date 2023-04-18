@@ -31,7 +31,7 @@ function createLegend() {
 
   const legendColors = [
     { text: 'Internal migration', color: internalColor },
-    { text: 'Abroad migration', color: abroadColor },
+    { text: 'Migration from aboard', color: abroadColor },
   ]
 
 legendColors.forEach((color, item) => {
