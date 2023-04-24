@@ -37,3 +37,15 @@ body {
     padding-top: 1rem;
 }
 
+#navbar {
+    color: maroon;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2em;
+}
+
+#navbar a:hover {
+    color: white; 
+    background-color: maroon;
+}
+
