@@ -18,7 +18,7 @@ const width = window.innerWidth * 0.7,
   margin = { top: 20, bottom: 50, left: 90, right: 60}
 
 // colors
-const maroon = '#008000',
+const maroon = '#800000',
   lightGrey = '#D3D3D3',
   teal = '#008080'
 
@@ -55,7 +55,7 @@ d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
   return {
     current_state: d.current_state,
     current_region: d.region,
-    current_division: d.divsion,
+    current_division: d.division,
     year: new Date(+d.year, 0, 1),
     population: +d.population,
     same_house: +d.same_house,
@@ -74,10 +74,6 @@ d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
     init()
   })
 
-  /* process data
-  - Filter out Utah data
-  - 
-  */
   function init() {
         // filter Utah data
         const utahData = state.data
@@ -131,7 +127,7 @@ d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
     xScale = d3.scaleBand()
       .domain(simpleChartData.map(d => d.typeOfMigration))
       .range([0, width - margin.right])
-      .paddingInner(0.2)
+      .padding(0.1)
     
     yScale = d3.scaleLinear()
       // nice() function: https://www.d3indepth.com/scales/
@@ -183,9 +179,30 @@ d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
       .attr('class', 'axis-label')
       .text('Migrants to Utah')
 
+    const rect = svg
+    .selectAll('rect.bar')
+    .data(simpleChartData)
+    .join(
+      enter => enter
+        .append('rect')
+        .attr('class', 'bar')
+        .attr('width', xScale.bandwidth())
+        .attr('height', 0)
+        .attr('x', d => xScale(d.typeOfMigration) + margin.left)
+        .attr('y', d => height - margin.bottom)
+        .attr('fill', (d, i) => colorScale(i))
+        .call(sel => sel
+          .transition()
+          .duration(2000)
+          .attr('height', d => height - margin.bottom - yScale(d.value))
+          .attr('y', d => yScale(d.value))
+          )
+    )
+
     draw()
   }
 
   function draw() {
-
-  }
+    // draw bars
+   
+}
