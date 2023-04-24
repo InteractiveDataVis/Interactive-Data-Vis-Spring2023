@@ -180,6 +180,12 @@ d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
       .attr('class', 'axis-label')
       .text('Migrants to Utah')
 
+    const tooltip = d3.select('body')
+      .append('div')
+      .attr('class', 'tooltip')
+      .style('opacity', 0)
+    
+
     const rect = svg
     .selectAll('rect.bar')
     .data(simpleChartData)
@@ -192,6 +198,23 @@ d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
         .attr('x', d => xScale(d.typeOfMigration) + margin.left)
         .attr('y', d => height - margin.bottom)
         .attr('fill', (d, i) => colorScale(i))
+        .on('mouseover', (event, d) => {
+          const percentOfPopulation = ((d.value / utahData[0].population) * 100).toFixed(2)
+          tooltip
+            .transition()
+            .duration(300)
+            .style('opacity', 0.9)
+          tooltip
+            .html(`${percentOfPopulation}% population growth`)
+            .style('left', `${(event.pageX)}px`)
+            .style('top', `${event.pageY - 25}px`)
+        })
+        .on('mouseout', () => {
+          tooltip
+            .transition()
+            .duration(200)
+            .style('opacity', 0)
+        })
         .call(sel => sel
           .transition()
           .duration(1500)
