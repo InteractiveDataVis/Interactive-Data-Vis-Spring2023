@@ -29,12 +29,15 @@ body {
     color: white;
 }
 
+.columns {
+    padding-top: 1rem;
+}
 .list-columns ul {
     columns: 4;
 }
 
-.columns {
-    padding-top: 1rem;
+.axis-label {
+    fill: maroon;
 }
 
 #navbar {

@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // constants and global variables
 const width = window.innerWidth * 0.7,
   height = window.innerHeight * 0.7,
-  margin = { top: 20, bottom: 50, left: 60, right: 60}
+  margin = { top: 20, bottom: 50, left: 90, right: 60}
 
 // colors
 const maroon = '#008000',
@@ -163,6 +163,25 @@ d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
       .append('g')
       .attr('transform', `translate(${margin.left}, 0)`)
       .call(yAxis)
+
+    // draw axis labels
+    svg
+      .append('text')
+      .attr(
+        'transform', 
+        `translate(${width  / 2 + margin.right}, ${height - margin.bottom + 45})`)
+      .style('text-anchor', 'middle')
+      .attr('class', 'axis-label')
+      .text('Type of Immigration')
+
+    svg
+      .append('text')
+      .attr('transform', 'rotate(-90)')
+      .attr('x', - (height/2))
+      .attr('y', margin.left / 2 - 30)
+      .style('text-anchor', 'middle')
+      .attr('class', 'axis-label')
+      .text('Migrants to Utah')
 
     draw()
   }
