@@ -13,7 +13,7 @@ const legend = {
   y: 30,
 }
 
-// these variables allow us to access anything we manipulate in init() but need access to in draw().
+// These variables allow us to access anything we manipulate in init() but need access to in draw().
 // All these variables are empty before we assign something to them.
 let svg
 let xScale
@@ -76,9 +76,7 @@ let state = {
     }
   })
     .then(raw_data => {
-      console.log('loaded data:', raw_data)   // DIAG
       state.data = raw_data
-      console.log('state_data', state.data)   // DIAG
       init()
     })
   
@@ -125,9 +123,10 @@ let state = {
   function draw() {
     // + FILTER DATA BASED ON STATE
     const filteredUtah = state.data
-      .filter(d => d.current_state === 'Utah')
-    console.log('filteredData', filteredUtah)   // DIAG
+      .filter(d => d.current_state === 'Utah')  // Utah only
 
+    // Group data by year
+    // Creates an option with years as keys
     const groupedByYear = d3.rollup(filteredUtah, i => {
       const firstInstance = i[0]
       return {
@@ -137,11 +136,9 @@ let state = {
       }
     }, d => d.year)
   
-    // THIS LOOKS GOOFY, and took a little time
+    // Convert Map obj to array of objects, destruction year/values into variables in the objs
     const aggData = Array.from(groupedByYear, ([year, values]) => 
       ({ year: new Date(year), ...values }))
-    console.log('aggData => ', aggData)   // DIAG
-
 
     // + UPDATE SCALE(S), if needed
     
@@ -158,12 +155,6 @@ let state = {
     const lineAbroad = d3.line()
       .x(d => xScale(d.year))
       .y(d => yScale(d.abroad_total))
-
-    // const lineUtah = d3.line()
-    //   .x(d => xScale(d.year))
-    //   .y(d => yScale(d.population))
-
-    // const lineLocal = d3.line()
   
     // + DRAW LINE AND/OR AREA
     
