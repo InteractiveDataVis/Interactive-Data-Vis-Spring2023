@@ -19,8 +19,8 @@ const width = window.innerWidth * 0.7,
 
 // colors
 const maroon = '#800000',
-  lightGrey = '#D3D3D3',
-  teal = '#008080'
+  teal = '#008080',
+  dusty_rose = '#C0737A'
 
 // create area for legend
 const legend = {
@@ -93,7 +93,7 @@ d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
   
       console.log('grouped by year >>', groupedByYear) // diagnostic
   
-      // Convert Map objects to array of objects
+      // Convert Map objects to array of objects; destructuring for the win!
       const aggByYear = Array.from(groupedByYear, ([year, values]) =>
         ({year: new Date(year), ...values}))
   
@@ -128,6 +128,7 @@ d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
       .domain(simpleChartData.map(d => d.typeOfMigration))
       .range([0, width - margin.right])
       .padding(0.1)
+      .paddingInner(0.3)
     
     yScale = d3.scaleLinear()
       // nice() function: https://www.d3indepth.com/scales/
@@ -138,7 +139,7 @@ d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
     
     // set the color scale
     colorScale = d3.scaleOrdinal()
-      .range([maroon, teal, lightGrey])
+      .range([maroon, teal, dusty_rose])
 
     svg = d3.select('#container')
       .append('svg')
@@ -193,11 +194,40 @@ d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
         .attr('fill', (d, i) => colorScale(i))
         .call(sel => sel
           .transition()
-          .duration(2000)
+          .duration(1500)
+          .delay((_, i) => i * 1000)
           .attr('height', d => height - margin.bottom - yScale(d.value))
           .attr('y', d => yScale(d.value))
+          // learned this one in a previous exercise
           )
     )
+
+    const dataLabels = svg
+          .selectAll('text.data-label')
+          .data(simpleChartData)
+          .join(
+            enter => enter
+              .append('text')
+              .attr('class', 'data-label')
+              .attr('x', d => xScale(d.typeOfMigration) + xScale.bandwidth() / 2 + margin.left)
+              .attr('y', height - margin.bottom)
+              .attr('text-anchor', 'middle')
+              .attr('fill', (d, i) => colorScale(i))
+              .text(d => 0)
+              .call(sel => sel
+                .transition(0)
+                .duration(1500)
+                .delay((_, i) => i * 1000)
+                .attr('y', d => yScale(d.value) - 15)
+                .tween('text', function (d) {
+                  const selfSelector = d3.select(this)
+                  const interpolator = d3.interpolateNumber(0, d.value)
+                  return (num) => {
+                    selfSelector.text(Math.round(interpolator(num)))
+                  }
+                })
+                )
+          )
 
     draw()
   }
