@@ -69,5 +69,66 @@ d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
 })
   .then(raw_data => {
     state.data = raw_data
-    console.log('state data >>', state.data)
+    console.log('state data >>', state.data)  // diagnostic
+    init()
   })
+
+  /* process data
+  - Filter out Utah data
+  - 
+  */
+  function init() {
+    draw()
+  }
+
+  function draw() {
+    // filter Utah data
+    const utahData = state.data
+      .filter(d => d.current_state === 'Utah')
+    console.log('Utah data >>', utahData) // diagnostic
+
+    // group data by year; create objects with years as keys
+    // 
+    const groupedByYear = d3.rollup(utahData, i => {
+      const firstInstance = i[0]
+      return {
+        from_different_state_total: firstInstance.from_different_state_total,
+        abroad_total: firstInstance.abroad_total,
+        utah_total: firstInstance.population,
+      }
+    }, d => d.year)
+
+    console.log('grouped by year >>', groupedByYear) // diagnostic
+
+    // Convert Map objects to array of objects
+    const aggByYear = Array.from(groupedByYear, ([year, values]) =>
+      ({year: new Date(year), ...values}))
+
+    console.log('agg by year >>', aggByYear) // diagnostic
+
+    let totalGrowthFromDifferentStates = 0
+    let totalGrowthFromAbroad = 0
+    let totalGrowthState = 0 
+    let previousYearPop = 0
+
+    aggByYear.forEach(d => {
+      totalGrowthFromDifferentStates += d.from_different_state_total
+      totalGrowthFromAbroad += d.abroad_total
+
+      if (previousYearPop > 0) {
+        totalGrowthState += d.utah_total - previousYearPop
+      }
+      previousYearPop = d.utah_total
+    })
+
+    // prep data for barchart
+    const simpleBarChartData = [
+      { typeOfMigration : 'From Different States', value : totalGrowthFromDifferentStates },
+      { typeofMigration : 'From Abroad', value : totalGrowthFromAbroad },
+      { typeOfMigration : 'Population Growth', value : totalGrowthState },
+
+    ]
+    
+    console.log('bar chart data >>', simpleBarChartData)
+
+  }
