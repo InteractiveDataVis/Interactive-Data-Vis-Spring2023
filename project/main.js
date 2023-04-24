@@ -42,4 +42,32 @@ let yScale
 let xAxis
 let yAxis
 
-// TODO: create legend again?
+// TODO: create legend again? Or should this happen in draw()
+
+let state = {
+  data: [],
+  selection: "All", // TODO: do I need a filter?
+}
+
+// load data
+d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
+  return {
+    current_state: d.current_state,
+    current_region: d.region,
+    current_division: d.divsion,
+    year: new Date(+d.year, 0, 1),
+    population: +d.population,
+    same_house: +d.same_house,
+    same_state: +d.same_state,
+    from_different_state_total: +d.from_different_state_Total,
+    abroad_total: +d.abroad_Total,
+    from: d.from,
+    from_region: d.from_region,
+    from_division: d.from_division,
+    number_of_people: +d.number_of_people,
+  }
+})
+  .then(raw_data => {
+    state.data = raw_data
+    console.log('state data >>', state.data)
+  })
