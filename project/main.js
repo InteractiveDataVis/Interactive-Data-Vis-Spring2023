@@ -167,7 +167,7 @@ d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
       .attr('x', (width + margin.left) / 2)
       .attr('y', margin.top / 2)
       .attr('text-anchor', 'middle')
-      .attr('class', 'graph-title')
+      .attr('class', 'chart-title')
       .text('Sources of Migration to Utah (2010-2019)');
 
     // draw axis labels
