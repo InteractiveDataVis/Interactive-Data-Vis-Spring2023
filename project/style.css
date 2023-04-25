@@ -40,6 +40,10 @@ body {
     fill: maroon;
 }
 
+.chart-title {
+    fill: maroon
+}
+
 .tooltip {
     position: absolute;
     text-align: center;

@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // constants and global variables
 const width = window.innerWidth * 0.7,
   height = window.innerHeight * 0.7,
-  margin = { top: 20, bottom: 50, left: 90, right: 60}
+  margin = { top: 30, bottom: 50, left: 90, right: 60}
 
 // colors
 const maroon = '#800000',
@@ -161,6 +161,15 @@ d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
       .attr('transform', `translate(${margin.left}, 0)`)
       .call(yAxis)
 
+    // draw title
+    svg
+      .append('text')
+      .attr('x', (width + margin.left) / 2)
+      .attr('y', margin.top / 2)
+      .attr('text-anchor', 'middle')
+      .attr('class', 'graph-title')
+      .text('Sources of Migration to Utah (2010-2019)');
+
     // draw axis labels
     svg
       .append('text')
@@ -224,7 +233,8 @@ d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
           // learned this one in a previous exercise
           )
     )
-
+    
+    // create data labels
     const dataLabels = svg
           .selectAll('text.data-label')
           .data(simpleChartData)
