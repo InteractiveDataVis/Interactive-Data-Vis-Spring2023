@@ -196,71 +196,71 @@ d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
     
 
     const rect = svg
-    .selectAll('rect.bar')
-    .data(simpleChartData)
-    .join(
-      enter => enter
-        .append('rect')
-        .attr('class', 'bar')
-        .attr('width', xScale.bandwidth())
-        .attr('height', 0)
-        .attr('x', d => xScale(d.typeOfMigration) + margin.left)
-        .attr('y', d => height - margin.bottom)
-        .attr('fill', (d, i) => colorScale(i))
-        .on('mouseover', (event, d) => {
-          const percentOfPopulation = ((d.value / utahData[0].population) * 100).toFixed(2)
-          tooltip
+      .selectAll('rect.bar')
+      .data(simpleChartData)
+      .join(
+        enter => enter
+          .append('rect')
+          .attr('class', 'bar')
+          .attr('width', xScale.bandwidth())
+          .attr('height', 0)
+          .attr('x', d => xScale(d.typeOfMigration) + margin.left)
+          .attr('y', d => height - margin.bottom)
+          .attr('fill', (d, i) => colorScale(i))
+          .on('mouseover', (event, d) => {
+            const percentOfPopulation = ((d.value / utahData[0].population) * 100).toFixed(2)
+            tooltip
+              .transition()
+              .duration(300)
+              .style('opacity', 0.9)
+            tooltip
+              .html(`${percentOfPopulation}% population growth`)
+              .style('left', `${(event.pageX)}px`)
+              .style('top', `${event.pageY - 25}px`)
+          })
+          .on('mouseout', () => {
+            tooltip
+              .transition()
+              .duration(200)
+              .style('opacity', 0)
+          })
+          .call(sel => sel
             .transition()
-            .duration(300)
-            .style('opacity', 0.9)
-          tooltip
-            .html(`${percentOfPopulation}% population growth`)
-            .style('left', `${(event.pageX)}px`)
-            .style('top', `${event.pageY - 25}px`)
-        })
-        .on('mouseout', () => {
-          tooltip
-            .transition()
-            .duration(200)
-            .style('opacity', 0)
-        })
-        .call(sel => sel
-          .transition()
-          .duration(1500)
-          .delay((_, i) => i * 1000)
-          .attr('height', d => height - margin.bottom - yScale(d.value))
-          .attr('y', d => yScale(d.value))
-          // learned this one in a previous exercise
-          )
-    )
+            .duration(1500)
+            .delay((_, i) => i * 1000)
+            .attr('height', d => height - margin.bottom - yScale(d.value))
+            .attr('y', d => yScale(d.value))
+            // learned this one in a previous exercise
+            )
+      )
     
     // create data labels
     const dataLabels = svg
-          .selectAll('text.data-label')
-          .data(simpleChartData)
-          .join(
-            enter => enter
-              .append('text')
-              .attr('class', 'data-label')
-              .attr('x', d => xScale(d.typeOfMigration) + xScale.bandwidth() / 2 + margin.left)
-              .attr('y', height - margin.bottom)
-              .attr('text-anchor', 'middle')
-              .attr('fill', (d, i) => colorScale(i))
-              .text(d => 0)
-              .call(sel => sel
-                .transition(0)
-                .duration(1500)
-                .delay((_, i) => i * 1000)
-                .attr('y', d => yScale(d.value) - 15)
-                .tween('text', function (d) {
-                  const selfSelector = d3.select(this)
-                  const interpolator = d3.interpolateNumber(0, d.value)
-                  return (num) => {
-                    selfSelector.text(Math.round(interpolator(num)))
-                  }
-                })
-                )
+      .selectAll('text.data-label')
+      .data(simpleChartData)
+      .join(
+        enter => enter
+          .append('text')
+          .attr('class', 'data-label')
+          .attr('x', d => xScale(d.typeOfMigration) + xScale.bandwidth() / 2 + margin.left)
+          .attr('y', height - margin.bottom)
+          .attr('text-anchor', 'middle')
+          .attr('fill', (d, i) => colorScale(i))
+          .text(d => 0)
+          .call(sel => sel
+            .transition(0)
+            .duration(1500)
+            .delay((_, i) => i * 1000)
+            .attr('y', d => yScale(d.value) - 15)
+            .tween('text', function (d) {
+              const selfSelector = d3.select(this)
+              const interpolator = d3.interpolateNumber(0, d.value)
+              return (num) => {
+                selfSelector.text(Math.round(interpolator(num)))
+              }
+            })
           )
+      )
 
     draw()
   }
