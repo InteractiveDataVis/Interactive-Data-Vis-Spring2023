@@ -101,7 +101,7 @@ let state = {
   
   
     // + CREATE SVG ELEMENT
-    svg = d3.select('#container')
+    svg = d3.select('#old-container')
         .append('svg')
         .attr('width', width)
         .attr('height', height)
