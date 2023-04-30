@@ -71,201 +71,161 @@ d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
   .then(raw_data => {
     state.data = raw_data
     console.log('state data >>', state.data)  // diagnostic
+    
     init()
   })
 
-  function init() {
-        // filter Utah data
-        const utahData = state.data
-        .filter(d => d.current_state === 'Utah')
-      console.log('Utah data >>', utahData) // diagnostic
-  
-      // group data by year; create objects with years as keys
-      // 
-      const groupedByYear = d3.rollup(utahData, i => {
-        const firstInstance = i[0]
-        return {
-          from_different_state_total: firstInstance.from_different_state_total,
-          abroad_total: firstInstance.abroad_total,
-          utah_total: firstInstance.population,
-        }
-      }, d => d.year)
-  
-      console.log('grouped by year >>', groupedByYear) // diagnostic
-  
-      // Convert Map objects to array of objects; destructuring for the win!
-      const aggByYear = Array.from(groupedByYear, ([year, values]) =>
-        ({year: new Date(year), ...values}))
-  
-      console.log('agg by year >>', aggByYear) // diagnostic
-  
-      let totalGrowthFromDifferentStates = 0
-      let totalGrowthFromAbroad = 0
-      let totalGrowthInState = 0 
-      let previousYearPop = 0
-  
-      aggByYear.forEach(d => {
-        totalGrowthFromDifferentStates += d.from_different_state_total
-        totalGrowthFromAbroad += d.abroad_total
-  
-        if (previousYearPop > 0) {
-          totalGrowthInState += d.utah_total - previousYearPop
-        }
-        previousYearPop = d.utah_total
-      })
-  
-      // prep data for barchart
-      const simpleChartData = [
-        { typeOfMigration : 'From Different States', value : totalGrowthFromDifferentStates },
-        { typeOfMigration : 'From Abroad', value : totalGrowthFromAbroad },
-        { typeOfMigration : 'Internal Growth', value : totalGrowthInState },
-      ]
-      
-      console.log('bar chart data >>', simpleChartData)
-
-    // create scales
-    xScale = d3.scaleBand()
-      .domain(simpleChartData.map(d => d.typeOfMigration))
-      .range([0, width - margin.right])
-      .padding(0.1)
-      .paddingInner(0.3)
+function init() {
     
-    yScale = d3.scaleLinear()
-      // nice() function: https://www.d3indepth.com/scales/
-      .domain([0, d3.max(simpleChartData, d => d.value)]).nice()
-      .range([height - margin.bottom, margin.top])
+    // filter top five fastest growing states in 2020 census
+  const fastestGrowingData = state.data.filter(d=>
+    d.current_state === 'Utah' ||
+    d.current_state === 'Idaho' ||
+    d.current_state === 'Texas' ||
+    d.current_state === 'North Dakota' || 
+    d.current_state === 'Nevada'
+    )
+    console.log('Growing States Data >>', fastestGrowingData) //diagnostic
+  
+  // grow data by year; created a Map datatype that'll need conversion
+  // several false states on learning how rollup() and sum() work in d3
+  const groupedByYear = d3.rollup(fastestGrowingData, i => {
+    return {
+      from_different_state_total: d3.sum(i, d => d.from_different_state_total),
+      abroad_total: d3.sum(i, d => d.abroad_total),
+      state_total: d3.sum(i, d => d.population),
+    }
+  }, 
+    d => d.year,
+    d => d.current_state,
+  )
+
+  console.log('grouped by year >>', groupedByYear)
+
+  // convert Map to array of objects; destructuring ftw
+  const aggByYear = Array.from(groupedByYear, ([year, stateValues]) => {
+    return Array.from(stateValues, ([state, values]) => ({
+      year: new Date(year),
+      current_state: state,
+      ...values,
+    }));
+  }).flat()
+  
+  console.log("agg by year >>", aggByYear)
+
+  // calculate growth not attributable to migration
+  aggByYear.forEach(d => {
+    d.internal_growth = d.state_total - d.from_different_state_total - d.abroad_total
+  })
+
+  // group data by state
+  const dataByState = d3.group(aggByYear, d => d.current_state)
+  const joinData = Array.from(dataByState, ([state, values]) => ({
+    state,
+    data: values
+  }))
+  console.log('data by state >>', dataByState)  // diagnostic
+  console.log('joinData >>', joinData)
+  
+  // create scales
+  xScale = d3
+    .scaleBand()
+    .domain(joinData.map(d => d.state))
+    .range([0, width - margin.right])
+    .padding(0.1)
+    .paddingInner(0.2)
+
+  
+  yScale = d3
+    .scaleLinear()
+    // nice() function: https://www.d3indepth.com/scales/
+    .domain([0, d3.max(aggByYear, d => d.state_total)]).nice()
+    .range([height - margin.bottom, margin.top])
+  // set the color scale
+  colorScale = d3.scaleOrdinal()
+    .domain(['from_different_state', 'abroad', 'internal_growth'])
+    .range([maroon, teal, dusty_rose])
+  // create keys
+  const stack = d3.stack()
+    .keys(['from_different_state_total', 'abroad_total', 'internal_growth'])
+    .value((d, key) => d.data[key])
 
 
-    
-    // set the color scale
-    colorScale = d3.scaleOrdinal()
-      .range([maroon, teal, dusty_rose])
+  // create the array to graph
+  const stackedData = stack(joinData)
+  console.log('stackedData >>', stackedData)  // diagnostic
 
-    svg = d3.select('#container')
-      .append('svg')
-      .attr('width', width)
-      .attr('height', height)
+  svg = d3.select('#container')
+    .append('svg')
+    .attr('width', width)
+    .attr('height', height)
+  
+  // assign axes to scales
+  xAxis = d3.axisBottom(xScale)
+  yAxis = d3.axisLeft(yScale)
+  
+  // draw axes
+  svg
+    .append('g')
+    .attr('transform', `translate(${margin.left}, ${height - margin.bottom})`)
+    .call(xAxis)
+  svg
+    .append('g')
+    .attr('transform', `translate(${margin.left}, 0)`)
+    .call(yAxis)
+  // draw title
+  svg
+    .append('text')
+    .attr('x', (width + margin.left) / 2)
+    .attr('y', margin.top / 2)
+    .attr('text-anchor', 'middle')
+    .attr('class', 'chart-title')
+    .text('Source of Migration from Top 5 Fastest Growing States (2010-2020)');
+  // draw axis labels
+  svg
+    .append('text')
+    .attr(
+      'transform', 
+      `translate(${width  / 2 + margin.right}, ${height - margin.bottom + 45})`)
+    .style('text-anchor', 'middle')
+    .attr('class', 'axis-label')
+    .text('State Name')
+  svg
+    .append('text')
+    .attr('transform', 'rotate(-90)')
+    .attr('x', - (height/2))
+    .attr('y', margin.left / 2 - 30)
+    .style('text-anchor', 'middle')
+    .attr('class', 'axis-label')
+    .text('Growth in Each State')
+  
+  const tooltip = d3.select('body')
+    .append('div')
+    .attr('class', 'tooltip')
+    .style('opacity', 0)
+  
+  const states = svg.selectAll('.state')
+    .data(stackedData)
+    .enter()
+    .append('g')
+    .attr('class', 'state')
+    .attr('fill', (d, i) => colorScale(stack.keys()[i]));
 
-    // assign axes to scales
-    xAxis = d3.axisBottom(xScale)
-    yAxis = d3.axisLeft(yScale)
-    
-    // draw axes
-    svg
-      .append('g')
-      .attr('transform', `translate(${margin.left}, ${height - margin.bottom})`)
-      .call(xAxis)
+  states.selectAll('rect')
+    .data(d => d)
+    .enter()
+    .append('rect')
+    .attr('x', d => xScale(d.data.state))
+    .attr('y', d => yScale(d[1]))
+    .attr('height', d => yScale(d[0]) - yScale(d[1])) 
+    .attr('width', xScale.bandwidth())
+  
 
-    svg
-      .append('g')
-      .attr('transform', `translate(${margin.left}, 0)`)
-      .call(yAxis)
+  
+  draw()
+}
 
-    // draw title
-    svg
-      .append('text')
-      .attr('x', (width + margin.left) / 2)
-      .attr('y', margin.top / 2)
-      .attr('text-anchor', 'middle')
-      .attr('class', 'chart-title')
-      .text('Sources of Migration to Utah (2010-2019)');
-
-    // draw axis labels
-    svg
-      .append('text')
-      .attr(
-        'transform', 
-        `translate(${width  / 2 + margin.right}, ${height - margin.bottom + 45})`)
-      .style('text-anchor', 'middle')
-      .attr('class', 'axis-label')
-      .text('Type of Immigration')
-
-    svg
-      .append('text')
-      .attr('transform', 'rotate(-90)')
-      .attr('x', - (height/2))
-      .attr('y', margin.left / 2 - 30)
-      .style('text-anchor', 'middle')
-      .attr('class', 'axis-label')
-      .text('Migrants to Utah')
-
-    const tooltip = d3.select('body')
-      .append('div')
-      .attr('class', 'tooltip')
-      .style('opacity', 0)
-    
-
-    const rect = svg
-      .selectAll('rect.bar')
-      .data(simpleChartData)
-      .join(
-        enter => enter
-          .append('rect')
-          .attr('class', 'bar')
-          .attr('width', xScale.bandwidth())
-          .attr('height', 0)
-          .attr('x', d => xScale(d.typeOfMigration) + margin.left)
-          .attr('y', d => height - margin.bottom)
-          .attr('fill', (d, i) => colorScale(i))
-          .on('mouseover', (event, d) => {
-            const percentOfPopulation = ((d.value / utahData[0].population) * 100).toFixed(2)
-            tooltip
-              .transition()
-              .duration(300)
-              .style('opacity', 0.9)
-            tooltip
-              .html(`${percentOfPopulation}% population growth`)
-              .style('left', `${(event.pageX)}px`)
-              .style('top', `${event.pageY - 25}px`)
-          })
-          .on('mouseout', () => {
-            tooltip
-              .transition()
-              .duration(200)
-              .style('opacity', 0)
-          })
-          .call(sel => sel
-            .transition()
-            .duration(1500)
-            .delay((_, i) => i * 1000)
-            .attr('height', d => height - margin.bottom - yScale(d.value))
-            .attr('y', d => yScale(d.value))
-            // learned this one in a previous exercise
-            )
-      )
-    
-    // create data labels
-    const dataLabels = svg
-      .selectAll('text.data-label')
-      .data(simpleChartData)
-      .join(
-        enter => enter
-          .append('text')
-          .attr('class', 'data-label')
-          .attr('x', d => xScale(d.typeOfMigration) + xScale.bandwidth() / 2 + margin.left)
-          .attr('y', height - margin.bottom)
-          .attr('text-anchor', 'middle')
-          .attr('fill', (d, i) => colorScale(i))
-          .text(d => 0)
-          .call(sel => sel
-            .transition(0)
-            .duration(1500)
-            .delay((_, i) => i * 1000)
-            .attr('y', d => yScale(d.value) - 15)
-            .tween('text', function (d) {
-              const selfSelector = d3.select(this)
-              const interpolator = d3.interpolateNumber(0, d.value)
-              return (num) => {
-                selfSelector.text(Math.round(interpolator(num)))
-              }
-            })
-          )
-      )
-
-    draw()
-  }
-
-  function draw() {
-    // draw bars
+function draw() {
+  // draw bars
    
 }
