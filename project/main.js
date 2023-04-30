@@ -134,7 +134,6 @@ function init() {
     .range([0, width - margin.right])
     .padding(0.1)
     .paddingInner(0.2)
-
   
   yScale = d3
     .scaleLinear()
@@ -146,6 +145,7 @@ function init() {
     .domain(['from_different_state', 'abroad', 'internal_growth'])
     .range([maroon, teal, dusty_rose])
   // create keys
+  
   const stack = d3.stack()
     .keys(['from_different_state_total', 'abroad_total', 'internal_growth'])
     .value((d, key) => d.data[key])
@@ -206,26 +206,23 @@ function init() {
   
   const states = svg.selectAll('.state')
     .data(stackedData)
-    .enter()
-    .append('g')
+    .join('g')
     .attr('class', 'state')
     .attr('fill', (d, i) => colorScale(stack.keys()[i]));
 
   states.selectAll('rect')
     .data(d => d)
-    .enter()
-    .append('rect')
+    .join('rect')
     .attr('x', d => xScale(d.data.state))
     .attr('y', d => yScale(d[1]))
     .attr('height', d => yScale(d[0]) - yScale(d[1])) 
     .attr('width', xScale.bandwidth())
   
-
-  
-  draw()
+  // draw()
 }
-
+/*
 function draw() {
   // draw bars
    
 }
+*/
