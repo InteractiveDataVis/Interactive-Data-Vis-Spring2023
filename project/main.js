@@ -1,4 +1,4 @@
-// Set up navbar
+// Set up navigation bar
 document.addEventListener('DOMContentLoaded', () => {
   const navContainer = document.getElementById('navbar')
 
