@@ -45,14 +45,12 @@ let colorScale
 let svg
 let xScale
 let yScale
-let xAxis
-let yAxis
-
-// TODO: create legend again? Or should this happen in draw()
+let xAxis // TODO remove
+let yAxis // TODO remove
 
 let state = {
   data: [],
-  selection: "All", // TODO: do I need a filter?
+  selection: "all", // TODO: do I need a filter?
 }
 
 const statesData = [
@@ -109,7 +107,7 @@ d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
       .range([height - margin.bottom, margin.top])
 
     // create axes
-    xAxis = d3.axisBottom(xScale)
+    // xAxis = d3.axisBottom(xScale) // TODO remove
     yAxis = d3.axisLeft(yScale)
 
     // append svg
@@ -119,9 +117,10 @@ d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
         .attr('height', height)
 
     // append axes
-    svg.append('g')
-    .attr('transform', `translate(${margin.left}, ${height - margin.bottom})`)
-    .call(xAxis)
+    // TODO remove
+    // svg.append('g')
+    // .attr('transform', `translate(${margin.left}, ${height - margin.bottom})`)
+    // .call(xAxis)
 
     svg.append('g')
     .attr('transform', `translate(${margin.left}, 0)`)
@@ -164,6 +163,16 @@ d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
       .attr('fill', d => comparisonColorScale(d.changeCat))
       .attr('stroke', 'black')
       .attr('stroke-width', 0.5)
+
+    // add state abbr labels to top of each rect.bar
+    svg.selectAll('text.abbr-label')
+      .data(statesData)
+      .join('text')
+      .attr('class', 'abbr-label')
+      .attr('x', d => margin.left + xScale(d.state) + xScale.bandwidth() / 2)
+      .attr('y', d => yScale(Math.max(0, d.percentChange)) - 8)
+      .attr('text-anchor', 'middle')
+      .text(d => d.abbr)
 
     // create legend
     const legendBox = svg.append('g')
