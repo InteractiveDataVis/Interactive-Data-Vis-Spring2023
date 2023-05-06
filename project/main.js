@@ -50,6 +50,21 @@ let state = {
   selection: "All", // TODO: do I need a filter?
 }
 
+const statesData = [
+  { state: 'Utah', percentChange: 18.4, popChange: 507731, changeCat: 'fastest' },
+  { state: 'Idaho', percentChange: 17.3, popChange: 271524, changeCat: 'fastest' },
+  { state: 'Texas', percentChange: 15.9, popChange: 3999444, changeCat: 'fastest' },
+  { state: 'North Dakota', percentChange: 15.8, popChange: 106503, changeCat: 'fastest' },
+  { state: 'Neveda', percentChange: 15,  popChange: 404063, changeCat: 'fastest' },
+  { state: 'West Virginia', percentChange: -3.2, popChange: -68207, changeCat: 'shrinking' },
+  { state: 'Mississippi', percentChange: -0.2, popChange: -1816, changeCat: 'shrinking' },
+  { state: 'Illinois', percentChange: -0.1, popChange: -19041, changeCat: 'shrinking' },
+  { state: 'Pennsylvania', percentChange: 2.4, popChange: 300321, changeCat: 'slowest' },
+]
+
+console.log('states >> ', statesData) //diag
+
+
 // load data
 d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
   return {
@@ -75,151 +90,221 @@ d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
     init()
   })
 
-function init() {
+  function init() {
     
-    // filter top five fastest growing states in 2020 census
-  const fastestGrowingData = state.data.filter(d=>
-    d.current_state === 'Utah' ||
-    d.current_state === 'Idaho' ||
-    d.current_state === 'Texas' ||
-    d.current_state === 'North Dakota' || 
-    d.current_state === 'Nevada'
-    )
-    console.log('Growing States Data >>', fastestGrowingData) //diagnostic
-  
-  // grow data by year; created a Map datatype that'll need conversion
-  // several false states on learning how rollup() and sum() work in d3
-  const groupedByYear = d3.rollup(fastestGrowingData, i => {
-    return {
-      from_different_state_total: d3.sum(i, d => d.from_different_state_total),
-      abroad_total: d3.sum(i, d => d.abroad_total),
-      state_total: d3.sum(i, d => d.population),
-    }
-  }, 
-    d => d.year,
-    d => d.current_state,
-  )
+    // Create scales for statesData
+    xScale = d3.scaleBand()
+      .domain(statesData.map(d => d.state))
+      .range([0, width - margin.left])
+      .padding(0.2)
+      .paddingInner(0.1)
 
-  console.log('grouped by year >>', groupedByYear)
+    yScale = d3.scaleLinear()
+      .domain(d3.extent(statesData, d => d.percentChange))
+      .range([height - margin.bottom, margin.top])
 
-  // convert Map to array of objects; destructuring ftw
-  const aggByYear = Array.from(groupedByYear, ([year, stateValues]) => {
-    return Array.from(stateValues, ([state, values]) => ({
-      year: new Date(year),
-      current_state: state,
-      ...values,
-    }));
-  }).flat()
-  
-  console.log("agg by year >>", aggByYear)
+    // create axes
+    xAxis = d3.axisBottom(xScale)
+    yAxis = d3.axisLeft(yScale)
 
-  // calculate growth not attributable to migration
-  aggByYear.forEach(d => {
-    d.internal_growth = d.state_total - d.from_different_state_total - d.abroad_total
-  })
+    // append svg
+    svg = d3.select('#container')
+        .append('svg')
+        .attr('width', width)
+        .attr('height', height)
 
-  // group data by state
-  const dataByState = d3.group(aggByYear, d => d.current_state)
-  const joinData = Array.from(dataByState, ([state, values]) => ({
-    state,
-    data: values
-  }))
-  console.log('data by state >>', dataByState)  // diagnostic
-  console.log('joinData >>', joinData)
-  
-  // create scales
-  xScale = d3
-    .scaleBand()
-    .domain(joinData.map(d => d.state))
-    .range([0, width - margin.right])
-    .padding(0.1)
-    .paddingInner(0.2)
-  
-  yScale = d3
-    .scaleLinear()
-    // nice() function: https://www.d3indepth.com/scales/
-    .domain([0, d3.max(aggByYear, d => d.state_total)]).nice()
-    .range([height - margin.bottom, margin.top])
-  // set the color scale
-  colorScale = d3.scaleOrdinal()
-    .domain(['from_different_state', 'abroad', 'internal_growth'])
-    .range([maroon, teal, dusty_rose])
-  // create keys
-  
-  const stack = d3.stack()
-    .keys(['from_different_state_total', 'abroad_total', 'internal_growth'])
-    .value((d, key) => d.data[key])
-
-
-  // create the array to graph
-  const stackedData = stack(joinData)
-  console.log('stackedData >>', stackedData)  // diagnostic
-
-  svg = d3.select('#container')
-    .append('svg')
-    .attr('width', width)
-    .attr('height', height)
-  
-  // assign axes to scales
-  xAxis = d3.axisBottom(xScale)
-  yAxis = d3.axisLeft(yScale)
-  
-  // draw axes
-  svg
-    .append('g')
+    // append axes
+    svg.append('g')
     .attr('transform', `translate(${margin.left}, ${height - margin.bottom})`)
     .call(xAxis)
-  svg
-    .append('g')
+  svg.append('g')
     .attr('transform', `translate(${margin.left}, 0)`)
     .call(yAxis)
+
   // draw title
-  svg
-    .append('text')
+  svg.append('text')
     .attr('x', (width + margin.left) / 2)
     .attr('y', margin.top / 2)
     .attr('text-anchor', 'middle')
     .attr('class', 'chart-title')
-    .text('Source of Migration from Top 5 Fastest Growing States (2010-2020)');
+    .text('Fastest & slowest growing (shrinking) states 2010-2020')
+
   // draw axis labels
-  svg
-    .append('text')
+  svg.append('text')
     .attr(
       'transform', 
       `translate(${width  / 2 + margin.right}, ${height - margin.bottom + 45})`)
     .style('text-anchor', 'middle')
     .attr('class', 'axis-label')
-    .text('State Name')
-  svg
-    .append('text')
+    .text('State')
+    
+  svg.append('text')
     .attr('transform', 'rotate(-90)')
     .attr('x', - (height/2))
     .attr('y', margin.left / 2 - 30)
     .style('text-anchor', 'middle')
     .attr('class', 'axis-label')
-    .text('Growth in Each State')
+    .text('Percent of population change')
   
-  const tooltip = d3.select('body')
-    .append('div')
-    .attr('class', 'tooltip')
-    .style('opacity', 0)
-  
-  const states = svg.selectAll('.state')
-    .data(stackedData)
-    .join('g')
-    .attr('class', 'state')
-    .attr('fill', (d, i) => colorScale(stack.keys()[i]));
-
-  states.selectAll('rect')
-    .data(d => d)
+  svg.selectAll('rect.bar')
+    .data(statesData)
     .join('rect')
-    .attr('x', d => xScale(d.data.state))
-    .attr('y', d => yScale(d[1]))
-    .attr('height', d => yScale(d[0]) - yScale(d[1])) 
+    .attr('class', 'bar')
+    .attr('x', d => margin.left + xScale(d.state))
+    .attr('y', d => yScale(d.percentChange))
     .attr('width', xScale.bandwidth())
+    .attr('height', d => (height - margin.bottom) - yScale(d.percentChange))
+    .attr('fill', 'transparent')
+    .attr('stroke', 'black')
+    .attr('stroke-width', 2)
+  }
+
+
+// function init() {
+    
+//     // filter top five fastest growing states in 2020 census
+//   const fastestGrowingData = state.data.filter(d=>
+//     d.current_state === 'Utah' ||
+//     d.current_state === 'Idaho' ||
+//     d.current_state === 'Texas' ||
+//     d.current_state === 'North Dakota' || 
+//     d.current_state === 'Nevada'
+//     )
+//     console.log('Growing States Data >>', fastestGrowingData) //diagnostic
   
-  // draw()
-}
+//   // grow data by year; created a Map datatype that'll need conversion
+//   // several false states on learning how rollup() and sum() work in d3
+//   const groupedByYear = d3.rollup(fastestGrowingData, i => {
+//     return {
+//       from_different_state_total: d3.sum(i, d => d.from_different_state_total),
+//       abroad_total: d3.sum(i, d => d.abroad_total),
+//       state_total: d3.sum(i, d => d.population),
+//     }
+//   }, 
+//     d => d.year,
+//     d => d.current_state,
+//   )
+
+//   console.log('grouped by year >>', groupedByYear)
+
+//   // convert Map to array of objects; destructuring ftw
+//   const aggByYear = Array.from(groupedByYear, ([year, stateValues]) => {
+//     return Array.from(stateValues, ([state, values]) => ({
+//       year: new Date(year),
+//       current_state: state,
+//       ...values,
+//     }));
+//   }).flat()
+  
+//   console.log("agg by year >>", aggByYear)
+
+//   // calculate growth not attributable to migration
+//   aggByYear.forEach(d => {
+//     d.internal_growth = d.state_total - d.from_different_state_total - d.abroad_total
+//   })
+
+//   // group data by state
+//   const dataByState = d3.group(aggByYear, d => d.current_state)
+//   const joinData = Array.from(dataByState, ([state, values]) => ({
+//     state,
+//     data: values
+//   }))
+//   console.log('data by state >>', dataByState)  // diagnostic
+//   console.log('joinData >>', joinData)
+  
+//   // create scales
+//   xScale = d3
+//     .scaleBand()
+//     .domain(joinData.map(d => d.state))
+//     .range([0, width - margin.right])
+//     .padding(0.1)
+//     .paddingInner(0.2)
+  
+//   yScale = d3
+//     .scaleLinear()
+//     // nice() function: https://www.d3indepth.com/scales/
+//     .domain([0, d3.max(aggByYear, d => d.state_total)]).nice()
+//     .range([height - margin.bottom, margin.top])
+//   // set the color scale
+//   colorScale = d3.scaleOrdinal()
+//     .domain(['from_different_state', 'abroad', 'internal_growth'])
+//     .range([maroon, teal, dusty_rose])
+//   // create keys
+  
+//   const stack = d3.stack()
+//     .keys(['from_different_state_total', 'abroad_total', 'internal_growth'])
+//     .value((d, key) => d.data[key])
+
+
+//   // create the array to graph
+//   const stackedData = stack(joinData)
+//   console.log('stackedData >>', stackedData)  // diagnostic
+
+//   svg = d3.select('#container')
+//     .append('svg')
+//     .attr('width', width)
+//     .attr('height', height)
+  
+//   // assign axes to scales
+//   xAxis = d3.axisBottom(xScale)
+//   yAxis = d3.axisLeft(yScale)
+  
+//   // draw axes
+//   svg
+//     .append('g')
+//     .attr('transform', `translate(${margin.left}, ${height - margin.bottom})`)
+//     .call(xAxis)
+//   svg
+//     .append('g')
+//     .attr('transform', `translate(${margin.left}, 0)`)
+//     .call(yAxis)
+//   // draw title
+//   svg
+//     .append('text')
+//     .attr('x', (width + margin.left) / 2)
+//     .attr('y', margin.top / 2)
+//     .attr('text-anchor', 'middle')
+//     .attr('class', 'chart-title')
+//     .text('Source of Migration from Top 5 Fastest Growing States (2010-2020)');
+//   // draw axis labels
+//   svg
+//     .append('text')
+//     .attr(
+//       'transform', 
+//       `translate(${width  / 2 + margin.right}, ${height - margin.bottom + 45})`)
+//     .style('text-anchor', 'middle')
+//     .attr('class', 'axis-label')
+//     .text('State Name')
+//   svg
+//     .append('text')
+//     .attr('transform', 'rotate(-90)')
+//     .attr('x', - (height/2))
+//     .attr('y', margin.left / 2 - 30)
+//     .style('text-anchor', 'middle')
+//     .attr('class', 'axis-label')
+//     .text('Growth in Each State')
+  
+//   const tooltip = d3.select('body')
+//     .append('div')
+//     .attr('class', 'tooltip')
+//     .style('opacity', 0)
+  
+//   const states = svg.selectAll('.state')
+//     .data(stackedData)
+//     .join('g')
+//     .attr('class', 'state')
+//     .attr('fill', (d, i) => colorScale(stack.keys()[i]));
+
+//   states.selectAll('rect')
+//     .data(d => d)
+//     .join('rect')
+//     .attr('x', d => xScale(d.data.state))
+//     .attr('y', d => yScale(d[1]))
+//     .attr('height', d => yScale(d[0]) - yScale(d[1])) 
+//     .attr('width', xScale.bandwidth())
+  
+//   // draw()
+// }
 /*
 function draw() {
   // draw bars
