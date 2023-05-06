@@ -42,6 +42,9 @@ const legend = {
     y: 30,
   }
 
+  const stackedLegend = legend
+
+
 /*
 these variables allow us to access anything we manipulate in init() 
 but need access to in draw(); all these variables are empty before we assign 
@@ -204,6 +207,7 @@ function init() {
     .attr('text-anchor', 'middle')
     .text(d => d.abbr)
   // create legend
+  
   const legendBox = svg.append('g')
     .attr('class', 'legend')
     .attr('transform', `translate(${legend.x}, ${legend.y})`)
@@ -327,6 +331,34 @@ function init() {
       .attr('height', d => yScaleAboardState(d[0]) - yScaleAboardState(d[1]))
       .attr('stroke', 'black')
       .attr('stroke-width', 0.5)
+  
+  const stackedCategories = ['From Abroad', 'From Different State']
+
+  // create legend for stacked barchart
+  const stackedLegendBox = svg.append('g')
+      .attr('class', 'stacked-legend')
+      .attr('transform', `translate(${stackedLegend.x}, ${stackedLegend.y})`)
+  
+  stackedLegendBox.selectAll('rect')
+    .data(stackedCategories)
+    .join('rect')
+    .attr('class', 'stacked-legend.rect')
+    .attr('x', 0)
+    .attr('y', (d, i) => i * 25)
+    .attr('width', 15)
+    .attr('height', 15)
+    .attr('fill', d => abroadStateColorScale(d))
+    .attr('stroke', 'black')
+    .attr('stroke-width', 0.5)
+
+  stackedLegendBox.selectAll('text')
+    .data(stackedCategories)
+    .join('text')
+    .attr('class', 'stacked-legend-label')
+    .attr('x', 20)
+    .attr('y', (d, i) => i * 25 + 15)
+    .style('text-anchor', 'start')
+    .text(d => d.charAt(0).toUpperCase() + d.slice(1))
 
   draw()
 }
