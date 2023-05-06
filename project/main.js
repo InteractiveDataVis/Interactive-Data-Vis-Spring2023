@@ -19,17 +19,20 @@ const width = window.innerWidth * 0.7,
 
 // colors
 const maroon = '#800000',
-  teal = '#008080', //TODO remove
-  dusty_rose = '#C0737A', //TODO remove
-  green_grey = '#BDD9BF'
+  greenGrey = '#BDD9BF',
+  green = '#6FDE6E',
+  yellow = '#E8F086',
+  red = '#FF4242',
+  lightBlue = '#235FA4',
+  darkBlue = '#0A284B'
 
 const comparisonColorScale = d3.scaleOrdinal()
   .domain(['fastest', 'slowest', 'shrinking'])
-  .range(['#6FDE6E', '#E8F086', '#FF4242'])
+  .range([green, yellow, red])
 
 const abroadStateColorScale = d3.scaleOrdinal()
-  .domain(['abroad', 'from_different_state'])
-  .range(['#235FA4', '#0A284B'])
+  .domain(['abroad_total', 'from_different_state_total'])
+  .range([lightBlue, darkBlue])
 
 // create area for legend
 const legend = {
@@ -53,8 +56,8 @@ let xScaleAbroadState
 let yScaleAboardState
 let xAxis // TODO remove
 let yAxis 
-let xAxisAboardState
-let yAxisAbaoardState
+let xAxisAbroadState
+let yAxisAbroadState
 
 let state = {
   data: [],
@@ -120,17 +123,17 @@ function init() {
 
   // append svg
   svg = d3.select('#container')
-      .append('svg')
-      .attr('width', width)
-      .attr('height', height)
+    .append('svg')
+    .attr('width', width)
+    .attr('height', height)
   // append axes
   // TODO remove
   // svg.append('g')
   // .attr('transform', `translate(${margin.left}, ${height - margin.bottom})`)
   // .call(xAxis)
   svg.append('g')
-  .attr('transform', `translate(${margin.left}, 0)`)
-  .call(yAxis)
+    .attr('transform', `translate(${margin.left}, 0)`)
+    .call(yAxis)
   // append title
   svg.append('text')
     .attr('x', (width + margin.left) / 2)
@@ -251,7 +254,7 @@ function init() {
   console.log('filter one per year >>', filterOnePerYear)
   
   // this was a bear...maybe there are more idiomatic ways of doing it in D3?
-  // I am convinced that I don't exactly understand reduce()
+  // I am convinced that I don't exactly understand reduce() if asked to explain on the spot
   function sumAbroadAndDiffStates (data) {
     return data.reduce((accumulator, item) => {
       const existingState = accumulator.find(
@@ -274,6 +277,7 @@ function init() {
   const sumMigrantsByState = sumAbroadAndDiffStates(filterOnePerYear);
   console.log(sumMigrantsByState)
 
+  // build scales
   xScaleAbroadState = d3.scaleBand()
     .domain(sumMigrantsByState.map(d => d.current_state))
     .range([0, width - margin.left])
@@ -283,7 +287,47 @@ function init() {
     .domain([0, d3.max(sumMigrantsByState, d => 
       d.abroad_total + d.from_different_state_total)]).nice()
     .range([height - margin.bottom, margin.top])
+
+  // create axes
+  xAxisAbroadState = d3.axisBottom(xScaleAbroadState)
+  yAxisAbroadState = d3.axisLeft(yScaleAboardState)
+
+  svg = d3.select('#stacked-container')
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height)
   
+  // draw axes
+  svg.append('g')
+    .attr('transform', `translate(${margin.left}, ${height - margin.bottom})`)
+    .call(xAxisAbroadState)
+  
+  svg.append('g')
+    .attr('transform', `translate(${margin.left}, 0)`)
+    .call(yAxisAbroadState)
+
+  const stack = d3.stack()
+      .keys(['abroad_total', 'from_different_state_total'])
+      .order(d3.stackOrderDescending)
+
+  const stackedData = stack(sumMigrantsByState)
+  
+  const grouped = svg.selectAll('g.stacked-bar')
+      .data(stackedData)
+      .join('g')
+      .attr('class', 'stacked-bar')
+      .attr('fill', d => abroadStateColorScale(d.key))
+
+  grouped.selectAll('rect')
+      .data(d => d)
+      .join('rect')
+      .attr('x', (d, i) => margin.left + xScaleAbroadState(sumMigrantsByState[i].current_state))
+      .attr('y', d => yScaleAboardState(d[1]))
+      .attr('width', xScaleAbroadState.bandwidth())
+      .attr('height', d => yScaleAboardState(d[0]) - yScaleAboardState(d[1]))
+      .attr('stroke', 'black')
+      .attr('stroke-width', 0.5)
+
   draw()
 }
 
