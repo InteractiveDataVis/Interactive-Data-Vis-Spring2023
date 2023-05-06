@@ -23,6 +23,10 @@ const maroon = '#800000',
   dusty_rose = '#C0737A', //TODO remove
   green_grey = '#BDD9BF'
 
+const comparisonColorScale = d3.scaleOrdinal()
+  .domain(['fastest', 'slowest', 'shrinking'])
+  .range(['#6FDE6E', '#E8F086', '#FF4242'])
+
 // create area for legend
 const legend = {
     width: 180,
@@ -99,7 +103,6 @@ d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
       .domain(statesData.map(d => d.state))
       .range([0, width - margin.left + 2])
       .padding(0.2)
-      // .paddingInner(0.1)
 
     yScale = d3.scaleLinear()
       .domain([d3.min(statesData, d => d.percentChange) - 0.5, d3.max(statesData, d => d.percentChange) + 1])
@@ -158,9 +161,37 @@ d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
       .attr('y', d => yScale(Math.max(0, d.percentChange)))
       .attr('width', xScale.bandwidth())
       .attr('height', d => Math.abs(yScale(d.percentChange) - yScale(0)))
-      .attr('fill', 'transparent')
-      .attr('stroke', maroon)
-      .attr('stroke-width', 1.5)
+      .attr('fill', d => comparisonColorScale(d.changeCat))
+      .attr('stroke', 'black')
+      .attr('stroke-width', 0.5)
+
+    // create legend
+    const legendBox = svg.append('g')
+      .attr('class', 'legend')
+      .attr('transform', `translate(${legend.x}, ${legend.y})`)
+    
+    const categories = ['Fastest Growth', 'Slowest Growth', 'Shrinking']
+    
+    legendBox.selectAll('rect')
+      .data(categories)
+      .join('rect')
+      .attr('class', 'legend.rect')
+      .attr('x', 0)
+      .attr('y', (d, i) => i * 25)
+      .attr('width', 15)
+      .attr('height', 15)
+      .attr('fill', d => comparisonColorScale(d))
+      .attr('stroke', 'black')
+      .attr('stroke-width', 0.5)
+
+    legendBox.selectAll('text')
+      .data(categories)
+      .join('text')
+      .attr('class', 'legend-label')
+      .attr('x', 20)
+      .attr('y', (d, i) => i * 25 + 15)
+      .style('text-anchor', 'start')
+      .text(d => d.charAt(0).toUpperCase() + d.slice(1))
     
     // create a line at zero
     svg.append('line')
