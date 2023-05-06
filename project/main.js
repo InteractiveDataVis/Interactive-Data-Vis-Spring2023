@@ -135,13 +135,14 @@ d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
       .text('Fastest v. Slowest Growing/Shrinking States')
 
     // append axis labels
-    svg.append('text')
-      .attr(
-        'transform', 
-        `translate(${width  / 2 + margin.right}, ${height - margin.bottom + 45})`)
-      .style('text-anchor', 'middle')
-      .attr('class', 'axis-label')
-      .text('State')
+    // TODO remove
+    // svg.append('text')
+    //   .attr(
+    //     'transform', 
+    //     `translate(${width  / 2 + margin.right}, ${height - margin.bottom + 45})`)
+    //   .style('text-anchor', 'middle')
+    //   .attr('class', 'axis-label')
+    //   .text('State')
       
     svg.append('text')
       .attr('transform', 'rotate(-90)')
@@ -240,7 +241,7 @@ d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
   }
 
   function draw() {
-    
+
   }
 
 
