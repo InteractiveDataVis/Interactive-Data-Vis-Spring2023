@@ -150,6 +150,12 @@ d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
       .style('text-anchor', 'middle')
       .attr('class', 'axis-label')
       .text('% of Population Change')
+
+      const tooltip = d3.select('body')
+          .append('div')
+          .attr('class', 'tooltip')
+          .style('opacity', 0)
+        
     
     // append rect.bars
     svg.selectAll('rect.bar')
@@ -163,6 +169,24 @@ d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
       .attr('fill', d => comparisonColorScale(d.changeCat))
       .attr('stroke', 'black')
       .attr('stroke-width', 0.5)
+      .on('mouseover', (event, d) => {
+        tooltip.style('opacity', 1)
+          .html(
+            `
+            <p>State: ${d.state}</p>
+            <p>Percent Change: ${d.percentChange}%</p>
+            <p>Population Change: ${d.popChange}</p>
+            `
+          )
+      })
+      .on('mousemove', (event) => {
+        tooltip.style('left', (event.pageX + 15) + 'px')
+          .style('top', (event.pageY - 30) + 'px');
+      })
+      // clean up after myself
+      .on('mouseout', () => {
+        tooltip.style('opacity', 0);
+      })
 
     // add state abbr labels to top of each rect.bar
     svg.selectAll('text.abbr-label')
