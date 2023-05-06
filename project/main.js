@@ -27,6 +27,10 @@ const comparisonColorScale = d3.scaleOrdinal()
   .domain(['fastest', 'slowest', 'shrinking'])
   .range(['#6FDE6E', '#E8F086', '#FF4242'])
 
+const abroadStateColorScale = d3.scaleOrdinal()
+  .domain(['abroad', 'from_different_state'])
+  .range(['#235FA4', '#0A284B'])
+
 // create area for legend
 const legend = {
     width: 180,
@@ -45,8 +49,12 @@ let colorScale
 let svg
 let xScale
 let yScale
+let xScaleAbroadState
+let yScaleAboardState
 let xAxis // TODO remove
-let yAxis // TODO remove
+let yAxis 
+let xAxisAboardState
+let yAxisAbaoardState
 
 let state = {
   data: [],
@@ -94,155 +102,194 @@ d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
     init()
   })
 
-  function init() {
+
+function init() {
+  
+  // Create scales for statesData
+  xScale = d3.scaleBand()
+    .domain(statesData.map(d => d.state))
+    .range([0, width - margin.left + 2])
+    .padding(0.2)
+
+  yScale = d3.scaleLinear()
+    .domain([d3.min(statesData, d => d.percentChange) - 0.5, d3.max(statesData, d => d.percentChange) + 1])
+    .range([height - margin.bottom, margin.top])
+  // create axes
+  // xAxis = d3.axisBottom(xScale) // TODO remove
+  yAxis = d3.axisLeft(yScale)
+
+  // append svg
+  svg = d3.select('#container')
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height)
+  // append axes
+  // TODO remove
+  // svg.append('g')
+  // .attr('transform', `translate(${margin.left}, ${height - margin.bottom})`)
+  // .call(xAxis)
+  svg.append('g')
+  .attr('transform', `translate(${margin.left}, 0)`)
+  .call(yAxis)
+  // append title
+  svg.append('text')
+    .attr('x', (width + margin.left) / 2)
+    .attr('y', margin.top / 2)
+    .attr('text-anchor', 'middle')
+    .attr('class', 'chart-title')
+    .text('Fastest v. Slowest Growing/Shrinking States')
+  // append axis labels
+  // TODO remove
+  // svg.append('text')
+  //   .attr(
+  //     'transform', 
+  //     `translate(${width  / 2 + margin.right}, ${height - margin.bottom + 45})`)
+  //   .style('text-anchor', 'middle')
+  //   .attr('class', 'axis-label')
+  //   .text('State')
     
-    // Create scales for statesData
-    xScale = d3.scaleBand()
-      .domain(statesData.map(d => d.state))
-      .range([0, width - margin.left + 2])
-      .padding(0.2)
-
-    yScale = d3.scaleLinear()
-      .domain([d3.min(statesData, d => d.percentChange) - 0.5, d3.max(statesData, d => d.percentChange) + 1])
-      .range([height - margin.bottom, margin.top])
-
-    // create axes
-    // xAxis = d3.axisBottom(xScale) // TODO remove
-    yAxis = d3.axisLeft(yScale)
-
-    // append svg
-    svg = d3.select('#container')
-        .append('svg')
-        .attr('width', width)
-        .attr('height', height)
-
-    // append axes
-    // TODO remove
-    // svg.append('g')
-    // .attr('transform', `translate(${margin.left}, ${height - margin.bottom})`)
-    // .call(xAxis)
-
-    svg.append('g')
-    .attr('transform', `translate(${margin.left}, 0)`)
-    .call(yAxis)
-
-    // append title
-    svg.append('text')
-      .attr('x', (width + margin.left) / 2)
-      .attr('y', margin.top / 2)
-      .attr('text-anchor', 'middle')
-      .attr('class', 'chart-title')
-      .text('Fastest v. Slowest Growing/Shrinking States')
-
-    // append axis labels
-    // TODO remove
-    // svg.append('text')
-    //   .attr(
-    //     'transform', 
-    //     `translate(${width  / 2 + margin.right}, ${height - margin.bottom + 45})`)
-    //   .style('text-anchor', 'middle')
-    //   .attr('class', 'axis-label')
-    //   .text('State')
+  svg.append('text')
+    .attr('transform', 'rotate(-90)')
+    .attr('x', - (height/2))
+    .attr('y', margin.left / 2 - 30)
+    .style('text-anchor', 'middle')
+    .attr('class', 'axis-label')
+    .text('% of Population Change')
+    const tooltip = d3.select('body')
+        .append('div')
+        .attr('class', 'tooltip')
+        .style('opacity', 0)
       
-    svg.append('text')
-      .attr('transform', 'rotate(-90)')
-      .attr('x', - (height/2))
-      .attr('y', margin.left / 2 - 30)
-      .style('text-anchor', 'middle')
-      .attr('class', 'axis-label')
-      .text('% of Population Change')
+  
+  // append rect.bars
+  svg.selectAll('rect.bar')
+    .data(statesData)
+    .join('rect')
+    .attr('class', 'bar')
+    .attr('x', d => margin.left + xScale(d.state))
+    .attr('y', d => yScale(Math.max(0, d.percentChange)))
+    .attr('width', xScale.bandwidth())
+    .attr('height', d => Math.abs(yScale(d.percentChange) - yScale(0)))
+    .attr('fill', d => comparisonColorScale(d.changeCat))
+    .attr('stroke', 'black')
+    .attr('stroke-width', 0.5)
+    .on('mouseover', (event, d) => {
+      tooltip.style('opacity', 1)
+        .html(
+          `
+          <p>State: ${d.state}</p>
+          <p>Percent Change: ${d.percentChange}%</p>
+          <p>Population Change: ${d.popChange}</p>
+          `
+        )
+    })
+    .on('mousemove', (event) => {
+      tooltip.style('left', (event.pageX + 15) + 'px')
+        .style('top', (event.pageY - 30) + 'px');
+    })
+    // clean up after myself
+    .on('mouseout', () => {
+      tooltip.style('opacity', 0);
+    })
+  // add state abbr labels to top of each rect.bar
+  svg.selectAll('text.abbr-label')
+    .data(statesData)
+    .join('text')
+    .attr('class', 'abbr-label')
+    .attr('x', d => margin.left + xScale(d.state) + xScale.bandwidth() / 2)
+    .attr('y', d => yScale(Math.max(0, d.percentChange)) - 8)
+    .attr('text-anchor', 'middle')
+    .text(d => d.abbr)
+  // create legend
+  const legendBox = svg.append('g')
+    .attr('class', 'legend')
+    .attr('transform', `translate(${legend.x}, ${legend.y})`)
+  
+  const categories = ['Fastest Growth', 'Slowest Growth', 'Shrinking']
+  
+  legendBox.selectAll('rect')
+    .data(categories)
+    .join('rect')
+    .attr('class', 'legend.rect')
+    .attr('x', 0)
+    .attr('y', (d, i) => i * 25)
+    .attr('width', 15)
+    .attr('height', 15)
+    .attr('fill', d => comparisonColorScale(d))
+    .attr('stroke', 'black')
+    .attr('stroke-width', 0.5)
+  legendBox.selectAll('text')
+    .data(categories)
+    .join('text')
+    .attr('class', 'legend-label')
+    .attr('x', 20)
+    .attr('y', (d, i) => i * 25 + 15)
+    .style('text-anchor', 'start')
+    .text(d => d.charAt(0).toUpperCase() + d.slice(1))
+  
+  // create a line at zero
+  svg.append('line')
+    .attr('x1', margin.left)
+    .attr('x2', width - margin.right + '2em')
+    .attr('y1', yScale(0))
+    .attr('y2', yScale(0))
+    .attr('stroke', maroon)
+    .attr('stroke-width', 1)
+    .attr('opacity', 0.5)
 
-      const tooltip = d3.select('body')
-          .append('div')
-          .attr('class', 'tooltip')
-          .style('opacity', 0)
-        
-    
-    // append rect.bars
-    svg.selectAll('rect.bar')
-      .data(statesData)
-      .join('rect')
-      .attr('class', 'bar')
-      .attr('x', d => margin.left + xScale(d.state))
-      .attr('y', d => yScale(Math.max(0, d.percentChange)))
-      .attr('width', xScale.bandwidth())
-      .attr('height', d => Math.abs(yScale(d.percentChange) - yScale(0)))
-      .attr('fill', d => comparisonColorScale(d.changeCat))
-      .attr('stroke', 'black')
-      .attr('stroke-width', 0.5)
-      .on('mouseover', (event, d) => {
-        tooltip.style('opacity', 1)
-          .html(
-            `
-            <p>State: ${d.state}</p>
-            <p>Percent Change: ${d.percentChange}%</p>
-            <p>Population Change: ${d.popChange}</p>
-            `
-          )
-      })
-      .on('mousemove', (event) => {
-        tooltip.style('left', (event.pageX + 15) + 'px')
-          .style('top', (event.pageY - 30) + 'px');
-      })
-      // clean up after myself
-      .on('mouseout', () => {
-        tooltip.style('opacity', 0);
-      })
+  const statesOfInterest = statesData.map(d => d.state)
 
-    // add state abbr labels to top of each rect.bar
-    svg.selectAll('text.abbr-label')
-      .data(statesData)
-      .join('text')
-      .attr('class', 'abbr-label')
-      .attr('x', d => margin.left + xScale(d.state) + xScale.bandwidth() / 2)
-      .attr('y', d => yScale(Math.max(0, d.percentChange)) - 8)
-      .attr('text-anchor', 'middle')
-      .text(d => d.abbr)
+  console.log('states of interest >>', statesOfInterest) //diag
 
-    // create legend
-    const legendBox = svg.append('g')
-      .attr('class', 'legend')
-      .attr('transform', `translate(${legend.x}, ${legend.y})`)
-    
-    const categories = ['Fastest Growth', 'Slowest Growth', 'Shrinking']
-    
-    legendBox.selectAll('rect')
-      .data(categories)
-      .join('rect')
-      .attr('class', 'legend.rect')
-      .attr('x', 0)
-      .attr('y', (d, i) => i * 25)
-      .attr('width', 15)
-      .attr('height', 15)
-      .attr('fill', d => comparisonColorScale(d))
-      .attr('stroke', 'black')
-      .attr('stroke-width', 0.5)
+  const filterStatesData = state.data.filter(d => 
+    statesOfInterest.includes(d.current_state))
+  
+  console.log('filtered states data >>', filterStatesData)  //diag
+  
+  const filterOnePerYear = filterStatesData.filter(d => d.from === 'Alabama')
 
-    legendBox.selectAll('text')
-      .data(categories)
-      .join('text')
-      .attr('class', 'legend-label')
-      .attr('x', 20)
-      .attr('y', (d, i) => i * 25 + 15)
-      .style('text-anchor', 'start')
-      .text(d => d.charAt(0).toUpperCase() + d.slice(1))
-    
-    // create a line at zero
-    svg.append('line')
-      .attr('x1', margin.left)
-      .attr('x2', width - margin.right + '2em')
-      .attr('y1', yScale(0))
-      .attr('y2', yScale(0))
-      .attr('stroke', maroon)
-      .attr('stroke-width', 1)
-      .attr('opacity', 0.5)
-
-    draw()
+  console.log('filter one per year >>', filterOnePerYear)
+  
+  // this was a bear...maybe there are more idiomatic ways of doing it in D3?
+  // I am convinced that I don't exactly understand reduce()
+  function sumAbroadAndDiffStates (data) {
+    return data.reduce((accumulator, item) => {
+      const existingState = accumulator.find(
+        (state) => state.current_state === item.current_state
+      )
+      if (existingState) {
+        existingState.abroad_total += item.abroad_total
+        existingState.from_different_state_total += item.from_different_state_total
+      } else {
+        accumulator.push({
+          current_state: item.current_state,
+          abroad_total: item.abroad_total,
+          from_different_state_total: item.from_different_state_total,
+        })
+      }
+      return accumulator
+    }, [])
   }
+  
+  const sumMigrantsByState = sumAbroadAndDiffStates(filterOnePerYear);
+  console.log(sumMigrantsByState)
 
-  function draw() {
+  xScaleAbroadState = d3.scaleBand()
+    .domain(sumMigrantsByState.map(d => d.current_state))
+    .range([0, width - margin.left])
+    .padding(0.2)
 
-  }
+  yScaleAboardState = d3.scaleLinear()
+    .domain([0, d3.max(sumMigrantsByState, d => 
+      d.abroad_total + d.from_different_state_total)]).nice()
+    .range([height - margin.bottom, margin.top])
+  
+  draw()
+}
+
+function draw() {
+
+}
 
 
 // function init() {
@@ -255,7 +302,7 @@ d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
 //     d.current_state === 'North Dakota' || 
 //     d.current_state === 'Nevada'
 //     )
-//     console.log('Growing States Data >>', fastestGrowingData) //diagnostic
+//     console.log('Stacked States Data >>', fastestGrowingData) //diagnostic
   
 //   // grow data by year; created a Map datatype that'll need conversion
 //   // several false states on learning how rollup() and sum() work in d3
