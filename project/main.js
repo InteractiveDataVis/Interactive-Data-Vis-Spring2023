@@ -97,10 +97,10 @@ d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
       .domain(statesData.map(d => d.state))
       .range([0, width - margin.left])
       .padding(0.2)
-      .paddingInner(0.1)
+      // .paddingInner(0.1)
 
     yScale = d3.scaleLinear()
-      .domain(d3.extent(statesData, d => d.percentChange))
+      .domain([0, d3.max(statesData, d => d.percentChange)])
       .range([height - margin.bottom, margin.top])
 
     // create axes
@@ -117,11 +117,12 @@ d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
     svg.append('g')
     .attr('transform', `translate(${margin.left}, ${height - margin.bottom})`)
     .call(xAxis)
-  svg.append('g')
+
+    svg.append('g')
     .attr('transform', `translate(${margin.left}, 0)`)
     .call(yAxis)
 
-  // draw title
+  // append title
   svg.append('text')
     .attr('x', (width + margin.left) / 2)
     .attr('y', margin.top / 2)
@@ -129,7 +130,7 @@ d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
     .attr('class', 'chart-title')
     .text('Fastest & slowest growing (shrinking) states 2010-2020')
 
-  // draw axis labels
+  // append axis labels
   svg.append('text')
     .attr(
       'transform', 
@@ -151,12 +152,12 @@ d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
     .join('rect')
     .attr('class', 'bar')
     .attr('x', d => margin.left + xScale(d.state))
-    .attr('y', d => yScale(d.percentChange))
+    .attr('y', d => yScale(Math.max(0, d.percentChange)))
     .attr('width', xScale.bandwidth())
-    .attr('height', d => (height - margin.bottom) - yScale(d.percentChange))
+    .attr('height', d => Math.abs(yScale(d.percentChange) - yScale(0)))
     .attr('fill', 'transparent')
-    .attr('stroke', 'black')
-    .attr('stroke-width', 2)
+    .attr('stroke', maroon)
+    .attr('stroke-width', 1.5)
   }
 
 
