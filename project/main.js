@@ -19,8 +19,9 @@ const width = window.innerWidth * 0.7,
 
 // colors
 const maroon = '#800000',
-  teal = '#008080',
-  dusty_rose = '#C0737A'
+  teal = '#008080', //TODO remove
+  dusty_rose = '#C0737A', //TODO remove
+  green_grey = '#BDD9BF'
 
 // create area for legend
 const legend = {
@@ -51,15 +52,16 @@ let state = {
 }
 
 const statesData = [
-  { state: 'Utah', percentChange: 18.4, popChange: 507731, changeCat: 'fastest' },
-  { state: 'Idaho', percentChange: 17.3, popChange: 271524, changeCat: 'fastest' },
-  { state: 'Texas', percentChange: 15.9, popChange: 3999444, changeCat: 'fastest' },
-  { state: 'North Dakota', percentChange: 15.8, popChange: 106503, changeCat: 'fastest' },
-  { state: 'Neveda', percentChange: 15,  popChange: 404063, changeCat: 'fastest' },
-  { state: 'West Virginia', percentChange: -3.2, popChange: -68207, changeCat: 'shrinking' },
-  { state: 'Mississippi', percentChange: -0.2, popChange: -1816, changeCat: 'shrinking' },
-  { state: 'Illinois', percentChange: -0.1, popChange: -19041, changeCat: 'shrinking' },
-  { state: 'Pennsylvania', percentChange: 2.4, popChange: 300321, changeCat: 'slowest' },
+  { state: 'Utah', abbr: 'UT', percentChange: 18.4, popChange: 507731, changeCat: 'fastest' },
+  { state: 'Idaho', abbr: 'ID', percentChange: 17.3, popChange: 271524, changeCat: 'fastest' },
+  { state: 'Texas', abbr: 'TX', percentChange: 15.9, popChange: 3999444, changeCat: 'fastest' },
+  { state: 'North Dakota', abbr: 'ND', percentChange: 15.8, popChange: 106503, changeCat: 'fastest' },
+  { state: 'Neveda', abbr: 'NV', percentChange: 15,  popChange: 404063, changeCat: 'fastest' },
+  { state: 'Pennsylvania', abbr: 'PA', percentChange: 2.4, popChange: 300321, changeCat: 'slowest' },
+  { state: 'Illinois', abbr: 'IL', percentChange: -0.1, popChange: -19041, changeCat: 'shrinking' },
+  { state: 'Mississippi', abbr: 'MS', percentChange: -0.2, popChange: -1816, changeCat: 'shrinking' },
+  { state: 'West Virginia', abbr: 'WV', percentChange: -3.2, popChange: -68207, changeCat: 'shrinking' },
+
 ]
 
 console.log('states >> ', statesData) //diag
@@ -95,12 +97,12 @@ d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
     // Create scales for statesData
     xScale = d3.scaleBand()
       .domain(statesData.map(d => d.state))
-      .range([0, width - margin.left])
+      .range([0, width - margin.left + 2])
       .padding(0.2)
       // .paddingInner(0.1)
 
     yScale = d3.scaleLinear()
-      .domain([0, d3.max(statesData, d => d.percentChange)])
+      .domain([d3.min(statesData, d => d.percentChange) - 0.5, d3.max(statesData, d => d.percentChange) + 1])
       .range([height - margin.bottom, margin.top])
 
     // create axes
@@ -122,42 +124,53 @@ d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
     .attr('transform', `translate(${margin.left}, 0)`)
     .call(yAxis)
 
-  // append title
-  svg.append('text')
-    .attr('x', (width + margin.left) / 2)
-    .attr('y', margin.top / 2)
-    .attr('text-anchor', 'middle')
-    .attr('class', 'chart-title')
-    .text('Fastest & slowest growing (shrinking) states 2010-2020')
+    // append title
+    svg.append('text')
+      .attr('x', (width + margin.left) / 2)
+      .attr('y', margin.top / 2)
+      .attr('text-anchor', 'middle')
+      .attr('class', 'chart-title')
+      .text('Fastest v. Slowest Growing/Shrinking States')
 
-  // append axis labels
-  svg.append('text')
-    .attr(
-      'transform', 
-      `translate(${width  / 2 + margin.right}, ${height - margin.bottom + 45})`)
-    .style('text-anchor', 'middle')
-    .attr('class', 'axis-label')
-    .text('State')
+    // append axis labels
+    svg.append('text')
+      .attr(
+        'transform', 
+        `translate(${width  / 2 + margin.right}, ${height - margin.bottom + 45})`)
+      .style('text-anchor', 'middle')
+      .attr('class', 'axis-label')
+      .text('State')
+      
+    svg.append('text')
+      .attr('transform', 'rotate(-90)')
+      .attr('x', - (height/2))
+      .attr('y', margin.left / 2 - 30)
+      .style('text-anchor', 'middle')
+      .attr('class', 'axis-label')
+      .text('% of Population Change')
     
-  svg.append('text')
-    .attr('transform', 'rotate(-90)')
-    .attr('x', - (height/2))
-    .attr('y', margin.left / 2 - 30)
-    .style('text-anchor', 'middle')
-    .attr('class', 'axis-label')
-    .text('Percent of population change')
-  
-  svg.selectAll('rect.bar')
-    .data(statesData)
-    .join('rect')
-    .attr('class', 'bar')
-    .attr('x', d => margin.left + xScale(d.state))
-    .attr('y', d => yScale(Math.max(0, d.percentChange)))
-    .attr('width', xScale.bandwidth())
-    .attr('height', d => Math.abs(yScale(d.percentChange) - yScale(0)))
-    .attr('fill', 'transparent')
-    .attr('stroke', maroon)
-    .attr('stroke-width', 1.5)
+    // append rect.bars
+    svg.selectAll('rect.bar')
+      .data(statesData)
+      .join('rect')
+      .attr('class', 'bar')
+      .attr('x', d => margin.left + xScale(d.state))
+      .attr('y', d => yScale(Math.max(0, d.percentChange)))
+      .attr('width', xScale.bandwidth())
+      .attr('height', d => Math.abs(yScale(d.percentChange) - yScale(0)))
+      .attr('fill', 'transparent')
+      .attr('stroke', maroon)
+      .attr('stroke-width', 1.5)
+    
+    // create a line at zero
+    svg.append('line')
+      .attr('x1', margin.left)
+      .attr('x2', width - margin.right + '2em')
+      .attr('y1', yScale(0))
+      .attr('y2', yScale(0))
+      .attr('stroke', maroon)
+      .attr('stroke-width', 1)
+      .attr('opacity', 0.5)
   }
 
 
