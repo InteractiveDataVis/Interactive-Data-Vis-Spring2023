@@ -235,6 +235,12 @@ d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
       .attr('stroke', maroon)
       .attr('stroke-width', 1)
       .attr('opacity', 0.5)
+
+    draw()
+  }
+
+  function draw() {
+    
   }
 
 
