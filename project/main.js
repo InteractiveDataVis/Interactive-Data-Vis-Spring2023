@@ -24,7 +24,11 @@ const maroon = '#800000',
   yellow = '#E8F086',
   red = '#FF4242',
   lightBlue = '#235FA4',
-  darkBlue = '#0A284B'
+  darkBlue = '#0A284B',
+  orange = '#FFA500',
+  brown = '#8B4513',
+  purple = '#800080',
+  pink = '#FFC0CB'
 
 const comparisonColorScale = d3.scaleOrdinal()
   .domain(['fastest', 'slowest', 'shrinking'])
@@ -458,7 +462,6 @@ function init() {
     .attr('class', 'circlePackTooltip')
     .style('opacity', 0)
   
-  
   const hierarchy = d3.hierarchy({
     from_name: '',
     from_value: 0,
@@ -479,6 +482,18 @@ function init() {
     .append('svg')
     .attr('width', width)
     .attr('height', height)
+
+  let circlePackColorScheme = 'region'
+
+  function toggleColorScheme() {
+    circlePackColorScheme = circlePackColorScheme === 'region' ? 'division' : 'region';
+    node.selectAll('circle')
+      // this seems dangerious, but it works!
+      .style('fill', d => d.parent ? (circlePackColorScheme === 'region' ? regionBubbleColor(d.data.region) : divisionBubbleColor(d.data.division)) : 'white');
+  }
+
+  // listener for button
+  document.getElementById('toggle-color-scheme').addEventListener('click', toggleColorScheme);
   
   function regionBubbleColor(region) {
     const bubbleColorMap = {
@@ -491,6 +506,22 @@ function init() {
     }
     return bubbleColorMap[region]
   }
+
+  function divisionBubbleColor(division) {
+    const bubbleColorMap = {
+      'New England': green,
+      'Middle Atlantic': yellow,
+      'East North Central': red,
+      'West North Central': lightBlue,
+      'South Atlantic': darkBlue,
+      'East South Central':orange,
+      'West South Central': brown,
+      'Mountain': pink,
+      'Pacific': purple,
+    }
+    return bubbleColorMap[division]
+  }
+  
   
   const node = svg.selectAll('g')
     .data(base.descendants())
@@ -499,7 +530,8 @@ function init() {
   
   node.append('circle')
     .attr('r', d => d.r)
-    .style('fill', d => d.parent ? regionBubbleColor(d.data.region) : 'white')
+    .style('fill', d => 
+      d.parent ? (circlePackColorScheme === 'region' ? regionBubbleColor(d.data.region) : divisionBubbleColor(d.data.division)) : 'white')
     .filter(d => d.parent)
     .on('mouseover', (event, d) => {
       circlePackTooltip.style('opacity', 1)
@@ -515,7 +547,7 @@ function init() {
         .transition()
         .duration(200)
         .attr('stroke', 'black')
-        .attr('stroke-width', 2)
+        .attr('stroke-width', 1)
         .attr('r', d => d.r * 1.1)
       
       d3.select(event.currentTarget.parentNode)
