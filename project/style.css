@@ -32,6 +32,7 @@ body {
 .columns {
     padding-top: 1rem;
 }
+
 .list-columns ul {
     columns: 4;
 }
@@ -42,6 +43,14 @@ body {
 
 .chart-title {
     fill: maroon
+}
+
+.bar:hover {
+    stroke-width: 1px;
+}
+
+.stacked-bar:hover {
+    stroke-width: 1.5px;
 }
 
 .tooltip {
@@ -61,7 +70,7 @@ body {
   position: absolute;
   text-align: left;
   width: 184px;
-  height: 100px;
+  height: 36px;
   padding: 5px;
   font: 12px sans-serif;
   background: #f0f0f0;
