@@ -45,7 +45,7 @@ const legend = {
   const stackedLegend = {
     width: 180,
     height: 60,
-    x: width - 600,
+    x: width - 800,
     y: 30,
   }
 
@@ -86,7 +86,6 @@ const statesData = [
 ]
 
 console.log('states >> ', statesData) //diag
-
 
 // load data
 d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
@@ -236,6 +235,7 @@ function init() {
     .attr('fill', d => comparisonColorScale(d))
     .attr('stroke', 'black')
     .attr('stroke-width', 0.5)
+  
   legendBox.selectAll('text')
     .data(categories)
     .join('text')
@@ -264,6 +264,8 @@ function init() {
   
   console.log('filtered states data >>', filterStatesData)  //diag
   
+  // The line below using Alabama arbitrarily to transform the data to
+  // one instance per year
   const filterOnePerYear = filterStatesData.filter(d => d.from === 'Alabama')
 
   console.log('filter one per year >>', filterOnePerYear)
@@ -320,6 +322,13 @@ function init() {
   svg.append('g')
     .attr('transform', `translate(${margin.left}, 0)`)
     .call(yAxisAbroadState)
+
+  svg.append('text')
+    .attr('x', (width + margin.left) / 2)
+    .attr('y', margin.top / 2)
+    .attr('text-anchor', 'middle')
+    .attr('class', 'chart-title')
+    .text('Migration from Abrove vs. Different US States')
 
   const stack = d3.stack()
       .keys(['abroad_total', 'from_different_state_total'])
