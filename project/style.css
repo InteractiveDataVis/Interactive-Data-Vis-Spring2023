@@ -1,6 +1,7 @@
 body {
     color: maroon;
 }
+
 .content {
     max-width: 1000px;
     margin: 0 auto;
@@ -27,6 +28,23 @@ body {
 ::selection {
     background-color: maroon;
     color: white;
+}
+
+::-moz-selection {
+    background-color: maroon;
+    color: white;
+}
+
+::-webkit-selection {
+    background-color: maroon;
+    color: white;
+}
+
+/* trying to coerce color to white for these two elements */
+.chart-title::selection,
+.axis-label::selection {
+  background-color: maroon;
+  color: white;
 }
 
 .columns {
@@ -78,6 +96,8 @@ body {
   border-radius: 8px;
   pointer-events: none;
 }
+
+.chart-title
 
 #navbar {
     color: maroon;
