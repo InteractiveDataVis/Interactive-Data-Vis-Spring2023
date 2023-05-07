@@ -431,53 +431,81 @@ function init() {
   // TODO: refactor to one function like other groupedData?
   const stateGroupedData = utahRawData.reduce((accumulator, item) => {
     if (accumulator[item.from]) {
-      accumulator[item.from] += item.number_of_people
+      accumulator[item.from].number_of_people += item.number_of_people;
     } else {
-      accumulator[item.from] = item.number_of_people
+      accumulator[item.from] = {
+        number_of_people: item.number_of_people,
+        region: item.from_region,
+        division: item.from_division
+      };
     }
-    return accumulator
+    return accumulator;
   }, {})
-
+  
   console.log('stateGroupedData >>', stateGroupedData)  //diagnostic
 
   const stateSummedData = Object.keys(stateGroupedData).map(key => ({
     from_name: key,
-    from_value: stateGroupedData[key]
+    from_value: stateGroupedData[key].number_of_people,
+    region: stateGroupedData[key].region,
+    division: stateGroupedData[key].division,
   }))
 
   console.log('stateSummedData >>', stateSummedData)
+
+  const circlePackTooltip = d3.select('body')
+    .append('div')
+    .attr('class', 'circlePackTooltip')
+    .style('opacity', 0)
   
-  // create hierarchy for data
-  const hierarchy = d3.hierarchy({ children: stateSummedData })
-      .sum(d => d.from_value)
+  
+  const hierarchy = d3.hierarchy({
+    from_name: '',
+    from_value: 0,
+    region: '',
+    division: '',
+    children: stateSummedData
+    })
+      .sum(d => d.from_value) 
+      .sort((a, b) => b.value - a.value)
 
   const circlePack = d3.pack()
     .size([width, height])
     .padding(2)
-
+  
   const base = circlePack(hierarchy)
-
+  
   svg = d3.select('#circle-pack-container')
     .append('svg')
     .attr('width', width)
     .attr('height', height)
-
+  
   const stateBubbleColor = d3.scaleOrdinal(d3.schemeCategory10)
-
+  
   const node = svg.selectAll('g')
     .data(base.descendants())
     .join('g')
     .attr('transform', d => `translate(${d.x},${d.y})`)
-
+  
   node.append('circle')
     .attr('r', d => d.r)
     .style('fill', d => stateBubbleColor(d.data.from_name))
-
-  node.append('text')
-    .text(d => d.data.from_name)
-    .attr('text-anchor', 'middle')
-    .attr('dy', '0.2em')
-    .style("font-size", d => Math.min(2 * d.r, (2 * d.r - 8) / 2.5) + "px")
+    .on('mouseover', (event, d) => {
+      circlePackTooltip.style('opacity', 1)
+      .html(
+        `
+        <p>State: ${d.data.from_name}</p>
+        <p># Migrants: ${d.data.from_value}
+        `
+      )
+    })
+    .on('mousemove', (event) => {
+      circlePackTooltip.style('left', (event.pageX + 18) + 'px')
+      .style('top', event.pageY - 25 + 'px')
+    })
+    .on('mouseout', () => {
+      circlePackTooltip.style('opacity', 0)
+    })
 
   // draw()
 }
