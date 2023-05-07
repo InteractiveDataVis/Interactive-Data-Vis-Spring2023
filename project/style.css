@@ -97,6 +97,19 @@ body {
   pointer-events: none;
 }
 
+.circlePackTooltip {
+    position: absolute;
+    text-align: left;
+    width: 184px;
+    height: 64px;
+    padding: 5px;
+    font: 12px sans-serif;
+    background: #f0f0f0;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
+}
+
 #navbar {
     color: maroon;
     max-width: 800px;
