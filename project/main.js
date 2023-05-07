@@ -418,7 +418,65 @@ function init() {
     .style('text-anchor', 'start')
     .text(d => d.charAt(0).toUpperCase() + d.slice(1))
 
-  draw()
+  // ++ CIRCLE PACK GRAPH FOR REGION, DIVISION, FROM (state)
+  
+  // get data for only Utah
+  utahRawData = state.data.filter(d => d.current_state === 'Utah')
+  console.log('Utah Raw Data >>', utahRawData)  // diagonstic
+
+  // aggregate data at `from` state level 
+  // TODO: refactor to one function like other groupedData?
+  const stateGroupedData = utahRawData.reduce((accumulator, item) => {
+    if (accumulator[item.from]) {
+      accumulator[item.from] += item.number_of_people
+    } else {
+      accumulator[item.from] = item.number_of_people
+    }
+    return accumulator
+  }, {})
+
+  console.log('stateGroupedData >>', stateGroupedData)  //diagnostic
+
+  const stateSummedData = Object.keys(stateGroupedData).map(key => ({
+    from_name: key,
+    from_value: stateGroupedData[key]
+  }))
+
+  console.log('stateSummedData >>', stateSummedData)
+  
+  // create hierarchy for data
+  const hierarchy = d3.hierarchy({ children: stateSummedData })
+      .sum(d => d.from_value)
+
+  const circlePack = d3.pack()
+    .size([width, height])
+    .padding(2)
+
+  const base = circlePack(hierarchy)
+
+  svg = d3.select('#circle-pack-container')
+    .append('svg')
+    .attr('width', width)
+    .attr('height', height)
+
+  const stateBubbleColor = d3.scaleOrdinal(d3.schemeCategory10)
+
+  const node = svg.selectAll('g')
+    .data(base.descendants())
+    .join('g')
+    .attr('transform', d => `translate(${d.x},${d.y})`)
+
+  node.append('circle')
+    .attr('r', d => d.r)
+    .style('fill', d => stateBubbleColor(d.data.from_name))
+
+  node.append('text')
+    .text(d => d.data.from_name)
+    .attr('text-anchor', 'middle')
+    .attr('dy', '0.2em')
+    .style("font-size", d => Math.min(2 * d.r, (2 * d.r - 8) / 2.5) + "px")
+
+  // draw()
 }
 
 function draw() {
