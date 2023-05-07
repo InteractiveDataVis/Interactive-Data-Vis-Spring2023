@@ -42,7 +42,12 @@ const legend = {
     y: 30,
   }
 
-  const stackedLegend = legend
+  const stackedLegend = {
+    width: 180,
+    height: 60,
+    x: width - 600,
+    y: 30,
+  }
 
 
 /*
@@ -161,10 +166,16 @@ function init() {
     .style('text-anchor', 'middle')
     .attr('class', 'axis-label')
     .text('% of Population Change')
-    const tooltip = d3.select('body')
-        .append('div')
-        .attr('class', 'tooltip')
-        .style('opacity', 0)
+    
+  const tooltip = d3.select('body')
+      .append('div')
+      .attr('class', 'tooltip')
+      .style('opacity', 0)
+
+  const tooltipStacked = d3.select('body')
+    .append('div')
+    .attr('class', 'tooltipStacked')
+    .style('opacity', 0)
       
   
   // append rect.bars
@@ -179,7 +190,7 @@ function init() {
     .attr('fill', d => comparisonColorScale(d.changeCat))
     .attr('stroke', 'black')
     .attr('stroke-width', 0.5)
-    .on('mouseover', (event, d) => {
+    .on('mouseover', (event, d, i) => {
       tooltip.style('opacity', 1)
         .html(
           `
@@ -331,6 +342,25 @@ function init() {
       .attr('height', d => yScaleAboardState(d[0]) - yScaleAboardState(d[1]))
       .attr('stroke', 'black')
       .attr('stroke-width', 0.5)
+      .on('mouseover', (event, d) => {
+        const currentStateData = sumMigrantsByState.find(entry => entry.current_state === d.data.current_state);
+        tooltipStacked.style('opacity', 1)
+          .html(
+            `
+            <p>From Abroad: ${currentStateData.abroad_total}</p>
+            <p>From Different State: ${currentStateData.from_different_state_total} </p>
+            <p>% Abroad: ${((currentStateData.abroad_total * 100) / (currentStateData.abroad_total + currentStateData.from_different_state_total)).toFixed(0)}%</p>
+            <p>Percentage Different State: ${((currentStateData.from_different_state_total * 100) / (currentStateData.abroad_total + currentStateData.from_different_state_total)).toFixed(0)}%</p>
+            `
+          )
+      })
+      .on('mousemove', (event) => {
+      tooltipStacked.style('left', (event.pageX + 15) + 'px')
+        .style('top', (event.pageY - 30) + 'px');
+    })
+      .on('mouseout', () => {
+        tooltipStacked.style('opacity',)
+      })
   
   const stackedCategories = ['From Abroad', 'From Different State']
 
