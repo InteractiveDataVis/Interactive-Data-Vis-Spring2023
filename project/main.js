@@ -359,7 +359,7 @@ function init() {
         .style('top', (event.pageY - 30) + 'px');
     })
       .on('mouseout', () => {
-        tooltipStacked.style('opacity',)
+        tooltipStacked.style('opacity', 0)
       })
   
   const stackedCategories = ['From Abroad', 'From Different State']
