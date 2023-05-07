@@ -421,7 +421,10 @@ function init() {
   // ++ CIRCLE PACK GRAPH FOR REGION, DIVISION, FROM (state)
   
   // get data for only Utah
-  utahRawData = state.data.filter(d => d.current_state === 'Utah')
+  utahRawData = state.data.filter(d => 
+    d.current_state === 'Utah' && 
+      d.from !== 'abroad_ForeignCountry'
+    )
   console.log('Utah Raw Data >>', utahRawData)  // diagonstic
 
   // aggregate data at `from` state level 
