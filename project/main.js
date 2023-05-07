@@ -517,6 +517,8 @@ function init() {
         .attr('stroke', 'black')
         .attr('stroke-width', 2)
         .attr('r', d => d.r * 1.1)
+      
+      d3.select(event.currentTarget.parentNode)
         .raise()
     })
     .on('mousemove', (event) => {
@@ -530,7 +532,7 @@ function init() {
         .duration(200)
         .attr('stroke', 'none')
         .attr('r', d => d.r)
-        .lower()
+
     })
 
   // draw()
