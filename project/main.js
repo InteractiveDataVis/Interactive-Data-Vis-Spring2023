@@ -514,7 +514,7 @@ function init() {
       d3.select(event.currentTarget)
         .transition()
         .duration(200)
-        .attr('stroke', 'white')
+        .attr('stroke', 'black')
         .attr('stroke-width', 2)
         .attr('r', d => d.r * 1.1)
         .raise()
