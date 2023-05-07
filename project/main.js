@@ -488,6 +488,7 @@ function init() {
   function toggleColorScheme() {
     circlePackColorScheme = circlePackColorScheme === 'region' ? 'division' : 'region';
     node.selectAll('circle')
+      // this seems dangerious, but it works!
       .style('fill', d => d.parent ? (circlePackColorScheme === 'region' ? regionBubbleColor(d.data.region) : divisionBubbleColor(d.data.division)) : 'white');
   }
 
