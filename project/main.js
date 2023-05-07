@@ -350,7 +350,7 @@ function init() {
             <p>From Abroad: ${currentStateData.abroad_total}</p>
             <p>From Different State: ${currentStateData.from_different_state_total} </p>
             <p>% Abroad: ${((currentStateData.abroad_total * 100) / (currentStateData.abroad_total + currentStateData.from_different_state_total)).toFixed(0)}%</p>
-            <p>Percentage Different State: ${((currentStateData.from_different_state_total * 100) / (currentStateData.abroad_total + currentStateData.from_different_state_total)).toFixed(0)}%</p>
+            <p>% Different State: ${((currentStateData.from_different_state_total * 100) / (currentStateData.abroad_total + currentStateData.from_different_state_total)).toFixed(0)}%</p>
             `
           )
       })
