@@ -495,7 +495,9 @@ function init() {
       .html(
         `
         <p>State: ${d.data.from_name}</p>
-        <p># Migrants: ${d.data.from_value}
+        <p># Migrants: ${d.data.from_value}</p>
+        <p>Region: ${d.data.region}</p>
+        <p>Sub-region: ${d.data.division}</p>
         `
       )
     })
