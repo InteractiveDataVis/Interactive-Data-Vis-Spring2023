@@ -1,6 +1,7 @@
 body {
     color: maroon;
 }
+
 .content {
     max-width: 1000px;
     margin: 0 auto;
@@ -29,9 +30,27 @@ body {
     color: white;
 }
 
+::-moz-selection {
+    background-color: maroon;
+    color: white;
+}
+
+::-webkit-selection {
+    background-color: maroon;
+    color: white;
+}
+
+/* trying to coerce color to white for these two elements */
+.chart-title::selection,
+.axis-label::selection {
+  background-color: maroon;
+  color: white;
+}
+
 .columns {
     padding-top: 1rem;
 }
+
 .list-columns ul {
     columns: 4;
 }
@@ -42,6 +61,14 @@ body {
 
 .chart-title {
     fill: maroon
+}
+
+.bar:hover {
+    stroke-width: 1px;
+}
+
+.stacked-bar:hover {
+    stroke-width: 1.5px;
 }
 
 .tooltip {
@@ -61,7 +88,7 @@ body {
   position: absolute;
   text-align: left;
   width: 184px;
-  height: 100px;
+  height: 36px;
   padding: 5px;
   font: 12px sans-serif;
   background: #f0f0f0;
@@ -69,6 +96,8 @@ body {
   border-radius: 8px;
   pointer-events: none;
 }
+
+.chart-title
 
 #navbar {
     color: maroon;

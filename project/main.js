@@ -308,6 +308,7 @@ function init() {
   // create axes
   xAxisAbroadState = d3.axisBottom(xScaleAbroadState)
   yAxisAbroadState = d3.axisLeft(yScaleAboardState)
+      .tickFormat(d => `${d / 1000000}M`)
 
   svg = d3.select('#stacked-container')
       .append('svg')
@@ -328,7 +329,15 @@ function init() {
     .attr('y', margin.top / 2)
     .attr('text-anchor', 'middle')
     .attr('class', 'chart-title')
-    .text('Migration from Abrove vs. Different US States')
+    .text('Migration from Abroad vs. Different US States')
+
+  svg.append('text')
+    .attr('transform', 'rotate(-90)')
+    .attr('x', - (height/2))
+    .attr('y', margin.left / 2 - 30)
+    .style('text-anchor', 'middle')
+    .attr('class', 'axis-label')
+    .text('# of Migrants (in millions)')
 
   const stack = d3.stack()
       .keys(['abroad_total', 'from_different_state_total'])
@@ -342,9 +351,10 @@ function init() {
       .attr('class', 'stacked-bar')
       .attr('fill', d => abroadStateColorScale(d.key))
 
-  grouped.selectAll('rect')
+  grouped.selectAll('rect.stacked-bar')
       .data(d => d)
       .join('rect')
+      .attr('class', 'stacked-bar')
       .attr('x', (d, i) => margin.left + xScaleAbroadState(sumMigrantsByState[i].current_state))
       .attr('y', d => yScaleAboardState(d[1]))
       .attr('width', xScaleAbroadState.bandwidth())
@@ -352,16 +362,25 @@ function init() {
       .attr('stroke', 'black')
       .attr('stroke-width', 0.5)
       .on('mouseover', (event, d) => {
+        const k = d3.select(event.currentTarget.parentNode).datum().key
         const currentStateData = sumMigrantsByState.find(entry => entry.current_state === d.data.current_state);
-        tooltipStacked.style('opacity', 1)
-          .html(
-            `
-            <p>From Abroad: ${currentStateData.abroad_total}</p>
-            <p>From Different State: ${currentStateData.from_different_state_total} </p>
-            <p>% Abroad: ${((currentStateData.abroad_total * 100) / (currentStateData.abroad_total + currentStateData.from_different_state_total)).toFixed(0)}%</p>
-            <p>% Different State: ${((currentStateData.from_different_state_total * 100) / (currentStateData.abroad_total + currentStateData.from_different_state_total)).toFixed(0)}%</p>
-            `
-          )
+        const relativeTotal = currentStateData.abroad_total + currentStateData.from_different_state_total
+        let hoverData = ''
+
+        if (k === 'abroad_total') {
+          hoverData = 
+          `
+          <p>From Abroad: ${currentStateData.abroad_total}</p>
+          <p>% from Aboard: ${((currentStateData.abroad_total * 100) / relativeTotal).toFixed(0)}%</p>
+          `
+        } else if (k === 'from_different_state_total') {
+          hoverData = 
+          `
+          <p>From Different State: ${currentStateData.from_different_state_total}</p>
+          <p>% Different State: ${((currentStateData.from_different_state_total * 100) / relativeTotal).toFixed(0)}%</p>
+          `
+        }
+        tooltipStacked.style('opacity', 1).html(hoverData)
       })
       .on('mousemove', (event) => {
       tooltipStacked.style('left', (event.pageX + 15) + 'px')
