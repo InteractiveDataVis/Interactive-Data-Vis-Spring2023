@@ -480,7 +480,17 @@ function init() {
     .attr('width', width)
     .attr('height', height)
   
-  const stateBubbleColor = d3.scaleOrdinal(d3.schemeCategory10)
+  function regionBubbleColor(region) {
+    const bubbleColorMap = {
+      'Northeast': green,
+      'Midwest': yellow,
+      'South': red,
+      'West': lightBlue,
+      'Puetro Rico': darkBlue,
+      'US Island Area': darkBlue,
+    }
+    return bubbleColorMap[region]
+  }
   
   const node = svg.selectAll('g')
     .data(base.descendants())
@@ -489,7 +499,8 @@ function init() {
   
   node.append('circle')
     .attr('r', d => d.r)
-    .style('fill', d => stateBubbleColor(d.data.from_name))
+    .style('fill', d => d.parent ? regionBubbleColor(d.data.region) : 'white')
+    .filter(d => d.parent)
     .on('mouseover', (event, d) => {
       circlePackTooltip.style('opacity', 1)
       .html(
@@ -500,13 +511,26 @@ function init() {
         <p>Sub-region: ${d.data.division}</p>
         `
       )
+      d3.select(event.currentTarget)
+        .transition()
+        .duration(200)
+        .attr('stroke', 'white')
+        .attr('stroke-width', 2)
+        .attr('r', d => d.r * 1.1)
+        .raise()
     })
     .on('mousemove', (event) => {
       circlePackTooltip.style('left', (event.pageX + 18) + 'px')
       .style('top', event.pageY - 25 + 'px')
     })
-    .on('mouseout', () => {
+    .on('mouseout', (event, d) => {
       circlePackTooltip.style('opacity', 0)
+      d3.select(event.currentTarget)
+        .transition()
+        .duration(200)
+        .attr('stroke', 'none')
+        .attr('r', d => d.r)
+        .lower()
     })
 
   // draw()
