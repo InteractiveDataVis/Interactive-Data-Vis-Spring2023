@@ -38,6 +38,14 @@ const abroadStateColorScale = d3.scaleOrdinal()
   .domain(['abroad_total', 'from_different_state_total'])
   .range([lightBlue, darkBlue])
 
+const regionColorScale = d3.scaleOrdinal()
+  .domain(['Northeast', 'Midwest', 'South', 'West', 'Puerto Rico', 'US Island Area'])
+  .range([green, yellow, red, lightBlue, darkBlue, darkBlue])
+
+const divisionColorScale = d3.scaleOrdinal()
+  .domain(['New England', 'Middle Atlantic', 'East North Central', 'West North Central', 'South Atlantic', 'East South Central', 'West South Central', 'Mountain', 'Pacific'])
+  .range([green, yellow, red, lightBlue, darkBlue, orange, brown, pink, purple])
+
 // create area for legend
 const legend = {
     width: 180,
@@ -46,13 +54,19 @@ const legend = {
     y: 30,
   }
 
-  const stackedLegend = {
+const stackedLegend = {
     width: 180,
     height: 60,
     x: width - 800,
     y: 30,
-  }
+}
 
+const circlePackLegend = {
+  width: 180,
+  height: 60,
+  x: width - 210,
+  y: 30,
+}
 
 /*
 these variables allow us to access anything we manipulate in init() 
@@ -486,10 +500,13 @@ function init() {
   let circlePackColorScheme = 'region'
 
   function toggleColorScheme() {
-    circlePackColorScheme = circlePackColorScheme === 'region' ? 'division' : 'region';
+    circlePackColorScheme = circlePackColorScheme === 'region' ? 'division' : 'region'
     node.selectAll('circle')
       // this seems dangerious, but it works!
-      .style('fill', d => d.parent ? (circlePackColorScheme === 'region' ? regionBubbleColor(d.data.region) : divisionBubbleColor(d.data.division)) : 'white');
+      .style('fill', d => d.parent ? (circlePackColorScheme === 'region' 
+      ? regionBubbleColor(d.data.region) : divisionBubbleColor(d.data.division)) : 'white')
+
+      createCircleLegend()
   }
 
   // listener for button
@@ -521,7 +538,40 @@ function init() {
     }
     return bubbleColorMap[division]
   }
+
+  function createCircleLegend() {
+    // Remove any existing legend
+    svg.select('.circle-pack-legend').remove();
   
+    // Create a new legend based on the current color scheme
+    const legendBox = svg.append('g')
+      .attr('class', 'circle-pack-legend')
+      .attr('transform', `translate(${circlePackLegend.x}, ${circlePackLegend.y})`);
+  
+    const colorScale = circlePackColorScheme === 'region' ? regionColorScale : divisionColorScale;
+    const categories = colorScale.domain();
+  
+    legendBox.selectAll('rect')
+      .data(categories)
+      .join('rect')
+      .attr('class', 'legend.rect')
+      .attr('x', 0)
+      .attr('y', (d, i) => i * 25)
+      .attr('width', 15)
+      .attr('height', 15)
+      .attr('fill', d => colorScale(d))
+      .attr('stroke', 'black')
+      .attr('stroke-width', 0.5);
+  
+    legendBox.selectAll('text')
+      .data(categories)
+      .join('text')
+      .attr('class', 'legend-label')
+      .attr('x', 20)
+      .attr('y', (d, i) => i * 25 + 15)
+      .style('text-anchor', 'start')
+      .text(d => d.charAt(0).toUpperCase() + d.slice(1));
+  }
   
   const node = svg.selectAll('g')
     .data(base.descendants())
@@ -565,7 +615,10 @@ function init() {
         .attr('stroke', 'none')
         .attr('r', d => d.r)
 
+    createCircleLegend()
+
     })
+  
 
   // draw()
 }
