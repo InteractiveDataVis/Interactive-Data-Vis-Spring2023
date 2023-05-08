@@ -510,7 +510,9 @@ function init() {
   }
 
   // listener for button
-  document.getElementById('toggle-color-scheme').addEventListener('click', toggleColorScheme);
+  document.getElementById('toggle-color-scheme').addEventListener('click', toggleColorScheme)
+
+  createCircleLegend()
   
   function regionBubbleColor(region) {
     const bubbleColorMap = {
@@ -615,11 +617,11 @@ function init() {
         .attr('stroke', 'none')
         .attr('r', d => d.r)
 
-    createCircleLegend()
+    
 
     })
   
-
+  createCircleLegend()
   // draw()
 }
 
