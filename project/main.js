@@ -503,8 +503,16 @@ function init() {
     circlePackColorScheme = circlePackColorScheme === 'region' ? 'division' : 'region'
     node.selectAll('circle')
       // this seems dangerious, but it works!
-      .style('fill', d => d.parent ? (circlePackColorScheme === 'region' 
-      ? regionBubbleColor(d.data.region) : divisionBubbleColor(d.data.division)) : 'white')
+      .style('fill', d => d.parent 
+      ? (circlePackColorScheme === 'region' 
+      ? regionBubbleColor(d.data.region) 
+      : divisionBubbleColor(d.data.division)) 
+      : 'white')
+
+    const button = document.getElementById('toggle-color-scheme')
+    button.textContent = circlePackColorScheme === 'region' 
+      ? 'Color Code by Division' 
+    : 'Color Code by Region'
 
       createCircleLegend()
   }
