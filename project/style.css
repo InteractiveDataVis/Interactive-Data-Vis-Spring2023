@@ -112,18 +112,6 @@ body {
     pointer-events: none;
 }
 
-button {
-    background-color: maroon;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-button:hover {
-    background-color: #8b0000;
-
 #navbar {
     color: maroon;
     max-width: 800px;
@@ -136,3 +124,16 @@ button:hover {
     background-color: maroon;
 }
 
+button {
+    background-color: maroon;
+    color: white;
+    padding: 10px 20px;
+    margin: 1em;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+button:hover {
+    background-color: #8b0000;
+}
