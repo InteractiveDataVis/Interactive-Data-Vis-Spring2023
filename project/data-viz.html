@@ -20,20 +20,77 @@
         migrants are moving to Utah during the time period of the 2020 US Census
          Results.
       </p>
-      <h2>Overview of Fastest / Slowest Growing US states</h2>
-      <div id='container'></div>
       <p>
-        It's not an unreasonable assumption that if Utah was the fastest growing
-        state in the US (18.4% growth from 2010-2019), that it would be 
-        the result of large size in Mormon families within the state. Turns out
-        that might not be entirely accurate. 
+        Note: visualizations are best viewed in a browser window of 1200px width
+        or equivalent on high density screen. Not well validated on mobile 
+        devices like touch tablets or mobile phones. 
       </p>
-      <h2>Something something other states v. abroad</h2>
+      <h2>Which US states grew fastest and slowest?</h2>
+      <p>
+        To put Utah's growth over 2010 - 2019 in perspective, it has both the 
+        highest growth rate and the highest population increase of the top five
+        fastest growing states (Idaho, Texas, North Dakota and Neveda). The rate
+        of growth of these states is contrasted by the Pennsylvania, the slowest
+        growing states of the 2020 census, and three shrinking states with a
+        negative growth rate. 
+      </p>
+      <p>
+        In the graph below, you can hover of the bars to get both the growth 
+        rate and population change for each of the states of interest. At risk 
+        of stating the obvious, having  a higher growth rate does not mean that 
+        other states with lower rates had a smaller population growth in terms 
+        of population size; see Texas and Pennsylvania for examples.
+      </p>
+      <div id='container'></div>
+      <h2>Migration from abroad v. other states</h2>
+      <p>
+        With general perceptions about global and US birth rates and migration,
+        it would be interesting to investigate the data for both fast and slow/
+        negative growth. Are there correlations that could suggestion:
+        <ol>
+          <li>That populations with high rates of growth are fueled by 
+            migration from outside the US?
+          </li>
+          <li>
+            Conversely, are internal migrants from other US states contributing 
+            to faster growing states relative increase in size?
+          </li>
+          <li>
+            Could it be the case that slower or shrinking states have more
+            foreign born migration?
+          </li>
+          <li>
+            Etc.
+          </li>
+        </ol>
+      </p>
       <div id="stacked-container"></div>
-      <p>I have all sorts of smart opinions</p>
-      <h2>Moving from Other US States to Utah</h2>
+      <p>
+        Hovering over the stacked bar chart above reveals a muddy picture with 
+        which to answers these questions. Of the fastest growing states, Texas
+        shows the most migration from abroad at 28% of migrants, but  
+        20% or more of Pennsylvania and Illinois incoming population is
+        another country. Both fast growing (Idaho, North Dakota) and 
+        shrinking states (Mississippi, West Virgina) have 10% or less of their
+        migrant pool coming from outside the US.
+      </p>
+      <h2>Which states are people leaving to settle in Utah?</h2>
+      <p>
+        The chart below is a circle pack, with each circle representing a state.
+        The size of the each circle is proportional to the number of migrants 
+        from state to Utah. The graph can be toggled to a color coding by region
+        or division (see Census regions and division in data sources below). 
+      </p>
       <div id="circle-pack-container"></div>
       <button id="toggle-color-scheme">Color Code by Division</button>
+      <p>
+        While viewing this chart coding by region, we can see that most new 
+        Utahns come from the West, with the South coming in second place.
+        When coding color by division, one of the more interesting findings is
+        that the number of migratns from states to Utah in the West is composed of 
+        roughly equal parts larger population states in the Pacific division, 
+        and less densely populated Mountain states.
+      </p>
       <h3>Data sources:</h3>
         <ul>
           <li>
@@ -46,9 +103,14 @@
               Table E. Numeric and Percent Change in Resident Population of the 
               50 States, the District of Columbia, and Puerto Rico: 2020 Census 
               and 2010 Census
-            </a> from
+            </a> from the
             <a href='https://www.census.gov/data/tables/2020/dec/2020-apportionment-data.html'>
               2020 Census Apportionment Results
+            </a>
+          <li>
+            <a href='https://www2.census.gov/geo/pdfs/maps-data/maps/reference/us_regdiv.pdf'>
+              Census Regions and Divisions of the United States map / 
+              Census Bureau Regions and Divisions with State FIPS Codes 
             </a>
           </li>
         </ul>

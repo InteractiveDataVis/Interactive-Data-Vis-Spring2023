@@ -2,8 +2,6 @@ body {
     color: maroon;
 }
 
-
-
 .content {
     max-width: 1000px;
     margin: 0 auto;
@@ -84,7 +82,7 @@ body {
     border: 0px;
     border-radius: 8px;
     pointer-events: none;
-  }
+}
 
 .tooltipStacked {
   position: absolute;

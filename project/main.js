@@ -526,9 +526,11 @@ function draw() {
       .attr('class', 'circle-pack-legend')
       .attr('transform', `translate(${circlePackLegend.x}, ${circlePackLegend.y})`)
   
-    const colorScale = circlePackColorScheme === 'region' ? regionColorScale : divisionColorScale
+    const colorScale = circlePackColorScheme === 'region' 
+      ? regionColorScale : divisionColorScale
     const categories = colorScale.domain()
-  
+    
+    // generating the legend
     legendBox.selectAll('rect')
       .data(categories)
       .join('rect')
@@ -555,11 +557,21 @@ function draw() {
     .data(base.descendants())
     .join('g')
     .attr('transform', d => `translate(${d.x},${d.y})`)
+
+  svg.append('text')
+    .attr('x', (width + margin.left) / 2)
+    .attr('y', margin.top / 2)
+    .attr('text-anchor', 'middle')
+    .attr('class', 'chart-title')
+    .text('From which U.S. states are people moving to Utah?')
   
   node.append('circle')
     .attr('r', d => d.r)
     .style('fill', d => 
-      d.parent ? (circlePackColorScheme === 'region' ? regionBubbleColor(d.data.region) : divisionBubbleColor(d.data.division)) : 'white')
+      d.parent ? (circlePackColorScheme === 'region' 
+      ? regionBubbleColor(d.data.region) 
+      : divisionBubbleColor(d.data.division)) 
+      : 'white')
     .filter(d => d.parent)
     .on('mouseover', (event, d) => {
       circlePackTooltip.style('opacity', 1)
