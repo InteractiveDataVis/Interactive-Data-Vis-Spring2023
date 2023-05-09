@@ -68,11 +68,7 @@ const circlePackLegend = {
   y: 30,
 }
 
-/*
-these variables allow us to access anything we manipulate in init() 
-but need access to in draw(); all these variables are empty before we assign 
-something to them.
-*/
+// variables
 
 let colorScale
 let svg
@@ -80,14 +76,13 @@ let xScale
 let yScale
 let xScaleAbroadState
 let yScaleAboardState
-let xAxis // TODO remove
+
 let yAxis 
 let xAxisAbroadState
 let yAxisAbroadState
 
 let state = {
-  data: [],
-  selection: "all", // TODO: do I need a filter?
+  data: []
 }
 
 const statesData = [
@@ -203,11 +198,11 @@ function draw() {
     })
     .on('mousemove', (event) => {
       tooltip.style('left', (event.pageX + 15) + 'px')
-        .style('top', (event.pageY - 30) + 'px');
+        .style('top', (event.pageY - 30) + 'px')
     })
     // clean up after myself
     .on('mouseout', () => {
-      tooltip.style('opacity', 0);
+      tooltip.style('opacity', 0)
     })
   // add state abbr labels to top of each rect.bar
   svg.selectAll('text.abbr-label')
@@ -288,7 +283,7 @@ function draw() {
     }, [])
   }
   
-  const sumMigrantsByState = sumAbroadAndDiffStates(filterOnePerYear);
+  const sumMigrantsByState = sumAbroadAndDiffStates(filterOnePerYear)
 
   // build scales
   xScaleAbroadState = d3.scaleBand()
@@ -359,7 +354,7 @@ function draw() {
       .attr('stroke-width', 0.5)
       .on('mouseover', (event, d) => {
         const k = d3.select(event.currentTarget.parentNode).datum().key
-        const currentStateData = sumMigrantsByState.find(entry => entry.current_state === d.data.current_state);
+        const currentStateData = sumMigrantsByState.find(entry => entry.current_state === d.data.current_state)
         const relativeTotal = currentStateData.abroad_total + currentStateData.from_different_state_total
         let hoverData = ''
 
@@ -380,7 +375,7 @@ function draw() {
       })
       .on('mousemove', (event) => {
       tooltipStacked.style('left', (event.pageX + 15) + 'px')
-        .style('top', (event.pageY - 30) + 'px');
+        .style('top', (event.pageY - 30) + 'px')
     })
       .on('mouseout', () => {
         tooltipStacked.style('opacity', 0)
@@ -426,15 +421,15 @@ function draw() {
   // TODO: refactor to one function like other groupedData?
   const stateGroupedData = utahRawData.reduce((accumulator, item) => {
     if (accumulator[item.from]) {
-      accumulator[item.from].number_of_people += item.number_of_people;
+      accumulator[item.from].number_of_people += item.number_of_people
     } else {
       accumulator[item.from] = {
         number_of_people: item.number_of_people,
         region: item.from_region,
         division: item.from_division
-      };
+      }
     }
-    return accumulator;
+    return accumulator
   }, {})
 
   const stateSummedData = Object.keys(stateGroupedData).map(key => ({
@@ -524,15 +519,15 @@ function draw() {
 
   function createCircleLegend() {
     // Remove any existing legend
-    svg.select('.circle-pack-legend').remove();
+    svg.select('.circle-pack-legend').remove()
   
     // Create a new legend based on the current color scheme
     const legendBox = svg.append('g')
       .attr('class', 'circle-pack-legend')
-      .attr('transform', `translate(${circlePackLegend.x}, ${circlePackLegend.y})`);
+      .attr('transform', `translate(${circlePackLegend.x}, ${circlePackLegend.y})`)
   
-    const colorScale = circlePackColorScheme === 'region' ? regionColorScale : divisionColorScale;
-    const categories = colorScale.domain();
+    const colorScale = circlePackColorScheme === 'region' ? regionColorScale : divisionColorScale
+    const categories = colorScale.domain()
   
     legendBox.selectAll('rect')
       .data(categories)
@@ -544,7 +539,7 @@ function draw() {
       .attr('height', 15)
       .attr('fill', d => colorScale(d))
       .attr('stroke', 'black')
-      .attr('stroke-width', 0.5);
+      .attr('stroke-width', 0.5)
   
     legendBox.selectAll('text')
       .data(categories)
@@ -553,7 +548,7 @@ function draw() {
       .attr('x', 20)
       .attr('y', (d, i) => i * 25 + 15)
       .style('text-anchor', 'start')
-      .text(d => d.charAt(0).toUpperCase() + d.slice(1));
+      .text(d => d.charAt(0).toUpperCase() + d.slice(1))
   }
   
   const node = svg.selectAll('g')

@@ -13,14 +13,14 @@
     <div class="content">
       <h1>Visualizing Utah's Population Growth</h1>
       <p>
-        The 2020 US Census Appointment Results(
-        <a href='https://www.census.gov/data/tables/2020/dec/2020-apportionment-data.html'>
-          link 
-        </a>
-        ) provide us with the states that experienced the fastest and slowest 
-        growth or shrinking of US states.
+        This page visualizes Utah's growth relatively to other
+        states' growth rates between 2010 - 2019 based off of census data. 
+        It also illustrates the originating nations of migrants to states of 
+        interest (US vs. Abroad), and a breakdown of US states from which 
+        migrants are moving to Utah during the time period of the 2020 US Census
+         Results.
       </p>
-      <h2>Something something overview</h2>
+      <h2>Overview of Fastest / Slowest Growing US states</h2>
       <div id='container'></div>
       <p>
         It's not an unreasonable assumption that if Utah was the fastest growing
@@ -34,12 +34,24 @@
       <h2>Moving from Other US States to Utah</h2>
       <div id="circle-pack-container"></div>
       <button id="toggle-color-scheme">Color Code by Division</button>
-      <p>
-        Data source: 
-        <a href='https://www.kaggle.com/datasets/finnegannguyen/statetostate-migration-flows-from-2010-to-2019'>
-        https://www.kaggle.com/datasets/finnegannguyen/statetostate-migration-flows-from-2010-to-2019
-        </a>
-      </p>
+      <h3>Data sources:</h3>
+        <ul>
+          <li>
+            <a href='https://www.kaggle.com/datasets/finnegannguyen/statetostate-migration-flows-from-2010-to-2019'>
+            US Migration Flows in 10 years
+            </a>
+          </li>
+          <li>
+            <a href='https://www2.census.gov/programs-surveys/decennial/2020/data/apportionment/apportionment-2020-tableE.pdf'>
+              Table E. Numeric and Percent Change in Resident Population of the 
+              50 States, the District of Columbia, and Puerto Rico: 2020 Census 
+              and 2010 Census
+            </a> from
+            <a href='https://www.census.gov/data/tables/2020/dec/2020-apportionment-data.html'>
+              2020 Census Apportionment Results
+            </a>
+          </li>
+        </ul>
       <script src="../lib/d3.js"></script>
       <script src="main.js"></script>
     </div>
