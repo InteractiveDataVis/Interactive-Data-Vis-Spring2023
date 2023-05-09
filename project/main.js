@@ -103,8 +103,6 @@ const statesData = [
 
 ]
 
-console.log('states >> ', statesData) //diag
-
 // load data
 d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
   return {
@@ -125,13 +123,12 @@ d3.csv('../data/migration_flows_from_2010_to_2019.csv', d => {
 })
   .then(raw_data => {
     state.data = raw_data
-    console.log('state data >>', state.data)  // diagnostic
     
-    init()
+    draw()
   })
 
 
-function init() {
+function draw() {
   
   // Create scales for statesData
   xScale = d3.scaleBand()
@@ -142,8 +139,7 @@ function init() {
   yScale = d3.scaleLinear()
     .domain([d3.min(statesData, d => d.percentChange) - 0.5, d3.max(statesData, d => d.percentChange) + 1])
     .range([height - margin.bottom, margin.top])
-  // create axes
-  // xAxis = d3.axisBottom(xScale) // TODO remove
+  // create axis
   yAxis = d3.axisLeft(yScale)
 
   // append svg
@@ -151,30 +147,18 @@ function init() {
     .append('svg')
     .attr('width', width)
     .attr('height', height)
-  // append axes
-  // TODO remove
-  // svg.append('g')
-  // .attr('transform', `translate(${margin.left}, ${height - margin.bottom})`)
-  // .call(xAxis)
+
   svg.append('g')
     .attr('transform', `translate(${margin.left}, 0)`)
     .call(yAxis)
-  // append title
+  
+    // append title
   svg.append('text')
     .attr('x', (width + margin.left) / 2)
     .attr('y', margin.top / 2)
     .attr('text-anchor', 'middle')
     .attr('class', 'chart-title')
     .text('Fastest v. Slowest Growing/Shrinking States')
-  // append axis labels
-  // TODO remove
-  // svg.append('text')
-  //   .attr(
-  //     'transform', 
-  //     `translate(${width  / 2 + margin.right}, ${height - margin.bottom + 45})`)
-  //   .style('text-anchor', 'middle')
-  //   .attr('class', 'axis-label')
-  //   .text('State')
     
   svg.append('text')
     .attr('transform', 'rotate(-90)')
@@ -234,8 +218,8 @@ function init() {
     .attr('y', d => yScale(Math.max(0, d.percentChange)) - 8)
     .attr('text-anchor', 'middle')
     .text(d => d.abbr)
-  // create legend
   
+  // create legend  
   const legendBox = svg.append('g')
     .attr('class', 'legend')
     .attr('transform', `translate(${legend.x}, ${legend.y})`)
@@ -275,21 +259,16 @@ function init() {
 
   const statesOfInterest = statesData.map(d => d.state)
 
-  console.log('states of interest >>', statesOfInterest) //diag
-
   const filterStatesData = state.data.filter(d => 
     statesOfInterest.includes(d.current_state))
-  
-  console.log('filtered states data >>', filterStatesData)  //diag
   
   // The line below using Alabama arbitrarily to transform the data to
   // one instance per year
   const filterOnePerYear = filterStatesData.filter(d => d.from === 'Alabama')
-
-  console.log('filter one per year >>', filterOnePerYear)
   
   // this was a bear...maybe there are more idiomatic ways of doing it in D3?
   // I am convinced that I don't exactly understand reduce() if asked to explain on the spot
+  // TODO: perhaps refactor for later use?
   function sumAbroadAndDiffStates (data) {
     return data.reduce((accumulator, item) => {
       const existingState = accumulator.find(
@@ -310,7 +289,6 @@ function init() {
   }
   
   const sumMigrantsByState = sumAbroadAndDiffStates(filterOnePerYear);
-  console.log(sumMigrantsByState)
 
   // build scales
   xScaleAbroadState = d3.scaleBand()
@@ -443,7 +421,6 @@ function init() {
     d.current_state === 'Utah' && 
       d.from !== 'abroad_ForeignCountry'
     )
-  console.log('Utah Raw Data >>', utahRawData)  // diagonstic
 
   // aggregate data at `from` state level 
   // TODO: refactor to one function like other groupedData?
@@ -459,8 +436,6 @@ function init() {
     }
     return accumulator;
   }, {})
-  
-  console.log('stateGroupedData >>', stateGroupedData)  //diagnostic
 
   const stateSummedData = Object.keys(stateGroupedData).map(key => ({
     from_name: key,
@@ -468,8 +443,6 @@ function init() {
     region: stateGroupedData[key].region,
     division: stateGroupedData[key].division,
   }))
-
-  console.log('stateSummedData >>', stateSummedData)
 
   const circlePackTooltip = d3.select('body')
     .append('div')
@@ -630,162 +603,10 @@ function init() {
     })
   
   createCircleLegend()
-  // draw()
-}
-
-function draw() {
 
 }
 
 
-// function init() {
-    
-//     // filter top five fastest growing states in 2020 census
-//   const fastestGrowingData = state.data.filter(d=>
-//     d.current_state === 'Utah' ||
-//     d.current_state === 'Idaho' ||
-//     d.current_state === 'Texas' ||
-//     d.current_state === 'North Dakota' || 
-//     d.current_state === 'Nevada'
-//     )
-//     console.log('Stacked States Data >>', fastestGrowingData) //diagnostic
-  
-//   // grow data by year; created a Map datatype that'll need conversion
-//   // several false states on learning how rollup() and sum() work in d3
-//   const groupedByYear = d3.rollup(fastestGrowingData, i => {
-//     return {
-//       from_different_state_total: d3.sum(i, d => d.from_different_state_total),
-//       abroad_total: d3.sum(i, d => d.abroad_total),
-//       state_total: d3.sum(i, d => d.population),
-//     }
-//   }, 
-//     d => d.year,
-//     d => d.current_state,
-//   )
-
-//   console.log('grouped by year >>', groupedByYear)
-
-//   // convert Map to array of objects; destructuring ftw
-//   const aggByYear = Array.from(groupedByYear, ([year, stateValues]) => {
-//     return Array.from(stateValues, ([state, values]) => ({
-//       year: new Date(year),
-//       current_state: state,
-//       ...values,
-//     }));
-//   }).flat()
-  
-//   console.log("agg by year >>", aggByYear)
-
-//   // calculate growth not attributable to migration
-//   aggByYear.forEach(d => {
-//     d.internal_growth = d.state_total - d.from_different_state_total - d.abroad_total
-//   })
-
-//   // group data by state
-//   const dataByState = d3.group(aggByYear, d => d.current_state)
-//   const joinData = Array.from(dataByState, ([state, values]) => ({
-//     state,
-//     data: values
-//   }))
-//   console.log('data by state >>', dataByState)  // diagnostic
-//   console.log('joinData >>', joinData)
-  
-//   // create scales
-//   xScale = d3
-//     .scaleBand()
-//     .domain(joinData.map(d => d.state))
-//     .range([0, width - margin.right])
-//     .padding(0.1)
-//     .paddingInner(0.2)
-  
-//   yScale = d3
-//     .scaleLinear()
-//     // nice() function: https://www.d3indepth.com/scales/
-//     .domain([0, d3.max(aggByYear, d => d.state_total)]).nice()
-//     .range([height - margin.bottom, margin.top])
-//   // set the color scale
-//   colorScale = d3.scaleOrdinal()
-//     .domain(['from_different_state', 'abroad', 'internal_growth'])
-//     .range([maroon, teal, dusty_rose])
-//   // create keys
-  
-//   const stack = d3.stack()
-//     .keys(['from_different_state_total', 'abroad_total', 'internal_growth'])
-//     .value((d, key) => d.data[key])
 
 
-//   // create the array to graph
-//   const stackedData = stack(joinData)
-//   console.log('stackedData >>', stackedData)  // diagnostic
 
-//   svg = d3.select('#container')
-//     .append('svg')
-//     .attr('width', width)
-//     .attr('height', height)
-  
-//   // assign axes to scales
-//   xAxis = d3.axisBottom(xScale)
-//   yAxis = d3.axisLeft(yScale)
-  
-//   // draw axes
-//   svg
-//     .append('g')
-//     .attr('transform', `translate(${margin.left}, ${height - margin.bottom})`)
-//     .call(xAxis)
-//   svg
-//     .append('g')
-//     .attr('transform', `translate(${margin.left}, 0)`)
-//     .call(yAxis)
-//   // draw title
-//   svg
-//     .append('text')
-//     .attr('x', (width + margin.left) / 2)
-//     .attr('y', margin.top / 2)
-//     .attr('text-anchor', 'middle')
-//     .attr('class', 'chart-title')
-//     .text('Source of Migration from Top 5 Fastest Growing States (2010-2020)');
-//   // draw axis labels
-//   svg
-//     .append('text')
-//     .attr(
-//       'transform', 
-//       `translate(${width  / 2 + margin.right}, ${height - margin.bottom + 45})`)
-//     .style('text-anchor', 'middle')
-//     .attr('class', 'axis-label')
-//     .text('State Name')
-//   svg
-//     .append('text')
-//     .attr('transform', 'rotate(-90)')
-//     .attr('x', - (height/2))
-//     .attr('y', margin.left / 2 - 30)
-//     .style('text-anchor', 'middle')
-//     .attr('class', 'axis-label')
-//     .text('Growth in Each State')
-  
-//   const tooltip = d3.select('body')
-//     .append('div')
-//     .attr('class', 'tooltip')
-//     .style('opacity', 0)
-  
-//   const states = svg.selectAll('.state')
-//     .data(stackedData)
-//     .join('g')
-//     .attr('class', 'state')
-//     .attr('fill', (d, i) => colorScale(stack.keys()[i]));
-
-//   states.selectAll('rect')
-//     .data(d => d)
-//     .join('rect')
-//     .attr('x', d => xScale(d.data.state))
-//     .attr('y', d => yScale(d[1]))
-//     .attr('height', d => yScale(d[0]) - yScale(d[1])) 
-//     .attr('width', xScale.bandwidth())
-  
-//   // draw()
-// }
-/*
-function draw() {
-  // draw bars
-   
-}
-*/
