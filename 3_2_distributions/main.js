@@ -33,7 +33,9 @@ function init() {
   // + SCALES
   xScale = d3.scaleLinear()
     .domain([d3.min(state.data, d => d.age), d3.max(state.data, d => d.age)])
-    .range([margin.left, width - margin.right]) 
+    .range([0, width - margin.right]) 
+
+  console.log(d3.min(state.data, d => d.age))
 
   yScale = d3.scaleLinear()
     .domain([0, (d3.max(state.data, d => d.bwt) + 10)])
