@@ -6,8 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
   <link rel="stylesheet"
-      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/base16/dracula.min.css">
+  <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad()</script> -->
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="prism.css">
   <title>DATA73200 Interactive Data Visualization Spring 2023 </title>
   <link rel="icon" type="image/x-icon" href="/img/utah_icon.png">
 </head>
@@ -18,11 +21,41 @@
     <p>
       
     </p>
-    <h2>Data wrangling: This town ain't big enough for the both of us</h2>
-    <h5>IT ISN'T ME WHO'S GONNA LEAVE.</h5>
+    <h2>Data wrangling</h2>
     <p>
-      This town ain't big enough for the both of us...
+      When I began my final project for the class, I ancipated some data 
+      transformation needs. Having worked in data engineering previously, I've 
+      used Python and SQL to process raw data into aggregate tables an untold 
+      number of times. Outside of enriching the 
+      <a href='https://www.kaggle.com/datasets/finnegannguyen/statetostate-migration-flows-from-2010-to-2019'>US migration dataset</a>  
+      with regions and divisions specified by the US Census Board, 
+      I decided to perform as many data transformations as possible using 
+      Javascript. This decision had a few knock-on effects to how the 
+      visualizations were executed and time constraints.
     </p>
+    <h3></h3>
+    <pre class="flush-left">
+    <code class="language-javascript">
+    function sumAbroadAndDiffStates (data) {
+      return data.reduce((accumulator, item) => {
+        const existingState = accumulator.find(
+          (state) => state.current_state === item.current_state
+        )
+        if (existingState) {
+          existingState.abroad_total += item.abroad_total
+          existingState.from_different_state_total += item.from_different_state_total
+        } else {
+          accumulator.push({
+            current_state: item.current_state,
+            abroad_total: item.abroad_total,
+            from_different_state_total: item.from_different_state_total,
+          })
+        }
+        return accumulator
+      }, [])
+    }
+    </code>
+    </pre>
     <h2>Animations/transitions (by Strategy)</h2>
     <h5>WE CLIMBED AND WE CLIMBED, OH HOW WE CLIMBED, MY, HOW WE CLIMBED
       OVER THE STARS TO THE TOP OF TIGER MOUNTAIN, FORCING THE LINES THROUGH THE
@@ -48,8 +81,7 @@
     <h2>Talent is an asset</h2>
     <button id="disappear-button">Make it all disappear</button>
   </div>
-  
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+  <script src="prism.js"></script>
   <script src="main.js"></script>
 </body>
 </html>

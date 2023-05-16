@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .catch(err => {
       console.warn('Navbar not loaded:', err)
     })
-  })
+})
 
 document.getElementById("disappear-button").addEventListener("click", function() {
   // get all elements in the body

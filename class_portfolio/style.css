@@ -115,6 +115,11 @@ body {
     pointer-events: none;
 }
 
+.flush-left {
+    padding-left: 0;
+    padding-right: 0;
+}
+
 #navbar {
     color: #2E4052;
     max-width: 800px;
