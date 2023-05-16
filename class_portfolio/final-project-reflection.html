@@ -1,62 +1,138 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-  <link rel="stylesheet"
-      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/base16/dracula.min.css">
-  <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad()</script> -->
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="prism.css">
+  <meta charset='UTF-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css'>
+  <link rel='stylesheet' href='style.css'>
+  <link rel='stylesheet' href='prism.css'>
   <title>DATA73200 Interactive Data Visualization Spring 2023 </title>
-  <link rel="icon" type="image/x-icon" href="/img/utah_icon.png">
+  <link rel='icon' type='image/x-icon' href='img/d3-black.png'>
 </head>
 <body>
-  <div id="navbar"></div>
-  <div class="content">
-    <h1>Reflections on a final project</h1>
+  <div id='navbar'></div>
+  <div class='content'>
+    <h1>Reflections on the final project</h1>
     <p>
-      
+      These reflections center on my experience developing my final project for
+      this class, <a href='https://klp.github.io/Interactive-Data-Vis-Spring2023/project/data-viz.html'>
+        Visualizating Utah's Population Growth</a>.
     </p>
-    <h2>Data wrangling</h2>
+    <h2>Design considerations</h2>
+    <h3>Clarity & simplicity</h3>
+    <h3>Graph types we didn't cover in class</h3>
+    <h3>Color choice</h3>
+    <h2>Major challenge</h2>
+    <p>
+      Wrangling my own curiousity about learning the ins-and-outs of D3/Javascript
+      was the biggest challenge in completing my final project.
+    </p>
+    <h3>Data wrangling</h3>
     <p>
       When I began my final project for the class, I ancipated some data 
       transformation needs. Having worked in data engineering previously, I've 
       used Python and SQL to process raw data into aggregate tables an untold 
       number of times. Outside of enriching the 
-      <a href='https://www.kaggle.com/datasets/finnegannguyen/statetostate-migration-flows-from-2010-to-2019'>US migration dataset</a>  
+      <a href='https://www.kaggle.com/datasets/finnegannguyen/statetostate-migration-flows-from-2010-to-2019'
+      target='_blank'>US migration dataset</a>  
       with regions and divisions specified by the US Census Board, 
       I decided to perform as many data transformations as possible using 
-      Javascript. This decision had a few knock-on effects to how the 
-      visualizations were executed and time constraints.
+      Javascript. This decision resulted in a few knock-on effects to how the 
+      visualizations were executed under time constraints.
     </p>
-    <h3></h3>
-    <pre class="flush-left">
-    <code class="language-javascript">
-    function sumAbroadAndDiffStates (data) {
-      return data.reduce((accumulator, item) => {
-        const existingState = accumulator.find(
-          (state) => state.current_state === item.current_state
-        )
-        if (existingState) {
-          existingState.abroad_total += item.abroad_total
-          existingState.from_different_state_total += item.from_different_state_total
-        } else {
-          accumulator.push({
-            current_state: item.current_state,
-            abroad_total: item.abroad_total,
-            from_different_state_total: item.from_different_state_total,
-          })
-        }
-        return accumulator
-      }, [])
-    }
+    <h4>Rabbit holes</h4>
+    <p>
+      The seduction of learning sometimes overrides the determination to 
+      stick to a brief and project goals for someone like me. My first week of
+      work included enough data processing in Javascript that my only output on
+      the page was a simple bar chart showing the three different types of
+      migration to Utah between 2010 and 2019. Given that our class focused 
+      on data visualization, I felt the need to curb my original ambition.  
+    </p>
+    <h4>Simplifying data to focus on visualization</h4>
+    <p>
+      In the final Javascript file for my project, you will still see evidence
+      of me striving simplify the data to allow for visualization to be at the 
+      forefront of my attention. The best existing example of this intention is 
+      the creation of an array of objects used to build my first visualization:
+    </p>
+    <pre class='flush-left'>
+    <code class='language-javascript'>
+    const statesData = [
+      { state: 'Utah', abbr: 'UT', percentChange: 18.4, popChange: 507731, changeCat: 'fastest' },
+      { state: 'Idaho', abbr: 'ID', percentChange: 17.3, popChange: 271524, changeCat: 'fastest' },
+      { state: 'Texas', abbr: 'TX', percentChange: 15.9, popChange: 3999444, changeCat: 'fastest' },
+      { state: 'North Dakota', abbr: 'ND', percentChange: 15.8, popChange: 106503, changeCat: 'fastest' },
+      { state: 'Neveda', abbr: 'NV', percentChange: 15,  popChange: 404063, changeCat: 'fastest' },
+      { state: 'Pennsylvania', abbr: 'PA', percentChange: 2.4, popChange: 300321, changeCat: 'slowest' },
+      { state: 'Illinois', abbr: 'IL', percentChange: -0.1, popChange: -19041, changeCat: 'shrinking' },
+      { state: 'Mississippi', abbr: 'MS', percentChange: -0.2, popChange: -1816, changeCat: 'shrinking' },
+      { state: 'West Virginia', abbr: 'WV', percentChange: -3.2, popChange: -68207, changeCat: 'shrinking' },
+    ]
     </code>
     </pre>
-    <h2>Animations/transitions (by Strategy)</h2>
+    <img src='img/fastest_growing_states_barchart.png' alt='Barchart of Fastest Growing State'>
+    <p>
+      I used the 
+      <a href='https://www2.census.gov/programs-surveys/decennial/2020/data/apportionment/apportionment-2020-tableE.pdf'
+      target='_blank'>
+        Numeric and Percentage Changing in Resident Population
+      </a> data and hardcoded it into an array of objects to avoid data 
+      processing. This strategy definitely simplified data processing, but it 
+      ignored the basic competency of reading data into our page using D3, a 
+      competency that I wanted to demonstrate.
+    </p>
+    <h3>Off the wagon *again*</h3>
+    <p>
+      Ultimately, I couldn't help myself, and as I ingested the rawer 
+      census data (<a href='https://www.kaggle.com/datasets/finnegannguyen/statetostate-migration-flows-from-2010-to-2019'
+      target='_blank'>link</a>) I started to process the data in Javascript again.
+      The code below is likely the most succinct example of me exploring vanilla
+      JS to aggregate.
+    </p>
+    <pre class='flush-left'>
+    <code class='language-javascript'>
+    const stateGroupedData = utahRawData.reduce((accumulator, item) => {
+      if (accumulator[item.from]) {
+        accumulator[item.from].number_of_people += item.number_of_people
+      } else {
+        accumulator[item.from] = {
+          number_of_people: item.number_of_people,
+          region: item.from_region,
+          division: item.from_division
+          }
+        } 
+        return accumulator
+      }, {})
+    </code>
+    </pre>
+    <p>
+      From a pure learning perspective, working on this anonomous function was 
+      deeply satisfying. The concepts I learned and used are:
+      <ol>
+        <li>
+          Callback or higher order functions, in this case <code>reduce()</code>
+          , which take other functions as an argument
+        </li>
+        <li>
+          How <code>reduce()</code> 
+          <a href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce'>
+            WORKS</a>
+        </li>
+        <li>
+          An accumulator pattern using Javascript, which I reused again 
+          while processing the data for this project 
+        </li>
+      </ol>
+      However, I believe I robbed a semi-significant chunk of time from my 
+      visualization. I have mixed feelings about this time theft; while the 
+      assessment of the project is on data visualizing, getting into some 
+      vanilla JS to aid in that experience did help keep me engaged in the 
+      assignment, and I found that learning enriching.
+    </p>
+
+    <h2>The most useful thing I learned</h2>
     <h5>WE CLIMBED AND WE CLIMBED, OH HOW WE CLIMBED, MY, HOW WE CLIMBED
       OVER THE STARS TO THE TOP OF TIGER MOUNTAIN, FORCING THE LINES THROUGH THE
       SNOW
@@ -64,7 +140,7 @@
     <p>
       
     </p>
-    <h2>Amateur hour</h2>
+    <h2>How critiques helped shape my project</h2>
     <p>
       Mobile view ports, odd spacing, not enough data collection to substantial
       or falisble your claims.
@@ -78,10 +154,10 @@
       It's easy to get lost when the order of magnitude is (almost) increased by
       1.
     </p>
-    <h2>Talent is an asset</h2>
-    <button id="disappear-button">Make it all disappear</button>
+    <h2>Future iterations</h2>
+    <button id='disappear-button'>Make it all disappear</button>
   </div>
-  <script src="prism.js"></script>
-  <script src="main.js"></script>
+  <script src='prism.js'></script>
+  <script src='main.js'></script>
 </body>
 </html>

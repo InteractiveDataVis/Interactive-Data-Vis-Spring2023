@@ -120,6 +120,10 @@ body {
     padding-right: 0;
 }
 
+.token.number {
+    font-size: 1em;
+}
+
 #navbar {
     color: #2E4052;
     max-width: 800px;
