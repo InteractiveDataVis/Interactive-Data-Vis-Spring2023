@@ -1,0 +1,164 @@
+body {
+    color: #2E4052;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+li ul {
+    margin-left: 1em;
+}
+
+.fade {
+    transition: opacity 1s linear;
+    opacity: 0;
+}
+
+.content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1em;
+}
+
+.content h1,
+.content h2,
+.content h3,
+.content h4,
+.content h5,
+.content h6,
+.content p,
+.content li,
+.content a {
+    color: inherit;
+}
+
+.content a:hover {
+    color: white; 
+    background-color: #2E4052;
+}
+
+::selection {
+    background-color: #2E4052;
+    color: white;
+}
+
+::-moz-selection {
+    background-color: #2E4052;
+    color: white;
+}
+
+::-webkit-selection {
+    background-color: #2E4052;
+    color: white;
+}
+
+/* trying to coerce color to white for these two elements */
+.chart-title::selection,
+.axis-label::selection {
+  background-color: #2E4052;
+  color: white;
+}
+
+.columns {
+    padding-top: 1rem;
+}
+
+.list-columns ul {
+    columns: 4;
+}
+
+.axis-label {
+    fill: #2E4052;
+}
+
+.chart-title {
+    fill: #2E4052
+}
+
+.bar:hover {
+    stroke-width: 1px;
+}
+
+.stacked-bar:hover {
+    stroke-width: 1.5px;
+}
+
+.tooltip {
+    position: absolute;
+    text-align: left;
+    width: 184px;
+    height: 48px;
+    padding: 5px;
+    font: 12px sans-serif;
+    background: #f0f0f0;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+.tooltipStacked {
+  position: absolute;
+  text-align: left;
+  width: 184px;
+  height: 36px;
+  padding: 5px;
+  font: 12px sans-serif;
+  background: #f0f0f0;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+.circlePackTooltip {
+    position: absolute;
+    text-align: left;
+    width: 184px;
+    height: 64px;
+    padding: 5px;
+    font: 12px sans-serif;
+    background: #f0f0f0;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+.flush-left {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.token.number {
+    font-size: 1em;
+}
+
+#navbar {
+    color: #2E4052;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2em;
+}
+
+#navbar a:hover {
+    color: white; 
+    background-color: #2E4052;
+}
+
+button {
+    background-color: #2E4052;
+    color: white;
+    padding: 10px 20px;
+    margin: 1em;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+button:hover {
+    background-color: #426070;
+}
