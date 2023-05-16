@@ -12,13 +12,12 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
 document.getElementById("disappear-button").addEventListener("click", function() {
-  // Get all elements in the body
-  var elements = document.body.getElementsByTagName("*");
+  // get all elements in the body
+  let elements = document.body.getElementsByTagName("*");
 
-  // Add the fade class to each element with increasing delay
-  for (var i = 0; i < elements.length; i++) {
-    // Calculate delay (in seconds)
-    var delay = i * 0.15; // Adjust this value to speed up/slow down the effect
+  // fade class to each element with increasing delay
+  for (let i = 0; i < elements.length; i++) {
+    let delay = i * 0.05; // speed up/slow down the effect
 
     // Apply the fade class and set the transition-delay CSS property
     elements[i].style.transitionDelay = `${delay}s`;
