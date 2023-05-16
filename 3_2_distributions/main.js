@@ -124,11 +124,15 @@ function draw() {
         .attr('r', 0)
         .on('mouseover', (event, d) => {
           tooltip.transition()
-            .duration(200)
+            .duration(100)
             .style('opacity', 1);
           tooltip.html('Case: ' + d.case + '<br>Age: ' + d.age + '<br>Birth Weight: ' + d.bwt)
             .style('left', (event.pageX) + 'px')
             .style('top', (event.pageY - 28) + 'px')
+        })
+        .on('mousemove', (event) => {
+          tooltip.style('left', (event.pageX + 15) + 'px')
+            .style('top', (event.pageY - 30) + 'px')
         })
         .on('mouseout', (d) => {
           tooltip.transition()
