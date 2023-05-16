@@ -20,9 +20,71 @@
         Visualizating Utah's Population Growth</a>.
     </p>
     <h2>Design considerations</h2>
+    <h3>Potential process change</h3>
+    <p>
+      In hindsight, a timeboxed effort to preemptive explore the data before 
+      committing to visualization sketches may have helped. Having departed
+      from the DAV program at the GC two years ago and moving out of direct 
+      data work one year ago, I've enjoyed moving away from a stricter data 
+      analysis practice<sub><abbr title="although it's starting to reemerge in
+        my professional work">1</abbr></sub>, spending time analyzing the data 
+        outside of visualizing it with D3 may have better informed my proposed
+        designs to tell a specific story.
+    </p>
     <h3>Clarity & simplicity</h3>
+    <p>
+      My emphasis when designing this project on clarity and simplicity grew 
+      out of anxiety about my design competency and understanding. Still 
+      keeping these values in mind, I can offer the following examples of how
+      clarify and simplicity were achieved.
+      <ol>
+        <li>Visualization colors are selected to standout from one another</li>
+        <li>Fonts are easy readable even while highlighting with a cursor</li>
+        <li>Shapes drawn by D3 have a stroke to outline when they start and stop</li>
+        <li>Mousing over a visualization element changes the styling so that 
+          it's apparent which element is being hovered over
+            <ul>
+              <li>Colors change subtly on hover</li>
+              <li>Strokes become slighly stronger when moused over</li>
+              <li>Et cetera</li>
+            </ul>
+        </li>
+      </ol>
+    </p>
     <h3>Graph types we didn't cover in class</h3>
+    In this case, I created a stacked bar chart, which is a variant of bar 
+    charts we made in class, and a circle pack for hierarchical data between 
+    regions, divisions and states. Building these chart types, especially the 
+    circle pack, provided an extra challenge, and helped shape meaningful views
+    on the data related to migration types and populations for my project topic.
     <h3>Color choice</h3>
+    <p>
+      In prinicipal, I believe 'accessibility is for everyone'. While I don't 
+      always observe it in practice<sub><abbr title="I'm pretty sure my html isn't as semantic as it could be">2</abbr></sub>
+      I do believe that as people's lives and contexts change, they can benefit 
+      from considerations made for accessibility. In this case, I focused on 
+      using accessible color schemes for a selfish reason.
+    </p>
+    <img src='img/color_scheme.png' alt='Bar chart showing color scheme chosen with hex 
+    codes'>
+    <p>
+      I used two online resources to develop my inclusive color palettes:
+      <ul>
+        <li><a href='https://medium.com/@allieofisher/inclusive-color-palettes-for-the-web-bbfe8cf2410e'>
+          Inclusive Color Palettes for the Web</a> by Allie Ofisher</li>
+        <li><a href='https://venngage.com/tools/accessible-color-palette-generator'>
+          Accessible color palette generator</a> available via 
+          <a href='https://venngage.com/'>Venngage</a></li>
+      </ul>
+      For whatever it's worth, I'm told that the default, regional color coding 
+      for the circle pack I created for migrants to Utah by state looks pleasing
+      given the relative sizes of the circles, though I'm not in a position to 
+      judge that ;) .
+    </p>
+    <img src='img/circle_pack.png' alt='Circle pack graph of migrants to Utah by state, coded by region'>
+    <h2>The most useful thing I learned</h2>
+    <h2>How critiques helped shape my project</h2>
+    <h2>Cutting project scope</h2>
     <h2>Major challenge</h2>
     <p>
       Wrangling my own curiousity about learning the ins-and-outs of D3/Javascript
@@ -131,30 +193,8 @@
       vanilla JS to aid in that experience did help keep me engaged in the 
       assignment, and I found that learning enriching.
     </p>
-
-    <h2>The most useful thing I learned</h2>
-    <h5>WE CLIMBED AND WE CLIMBED, OH HOW WE CLIMBED, MY, HOW WE CLIMBED
-      OVER THE STARS TO THE TOP OF TIGER MOUNTAIN, FORCING THE LINES THROUGH THE
-      SNOW
-    </h5>
-    <p>
-      
-    </p>
-    <h2>How critiques helped shape my project</h2>
-    <p>
-      Mobile view ports, odd spacing, not enough data collection to substantial
-      or falisble your claims.
-    </p>
-    <h2>Hasta Manana, Monsieur</h2>
-    <h5>WERE THE ONLY WORDS THAT I KNEW FOR SURE</h5>
-    <p>
-      blah
-    </p>
-    <p>
-      It's easy to get lost when the order of magnitude is (almost) increased by
-      1.
-    </p>
     <h2>Future iterations</h2>
+
     <button id='disappear-button'>Make it all disappear</button>
   </div>
   <script src='prism.js'></script>

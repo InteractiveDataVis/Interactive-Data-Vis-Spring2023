@@ -2,6 +2,24 @@ body {
     color: #2E4052;
 }
 
+abbr {
+    text-decoration: none; 
+    border-bottom: none; 
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+li ul {
+    margin-left: 1em;
+}
+
 .fade {
     transition: opacity 1s linear;
     opacity: 0;
