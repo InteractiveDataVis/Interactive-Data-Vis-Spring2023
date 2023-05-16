@@ -17,10 +17,10 @@ document.getElementById("disappear-button").addEventListener("click", function()
 
   // fade class to each element with increasing delay
   for (let i = 0; i < elements.length; i++) {
-    let delay = i * 0.05; // speed up/slow down the effect
+    let delay = i * 0.05 // speed up/slow down the effect
 
-    // Apply the fade class and set the transition-delay CSS property
-    elements[i].style.transitionDelay = `${delay}s`;
-    elements[i].classList.add("fade");
+    // fade class and set the transition-delay CSS property
+    elements[i].style.transitionDelay = `${delay}s`
+    elements[i].classList.add("fade")
   }
 })

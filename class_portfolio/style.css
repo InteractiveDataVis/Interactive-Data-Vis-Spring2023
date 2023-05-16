@@ -2,11 +2,6 @@ body {
     color: #2E4052;
 }
 
-abbr {
-    text-decoration: none; 
-    border-bottom: none; 
-}
-
 ul {
     list-style-type: none;
     padding: 0;
