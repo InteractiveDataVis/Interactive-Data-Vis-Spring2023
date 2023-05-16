@@ -11,6 +11,7 @@ let svg;
 let xScale;
 let yScale;
 let colorScale;
+let tooltip;
 
 /* APPLICATION STATE */
 let state = {
@@ -19,11 +20,12 @@ let state = {
 };
 
 /* LOAD DATA */
-d3.csv("../data/babies.csv", d3.autoType).then(raw_data => {
+d3.csv('../data/babies.csv', d3.autoType).then(raw_data => {
   // + SET YOUR DATA PATH
-  console.log("data", raw_data);
+  console.log('data', raw_data);
+  const prep_data = raw_data.filter(d => !isNaN(d.age))
   // save our data to application state
-  state.data = raw_data;
+  state.data = prep_data;
   init();
 });
 
@@ -33,9 +35,8 @@ function init() {
   // + SCALES
   xScale = d3.scaleLinear()
     .domain([d3.min(state.data, d => d.age), d3.max(state.data, d => d.age)])
-    .range([0, width - margin.right]) 
-
-  console.log(d3.min(state.data, d => d.age))
+    .range([0, width - margin.right])
+    .nice()
 
   yScale = d3.scaleLinear()
     .domain([0, (d3.max(state.data, d => d.bwt) + 10)])
@@ -85,6 +86,16 @@ function init() {
     .style('text-anchor', 'middle')
     .text('Birth Weight')
 
+  tooltip = d3.select('#container')
+    .append('div')
+    .style('opacity', 0) // opacity to 0 initially
+    .attr('class', 'tooltip')
+    .style('background-color', 'white')
+    .style('border', 'solid')
+    .style('border-width', '2px')
+    .style('border-radius', '5px')
+    .style('padding', '5px')
+    .style('position', 'absolute')
 
   draw(); // calls the draw function
 }
@@ -95,7 +106,7 @@ function draw() {
 
   // + FILTER DATA BASED ON STATE
   const filteredData = state.data
-    .filter(d => state.selectedSmoking === "All" || state.selectedSmoking == d.smoke)
+    .filter(d => state.selectedSmoking === 'All' || state.selectedSmoking == d.smoke)
 
   const dot = svg
     .selectAll('circle.dot')
@@ -111,6 +122,19 @@ function draw() {
         .style('stroke', d => (d.smoke === 1) ? 'darkgrey' : 'darkred')
         .attr('opacity', 0.6)
         .attr('r', 0)
+        .on('mouseover', (event, d) => {
+          tooltip.transition()
+            .duration(200)
+            .style('opacity', 1);
+          tooltip.html('Case: ' + d.case + '<br>Age: ' + d.age + '<br>Birth Weight: ' + d.bwt)
+            .style('left', (event.pageX) + 'px')
+            .style('top', (event.pageY - 28) + 'px')
+        })
+        .on('mouseout', (d) => {
+          tooltip.transition()
+            .duration(500)
+            .style('opacity', 0)
+        })
         .call(sel => sel
           .transition()
           .duration(750)
